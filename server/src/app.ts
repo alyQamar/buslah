@@ -15,6 +15,7 @@ class App {
 
   private configInit(): void {
     config.validateConfig();
+    config.cloudinaryConfig();
   }
 }
 const app: App = new App();

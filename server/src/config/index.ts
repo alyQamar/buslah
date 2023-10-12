@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import bunyan from 'bunyan';
+import cloudinary from 'cloudinary';
 dotenv.config({ path: '@config/.env' });
 
 class Config {
@@ -11,6 +12,9 @@ class Config {
   public JWT_TOKEN: string | undefined;
   public SECRET_KEY_ONE: string;
   public SECRET_KEY_TWO: string;
+  public CLOUD_NAME: string;
+  public CLOUD_API_KEY: string;
+  public CLOUD_API_SECRET: string;
   private readonly DEFAULT_DB_URI =
     'mongodb+srv://admin:hdueac55rcbv88pi@cluster0.jz9fs49.mongodb.net/movie-db?retryWrites=true&w=majority';
 
@@ -23,6 +27,9 @@ class Config {
     this.JWT_TOKEN = process.env.JWT_TOKEN || '1234';
     this.SECRET_KEY_ONE = process.env.SECRET_KEY_ONE || '';
     this.SECRET_KEY_TWO = process.env.SECRET_KEY_TWO || '';
+    this.CLOUD_NAME = process.env.CLOUD_NAME || '';
+    this.CLOUD_API_KEY = process.env.CLOUD_API_KEY || '';
+    this.CLOUD_API_SECRET = process.env.CLOUD_API_SECRET || '';
   }
 
   public createLogger(name: string): bunyan {
@@ -35,6 +42,13 @@ class Config {
         throw new Error(`Configuration ${key} is undefined.`);
       }
     }
+  }
+  public cloudinaryConfig(): void {
+    cloudinary.v2.config({
+      cloud_name: this.CLOUD_NAME,
+      api_key: this.CLOUD_API_KEY,
+      api_secret: this.CLOUD_API_SECRET
+    });
   }
 }
 export const config: Config = new Config();
