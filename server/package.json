@@ -34,8 +34,7 @@
     "socket.io": "^4.7.2",
     "socket.io-redis-adapter": "^8.4.6",
     "typescript": "^5.2.2",
-    "typescript-transform-paths": "^3.4.6",
-    "validator": "^13.11.0"
+    "typescript-transform-paths": "^3.4.6"
   },
   "devDependencies": {
     "@types/bunyan": "^1.8.9",

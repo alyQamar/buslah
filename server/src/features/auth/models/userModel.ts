@@ -1,5 +1,4 @@
 import mongoose, { Schema, Document } from 'mongoose';
-import validator from 'validator';
 
 interface User extends Document {
   name: string;
@@ -23,8 +22,7 @@ const userSchema: Schema<User> = new Schema<User>({
     type: String,
     required: [true, 'Please provide your email!'],
     unique: true,
-    lowercase: true,
-    validate: [validator.isEmail, 'Please provide a valid email!']
+    lowercase: true
   },
   photo: String,
   role: {
@@ -40,13 +38,7 @@ const userSchema: Schema<User> = new Schema<User>({
   },
   passwordConfirm: {
     type: String,
-    required: [true, 'Please confirm your password!'],
-    validate: {
-      validator: function (this: User, el: string) {
-        return el === this.password;
-      },
-      message: 'Passwords are not the same!'
-    }
+    required: [true, 'Please confirm your password!']
   },
   passwordChangedAt: Date,
   passwordResetToken: String,
