@@ -37,7 +37,7 @@ export class NotFoundError extends ApiError {
     super(message);
   }
 }
-export class ValidationError extends ApiError {
+export class RequestValidationError extends ApiError {
   statusCode = HTTP_STATUS.BAD_REQUEST;
   status = 'error';
   constructor(message: string) {
