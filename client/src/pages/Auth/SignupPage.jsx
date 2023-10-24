@@ -5,7 +5,7 @@ import SignupForm from '../../components/auth/SignupForm';
 
 const SignupPage = () => {
   return (
-    <div className='w-full h-screen relative bg-sky-500 '>
+    <div className='authbackground'>
     <Logo/>
     <SignupForm/>
     </div>

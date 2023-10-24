@@ -1,30 +1,33 @@
-import React from 'react'
 import {Link} from 'react-router-dom'
 import InputName from './InputName';
 import InputEmail from './InputEmail';
 import InputPassword from './InputPassword';
 import AuthButton from './AuthButton';
 import SocialIcons from './SocialIcons';
+import SignupHook from '../../hook/Auth/signup-hook';
 
 const SignupForm = () => {
+  const [name,email,password,confirmPassword,onChangeName,onChangeEmail,onChangePassword
+    ,onChangeConfirmPassword,onSubmit] = SignupHook();
   return (
-    <div className='w-[712px] h-4/5 bg-white rounded-lg signupform'>
+    <form className=' bg-white rounded-lg signupform'>
         <div>
             <div className="text-gray-700 text-2xl font-semibold font-['Montserrat']">Create new account</div>
             <div className="text-gray-700 text-xs font-medium font-['Montserrat']">Just few details to start your career path !! </div>
         </div>
         <div>
             <div>
-              <InputName/>
+              <InputName id="nameinputS" value={name} onChange={onChangeName}/>
             </div>
             <div>
-              <InputEmail/>
+              <InputEmail id="emailinputS" value={email} onChange={onChangeEmail}/>
             </div>
             <div>
-              <InputPassword placeholder="password"/>
+              <InputPassword placeholder="password" id="passwordinputS" value={password} onChange={onChangePassword}/>
             </div>
             <div>
-              <InputPassword placeholder="confirm password"/>
+              <InputPassword placeholder="confirm password"
+              id="confirmpasswordinputS" value={confirmPassword} onChange={onChangeConfirmPassword}/>
             </div>
             <div className="flex items-center gap-1 mt-3">
               <input id="myCheckbox" type="checkbox" className="form-checkbox w-4 h-4 relative
@@ -33,7 +36,7 @@ const SignupForm = () => {
             </div>
         </div>
         <div>
-            <AuthButton Bname="Sign up"/>
+            <AuthButton Bname="Sign up" onClick={onSubmit}/>
         </div>
         <div>
           <div className="w-[479px] h-5 ">
@@ -47,16 +50,12 @@ const SignupForm = () => {
         </div>
         <div>
             <p className="text-gray-700 text-xs font-normal font-['Montserrat'] inline-block">Already have an account ?</p>
-            <span className="text-gray-700 text-xs font-semibold font-['Montserrat'] underline">Sign in</span>
+            <Link to='/login' className="text-gray-700 text-xs font-semibold font-['Montserrat'] underline">Sign in</Link>
         </div>
-    </div>
+    </form>
   )
 }
 
 export default SignupForm
 
-// <div>
-// <span style="text-gray-700 text-xs font-normal font-['Montserrat']">Already have an account ?</span>
-// <span style="text-gray-700 text-xs font-semibold font-['Montserrat']"> </span>
-// <span style="text-gray-700 text-xs font-semibold font-['Montserrat'] underline">Sing in</span>
-// </div>
+
