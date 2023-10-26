@@ -4,9 +4,11 @@ import Logo from "../../components/auth/Logo"
 
 const LoginPage = () => {
   return (
-    <div className="authbackground">
-    <Logo/>
-    <LoginForm/>
+    <div className="authbackground loginbackground">
+        <div className="overlaybackground">
+          <Logo/>
+          <LoginForm/>
+        </div>
     </div>
   )
 }

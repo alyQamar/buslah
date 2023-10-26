@@ -47,7 +47,7 @@ const LoginForm = () => {
         </div>
         <div>
             <p className="text-gray-700 text-xs font-normal font-['Montserrat'] inline-block">Already have an account ?</p>
-            <Link to='/signup' className="text-gray-700 text-xs font-semibold font-['Montserrat'] underline">Sign up</Link>
+            <Link to='/' className="text-gray-700 text-xs font-semibold font-['Montserrat'] underline">Sign up</Link>
         </div>
     </form>
   )

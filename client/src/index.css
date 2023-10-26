@@ -47,5 +47,24 @@ body {
   width: 100%;
   height: 100vh;
   position: relative;
-  background-color: rgb(14 165 233)
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.signupbackground {
+  background-image: url("./assets/authIMG/bg-1.jpg");
+}
+.loginbackground {
+  background-image: url("./assets/authIMG/bg-2.jpg");
+}
+
+.overlaybackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(41, 85, 118, 0.8);
+  z-index: 1;
 }

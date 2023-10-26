@@ -8,7 +8,7 @@ function App() {
   return <div>
   <BrowserRouter>
     <Routes>
-      <Route path='/signup' element={<SignupPage/>}/>
+      <Route index element={<SignupPage/>}/>
       <Route path='/login' element={<LoginPage/>}/>
     </Routes>
 </BrowserRouter>
@@ -17,4 +17,4 @@ function App() {
 
 export default App;
 
-//
+//path='/signup'
