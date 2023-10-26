@@ -34,7 +34,7 @@ export class ServerInit {
     app.use(
       cookieSession({
         name: 'session',
-        keys: [config.SECRET_KEY_ONE, config.SECRET_KEY_TWO],
+        keys: [config.JWT_SECRET_KEY],
         maxAge: 24 * 7 * 3600000,
         secure: config.NODE_ENV === 'development' ? false : true
       })

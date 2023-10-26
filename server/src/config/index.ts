@@ -9,24 +9,20 @@ class Config {
   public BASE_URL: string | undefined;
   public DB_URI: string | undefined;
   public REDIS_HOST: string | undefined;
-  public JWT_TOKEN: string | undefined;
-  public SECRET_KEY_ONE: string;
-  public SECRET_KEY_TWO: string;
+  public JWT_SECRET_KEY: string | '12325';
+  public JWT_EXPIRE_TIME: string | undefined;
   public CLOUD_NAME: string;
   public CLOUD_API_KEY: string;
   public CLOUD_API_SECRET: string;
-  private readonly DEFAULT_DB_URI =
-    'mongodb+srv://admin:hdueac55rcbv88pi@cluster0.jz9fs49.mongodb.net/movie-db?retryWrites=true&w=majority';
 
   constructor() {
     this.PORT = process.env.PORT || '3000';
     this.NODE_ENV = process.env.NODE_ENV || '';
     this.BASE_URL = process.env.CLIENT_URL || '';
-    this.DB_URI = process.env.DB_URI || this.DEFAULT_DB_URI;
+    this.DB_URI = process.env.DB_URI || '';
     this.REDIS_HOST = process.env.REDIS_HOST || '';
-    this.JWT_TOKEN = process.env.JWT_TOKEN || '1234';
-    this.SECRET_KEY_ONE = process.env.SECRET_KEY_ONE || '';
-    this.SECRET_KEY_TWO = process.env.SECRET_KEY_TWO || '';
+    this.JWT_SECRET_KEY = process.env.JWT_SECRET_KEY || '1234';
+    this.JWT_EXPIRE_TIME = process.env.JWT_EXPIRE_TIME || '';
     this.CLOUD_NAME = process.env.CLOUD_NAME || '';
     this.CLOUD_API_KEY = process.env.CLOUD_API_KEY || '';
     this.CLOUD_API_SECRET = process.env.CLOUD_API_SECRET || '';

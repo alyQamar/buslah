@@ -2,7 +2,7 @@ import { Model } from 'mongoose';
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-
+import { config } from '@config/index';
 import { validate } from '@global/middlewares/validationMiddleware';
 import { signupValidator } from '@auth/validators/signupValidator';
 import Auth, { IAuthDocument } from '@auth/models/Auth';
@@ -30,7 +30,7 @@ class authController {
       const newDoc = await Auth.create(data);
 
       // Call the `createToken()` method to generate a JWT token
-      const jwtToken = jwt.sign({ id: newDoc._id }, 'R3Fkw7mD2Lp6eP@!5EA-368&7843?5Eq', { expiresIn: process.env.JWT_EXPIRE_TIME });
+      const jwtToken = jwt.sign({ id: newDoc._id }, config.JWT_SECRET_KEY, { expiresIn: config.JWT_EXPIRE_TIME });
 
       // Sending a response with the newly created document and the JWT token
       res.status(201).json({ status: 'success', token: jwtToken, data: newDoc });
