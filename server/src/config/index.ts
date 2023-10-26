@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import bunyan from 'bunyan';
 import cloudinary from 'cloudinary';
-dotenv.config({ path: '@config/.env' });
+dotenv.config({ path: '.env' });
 
 class Config {
   public PORT: string | undefined;
