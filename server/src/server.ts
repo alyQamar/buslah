@@ -9,7 +9,7 @@ import { Server } from 'socket.io';
 import { createClient } from 'redis';
 import { createAdapter } from 'socket.io-redis-adapter';
 import Logger from 'bunyan';
-import 'express-async-errors';
+import 'express-async-errors';  // pass an error happens to response
 import { config } from '@config/index';
 import routes from '@root/routes';
 import { ApiError, IErrorRes } from '@global/middlewares/errorMiddleware';
