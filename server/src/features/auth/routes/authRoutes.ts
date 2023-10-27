@@ -3,7 +3,7 @@ import authController from '@auth/controllers/authController';
 
 const controller = new authController();
 
-class authRouter {
+class AuthRoutes {
   private router: Router;
 
   constructor() {
@@ -16,4 +16,4 @@ class authRouter {
   }
 }
 
-export default authRouter;
+export const authRoutes: AuthRoutes = new AuthRoutes();

@@ -3,7 +3,6 @@ import { ServerInit } from '@root/server';
 
 import dbConnection from '@config/database';
 import { config } from '@root/config';
-import authRouter from '@auth/routes/authRoute';
 
 class App {
   private app: Application;
@@ -22,8 +21,6 @@ class App {
     this.configInit();
     dbConnection();
 
-    const AuthRoutes = new authRouter();
-    this.app.use(AuthRoutes.routes());
     const server = new ServerInit(this.app);
     server.start();
     return this.app;

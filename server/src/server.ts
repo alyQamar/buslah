@@ -9,7 +9,7 @@ import { Server } from 'socket.io';
 import { createClient } from 'redis';
 import { createAdapter } from 'socket.io-redis-adapter';
 import Logger from 'bunyan';
-
+import 'express-async-errors';
 import { config } from '@config/index';
 import routes from '@root/routes';
 import { ApiError, IErrorRes } from '@global/middlewares/errorMiddleware';
@@ -23,7 +23,7 @@ export class ServerInit {
   }
 
   public start(): void {
-    this.securityMiddleware(this.app);
+    // this.securityMiddleware(this.app);
     this.standardMiddleware(this.app);
     this.routesMiddleware(this.app);
     this.globalErrorHandler(this.app);
