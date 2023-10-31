@@ -10,7 +10,7 @@ const SignupForm = () => {
   const [name,email,password,confirmPassword,onChangeName,onChangeEmail,onChangePassword
     ,onChangeConfirmPassword,onSubmit] = SignupHook();
   return (
-    <form className=' bg-white rounded-lg signupform'>
+    <form className=' bg-white rounded-lg publicform signupform'>
         <div>
             <div className="text-gray-700 text-2xl font-semibold font-['Montserrat']">Create new account</div>
             <div className="text-gray-700 text-xs font-medium font-['Montserrat']">Just few details to start your career path !! </div>
@@ -35,7 +35,7 @@ const SignupForm = () => {
               <label htmlFor="myCheckbox" className="text-gray-700 text-xs font-normal font-['Montserrat']">Save password</label>
             </div>
         </div>
-        <div>
+        <div className='authbutton authbuttonbackground'>
             <AuthButton Bname="Sign up" onClick={onSubmit}/>
         </div>
         <div>

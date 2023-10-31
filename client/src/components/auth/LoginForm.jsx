@@ -9,7 +9,7 @@ import LoginHook from "../../hook/Auth/login-hook"
 const LoginForm = () => {
   const [email,password,onChangeEmail,onSubmit,onChangePassword] = LoginHook();
   return (
-    <form className="loginform bg-white rounded-lg">
+    <form className="publicform loginform bg-white rounded-lg">
         <div>
             <div className="text-gray-700 text-2xl font-semibold text-center mb-1 font-['Montserrat']">Sign in</div>
             <div className="text-gray-700 text-xs font-medium font-['Montserrat']">Welcome back !! We happy to see again</div>
@@ -28,11 +28,11 @@ const LoginForm = () => {
               <label htmlFor="myCheckbox" className="text-gray-700 text-xs font-normal font-['Montserrat']">Save password</label>
               </div>
               <div>
-              <span className="text-gray-700 text-xs font-normal font-['Montserrat'] underline">Forget your password ?</span>
+              <Link to="/forgetpassword" className="text-gray-700 text-xs font-normal font-['Montserrat'] underline">Forget your password ?</Link>
               </div>
             </div>
         </div>
-        <div>
+        <div className="authbutton authbuttonbackground">
             <AuthButton Bname="Sign in" onClick={onSubmit}/>
         </div>
         <div>

@@ -17,9 +17,8 @@ body {
     left: 9%;
 }
 
-.signupform {
-  height: 80%;
-  width: 712px;
+.publicform {
+  width: 55%;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -30,17 +29,20 @@ body {
   align-items: center;
 }
 
+.signupform {
+  height: 80%;
+}
+
 .loginform {
-  width: 712px;
   height: 70%;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50% , -50%);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
+}
+
+.forgetpasswordform {
+  height: 50%;
+}
+
+.verifyform {
+  height: 30%;
 }
 
 .authbackground {
@@ -67,4 +69,90 @@ body {
   height: 100%;
   background-color: rgba(41, 85, 118, 0.8);
   z-index: 1;
+}
+
+.checkinput {
+  text-align: center;
+  font-size: 2rem;
+  width: 74px;
+  height: 103px;
+  background-color: white;
+  border-radius: 18.61px;
+  border-width: 2px;
+  border-color: #006064;
+}
+
+.authbutton {
+  width: 262px;
+  height: 50px;
+  padding: 2.5px;
+  border-radius: 0.5rem;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+}
+.authbuttonbackground {
+  background-color: #295576;
+}
+.confirmbackground {
+  background-color: #5e5e5e63;
+}
+
+.round {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  column-gap: 25px;
+}
+
+.round label {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  height: 20px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 20px;
+}
+
+.round label:after {
+  border: 2px solid #fff;
+    border-top: none;
+    border-right: none;
+    content: "";
+    height: 7px;
+    left: 3px;
+    opacity: 0;
+    position: absolute;
+    top: 3px;
+    transform: rotate(-45deg);
+    width: 12px;
+}
+
+.round input[type="checkbox"] {
+  visibility: hidden;
+}
+
+.round input[type="checkbox"]:checked + label {
+  background-color: #047857;
+  border-color: #047857;
+}
+
+.round input[type="checkbox"]:checked + label:after {
+  opacity: 1;
+}
+
+.txtchecked {
+  color: rgb(4 120 87);
+  font-weight: 400;
+  font-size: 17px;
+}
+
+.txtunchecked {
+  color: rgb(0 0 0);
+  font-weight: 400;
+  font-size: 17px;
 }
