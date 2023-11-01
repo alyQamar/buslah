@@ -22,6 +22,5 @@ const postSchema: Schema = new Schema({
   }
 }, { timestamps: true });
 
-const PostModel: Model<IPostDocument> = model<IPostDocument>('Post', postSchema, 'Post');
+export const PostModel: Model<IPostDocument> = model<IPostDocument>('Post', postSchema, 'Post');
 
-export { PostModel };
