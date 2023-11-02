@@ -13,7 +13,9 @@ class PostRoutes {
       .post(PostController.createPost);
 
     this.router.route('/:id')
-      .get(PostController.getPost);
+      .get(PostController.getPost)
+      .put(PostController.updatePost)
+      .delete(PostController.deletePost);
 
     return this.router;
   }

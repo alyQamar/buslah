@@ -23,6 +23,7 @@ export class PostController {
       throw new NotFoundError('Error creating post');
     }
   }
+
   /**
    * @desc Get a single post by id
    * @route GET/posts/:id
@@ -36,5 +37,32 @@ export class PostController {
       throw new NotFoundError('Error cannot get a post');
     }
   }
-}
 
+  /**
+   * @desc Update a single post by id
+   * @route PUT/posts/:id
+   * @access Private/User
+   */
+  @validate(basePostValidator)
+  public static async updatePost(req: Request, res: Response) {
+    try {
+      await CRUDFunctions.updateOne(req, res);
+    } catch (error) {
+      throw new NotFoundError('Error cannot update a post');
+    }
+  }
+
+  /**
+ * @desc Delete a single post by id
+ * @route DELETE/posts/:id
+ * @access Private/User
+ */
+  @validate(basePostValidator)
+  public static async deletePost(req: Request, res: Response) {
+    try {
+      await CRUDFunctions.deleteOne(req, res);
+    } catch (error) {
+      throw new NotFoundError('Error cannot delete a post');
+    }
+  }
+}
