@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { validate } from '@global/middlewares/validationMiddleware';
-import { basePostValidator } from '@post/post.validators';
+import { basePostValidator, postNullabilityValidator } from '@post/post.validators';
 import { PostModel } from '@post/post.model';
 import { createCommonService, commonFunctions } from '@service/db/common.services';
 import { IPostDocument } from '@post/post.interfaces';
@@ -15,7 +15,7 @@ export class PostController {
    * @route POST /posts/:id
    * @access Private/User
    */
-  @validate(basePostValidator)
+  @validate(basePostValidator.concat(postNullabilityValidator))
   public static async createPost(req: Request, res: Response) {
     try {
       await CRUDFunctions.createOne(req, res);
