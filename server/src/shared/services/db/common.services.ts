@@ -3,10 +3,10 @@ import { Request, Response } from 'express';
 import { NotFoundError } from '@global/middlewares/errorMiddleware';
 
 export type commonFunctions<T extends Document> = {
-  getOne: (req: Request, res: Response) => Promise<void>,
-  createOne: (req: Request, res: Response) => Promise<void>,
-  updateOne: (req: Request, res: Response) => Promise<void>,
-  deleteOne: (req: Request, res: Response) => Promise<void>
+  getOne: (req: Request, res: Response) => Promise<void>;
+  createOne: (req: Request, res: Response) => Promise<void>;
+  updateOne: (req: Request, res: Response) => Promise<void>;
+  deleteOne: (req: Request, res: Response) => Promise<void>;
 };
 
 export const createCommonService = <T extends Document>(Model: Model<T>): commonFunctions<T> => {
@@ -22,7 +22,7 @@ export const createCommonService = <T extends Document>(Model: Model<T>): common
 
   const updateOne = async (req: Request, res: Response) => {
     const document = await Model.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
+      new: true
     });
     if (!document) {
       throw new NotFoundError(`No document for this id ${req.params.id}`);
@@ -33,7 +33,10 @@ export const createCommonService = <T extends Document>(Model: Model<T>): common
 
   const createOne = async (req: Request, res: Response) => {
     const document = await Model.create(req.body);
-    res.status(201).json({ data: document });
+    res.status(201).json({
+      status: 'success',
+      data: { data: document }
+    });
   };
 
   const getOne = async (req: Request, res: Response) => {
@@ -42,7 +45,10 @@ export const createCommonService = <T extends Document>(Model: Model<T>): common
     if (!document) {
       throw new NotFoundError(`No document for this id: ${id}`);
     }
-    res.status(200).json({ data: document });
+    res.status(200).json({
+      status: 'success',
+      data: { data: document }
+    });
   };
 
   return {
@@ -52,4 +58,3 @@ export const createCommonService = <T extends Document>(Model: Model<T>): common
     deleteOne
   };
 };
-
