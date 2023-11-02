@@ -1,22 +1,11 @@
 import { model, Model, Schema, Document } from 'mongoose'; // Importing Mongoose functions
 import { ObjectId } from 'mongodb'; // Importing MongoDB's ObjectId
-
-// 1) Creating user Interface
-interface User extends Document {
-  _id: string | ObjectId;
-  firstName: string;
-  lastName: string;
-  photo: string;
-  country: string;
-  companyWorkingFor?: string;
-  school?: string;
-  interests: string[];
-}
+import { IUserDocument } from '@user/interfaces/userInterface';
 
 // 2- Define a Mongoose schema for the user
 const userSchema: Schema = new Schema(
   {
-    FirstName: { type: String },
+    firstName: { type: String },
     lastName: { type: String },
     photo: { type: String },
     country: { type: String },
@@ -30,7 +19,7 @@ const userSchema: Schema = new Schema(
 );
 
 // 3) Creating the model from the schema
-const UserModel: Model<User> = model<User>('User', userSchema);
+const UserModel: Model<IUserDocument> = model<IUserDocument>('User', userSchema);
 
 // 4) Exporting the model to use it in other files/modules
 export default UserModel;
