@@ -8,7 +8,7 @@ class UserRoutes {
 
   constructor() {
     this.router = express.Router();
-    this.router.get('/:id', controller.getUserByID);
+    this.router.get('/:id', controller.getUser);
   }
 
   routes(): Router {
