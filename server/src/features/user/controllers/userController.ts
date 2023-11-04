@@ -16,6 +16,22 @@ class userController {
       throw new NotFoundError('Cannot find the user.');
     }
   }
+
+  public async deleteUser(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      await CRUDFunctions.deleteOne(req, res);
+    } catch (error) {
+      throw new NotFoundError('Cannot find the user.');
+    }
+  }
+
+  public async updateUser(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      await CRUDFunctions.updateOne(req, res);
+    } catch (error) {
+      throw new NotFoundError('Cannot find the user.');
+    }
+  }
 }
 
 export default userController;
