@@ -18,11 +18,10 @@ export interface IAuthDocument extends Document {
 // 2- Define the Mongoose schema for authentication
 const authSchema: Schema = new Schema(
   {
-    name: { type: String },
+    name: { type: String, required: true },
     uId: { type: String },
     email: { type: String, unique: true, lowercase: true, required: true },
-    password: { type: String },
-    confirmPassword: { type: String },
+    password: { type: String, select: false, required: true },
     passwordResetToken: { type: String, default: '' },
     passwordResetExpires: { type: Number }
   },
@@ -43,9 +42,6 @@ authSchema.pre('save', async function (next) {
 
   //hash the password with cost  of 12
   this.password = await hash(this.password, 10);
-
-  //delete the passwordconfirm field
-  this.confirmPassword = undefined;
 
   next();
 });
