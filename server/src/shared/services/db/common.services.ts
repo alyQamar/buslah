@@ -28,7 +28,10 @@ export const createCommonService = <T extends Document>(Model: Model<T>): common
       throw new NotFoundError(`No document for this id ${req.params.id}`);
     }
 
-    res.status(200).json({ data: document });
+    res.status(200).json({
+      status: 'success',
+      data: document
+    });
   };
 
   const createOne = async (req: Request, res: Response) => {
@@ -47,7 +50,7 @@ export const createCommonService = <T extends Document>(Model: Model<T>): common
     }
     res.status(200).json({
       status: 'success',
-      data: { data: document }
+      data: { document }
     });
   };
 
