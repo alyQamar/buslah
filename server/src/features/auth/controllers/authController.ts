@@ -7,7 +7,6 @@ import { validate } from '@global/middlewares/validationMiddleware';
 import { signupValidator } from '@auth/validators/signupValidator';
 import Auth, { IAuthDocument } from '@auth/models/Auth';
 import { string } from 'joi';
-dotenv.config({ path: '.env' });
 
 class authController {
   // public createToken(userId: string): string {
@@ -19,6 +18,14 @@ class authController {
   public async SignUp(req: Request, res: Response, next: NextFunction): Promise<void> {
     // handler.createOne(Auth as Model<IAuthDocument>, req, res, next);
     try {
+      // first we need to check if this user already exists
+      const existingUser = await Auth.findOne({ email: req.body.email });
+
+      if (existingUser) {
+        res.status(409).json({ error: 'User already exist', message: 'The requested user already exists in the system.' });
+      }
+
+      // if it doesn't exist extract the information from the body
       const data = {
         name: req.body.name,
         email: req.body.email,
