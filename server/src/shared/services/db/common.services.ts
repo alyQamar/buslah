@@ -30,7 +30,7 @@ export const createCommonService = <T extends Document>(Model: Model<T>): common
 
     res.status(200).json({
       status: 'success',
-      data: document
+      data: { document }
     });
   };
 
@@ -38,7 +38,7 @@ export const createCommonService = <T extends Document>(Model: Model<T>): common
     const document = await Model.create(req.body);
     res.status(201).json({
       status: 'success',
-      data: { data: document }
+      data: { document }
     });
   };
 
