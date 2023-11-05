@@ -4,11 +4,18 @@ import { NotFoundError } from '@global/middlewares/errorMiddleware';
 import QueryService from './query.services';
 
 export type commonFunctions<T extends Document> = {
+<<<<<<< HEAD
   getOne: (req: Request, res: Response) => Promise<void>,
   createOne: (req: Request, res: Response) => Promise<void>,
   updateOne: (req: Request, res: Response) => Promise<void>,
   deleteOne: (req: Request, res: Response) => Promise<void>
   getAll: (req: Request, res: Response) => Promise<void>
+=======
+  getOne: (req: Request, res: Response) => Promise<void>;
+  createOne: (req: Request, res: Response) => Promise<void>;
+  updateOne: (req: Request, res: Response) => Promise<void>;
+  deleteOne: (req: Request, res: Response) => Promise<void>;
+>>>>>>> 78bdc86a6009de48ff4cb51e40cd3c9988cd7d1e
 };
 
 export const createCommonService = <T extends Document>(Model: Model<T>, modelName: string): CommonFunctions<T> => {
@@ -24,18 +31,24 @@ export const createCommonService = <T extends Document>(Model: Model<T>, modelNa
 
   const updateOne = async (req: Request, res: Response) => {
     const document = await Model.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
+      new: true
     });
     if (!document) {
       throw new NotFoundError(`No document for this id ${req.params.id}`);
     }
 
-    res.status(200).json({ data: document });
+    res.status(200).json({
+      status: 'success',
+      data: { document }
+    });
   };
 
   const createOne = async (req: Request, res: Response) => {
     const document = await Model.create(req.body);
-    res.status(201).json({ data: document });
+    res.status(201).json({
+      status: 'success',
+      data: { document }
+    });
   };
 
   const getOne = async (req: Request, res: Response) => {
@@ -44,7 +57,10 @@ export const createCommonService = <T extends Document>(Model: Model<T>, modelNa
     if (!document) {
       throw new NotFoundError(`No document for this id: ${id}`);
     }
-    res.status(200).json({ data: document });
+    res.status(200).json({
+      status: 'success',
+      data: { document }
+    });
   };
 
   const getAll = async (req: Request, res: Response) => {
