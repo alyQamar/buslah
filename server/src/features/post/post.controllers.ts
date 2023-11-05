@@ -6,7 +6,7 @@ import { createCommonService, commonFunctions } from '@service/db/common.service
 import { IPostDocument } from '@post/post.interfaces';
 import { NotFoundError } from '@global/middlewares/errorMiddleware';
 
-const CRUDFunctions: commonFunctions<IPostDocument> = createCommonService<IPostDocument>(PostModel);
+const CRUDFunctions: commonFunctions<IPostDocument> = createCommonService<IPostDocument>(PostModel, 'Posts');
 
 export class PostController {
 
@@ -29,7 +29,6 @@ export class PostController {
    * @route GET/posts/:id
    * @access Private/User
    */
-  @validate(basePostValidator)
   public static async getPost(req: Request, res: Response) {
     try {
       await CRUDFunctions.getOne(req, res);
@@ -57,12 +56,24 @@ export class PostController {
  * @route DELETE/posts/:id
  * @access Private/User
  */
-  @validate(basePostValidator)
   public static async deletePost(req: Request, res: Response) {
     try {
       await CRUDFunctions.deleteOne(req, res);
     } catch (error) {
       throw new NotFoundError('Error cannot delete a post');
+    }
+  }
+
+  /**
+   * @desc Get Multiple posts
+   * @route GET/posts
+   * @access Private/User
+   */
+  public static async getPosts(req: Request, res: Response) {
+    try {
+      await CRUDFunctions.getAll(req, res);
+    } catch (error) {
+      throw new NotFoundError('Error cannot get posts');
     }
   }
 }

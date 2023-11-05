@@ -1,15 +1,17 @@
 import { Model, Document } from 'mongoose';
 import { Request, Response } from 'express';
 import { NotFoundError } from '@global/middlewares/errorMiddleware';
+import QueryService from './query.services';
 
 export type commonFunctions<T extends Document> = {
   getOne: (req: Request, res: Response) => Promise<void>,
   createOne: (req: Request, res: Response) => Promise<void>,
   updateOne: (req: Request, res: Response) => Promise<void>,
   deleteOne: (req: Request, res: Response) => Promise<void>
+  getAll: (req: Request, res: Response) => Promise<void>
 };
 
-export const createCommonService = <T extends Document>(Model: Model<T>): commonFunctions<T> => {
+export const createCommonService = <T extends Document>(Model: Model<T>, modelName: string): CommonFunctions<T> => {
   const deleteOne = async (req: Request, res: Response) => {
     const { id } = req.params;
     const document = await Model.findByIdAndDelete(id);
@@ -45,11 +47,31 @@ export const createCommonService = <T extends Document>(Model: Model<T>): common
     res.status(200).json({ data: document });
   };
 
+  const getAll = async (req: Request, res: Response) => {
+
+    // [x] Build query (prepare it for the next stage 'execution)
+    const documentCnt = await Model.countDocuments();
+    const apiFeatures = new QueryService(Model.find(), req.query)
+      .paginate(documentCnt)
+      .filter()
+      .search(modelName)
+      .limitFields()
+      .sort();
+
+    // [x] Execute query
+    const { mongooseQuery, paginationResult } = apiFeatures;
+    const documents = await mongooseQuery.exec();
+    res
+      .status(200)
+      .json({ results: documents.length, paginationResult, data: documents });
+  };
+
+
   return {
     getOne,
     createOne,
     updateOne,
-    deleteOne
+    deleteOne,
+    getAll
   };
 };
-

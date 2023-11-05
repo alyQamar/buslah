@@ -10,7 +10,7 @@ class PostRoutes {
 
   public routes(): Router {
     this.router.route('/')
-      .post(PostController.createPost);
+      .post(PostController.createPost).get(PostController.getPosts);
 
     this.router.route('/:id')
       .get(PostController.getPost)
