@@ -2,11 +2,11 @@ import { Request, Response } from 'express';
 import { validate } from '@global/middlewares/validationMiddleware';
 import { basePostValidator, postNullabilityValidator } from '@post/post.validators';
 import { PostModel } from '@post/post.model';
-import { createCommonService, commonFunctions } from '@service/db/common.services';
+import { createCommonService, CommonFunctions } from '@service/db/common.services';
 import { IPostDocument } from '@post/post.interfaces';
 import { NotFoundError } from '@global/middlewares/errorMiddleware';
 
-const CRUDFunctions: commonFunctions<IPostDocument> = createCommonService<IPostDocument>(PostModel, 'Posts');
+const CRUDFunctions: CommonFunctions<IPostDocument> = createCommonService<IPostDocument>(PostModel, 'Posts');
 
 export class PostController {
 
