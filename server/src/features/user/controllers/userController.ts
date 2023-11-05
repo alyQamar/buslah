@@ -6,7 +6,7 @@ import { IUserDocument } from '@user/interfaces/userInterface';
 import { createCommonService, commonFunctions } from '@service/db/common.services';
 import { NotFoundError } from '@global/middlewares/errorMiddleware';
 
-const CRUDFunctions: commonFunctions<IUserDocument> = createCommonService<IUserDocument>(userModel);
+const CRUDFunctions: commonFunctions<IUserDocument> = createCommonService<IUserDocument>(userModel, 'Users');
 
 class userController {
   public async getUser(req: Request, res: Response, next: NextFunction): Promise<void> {
