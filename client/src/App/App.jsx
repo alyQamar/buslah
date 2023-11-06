@@ -1,30 +1,16 @@
 import './App.css';
-import { BrowserRouter ,Routes,Route } from 'react-router-dom';
-import LoginPage from '../pages/Auth/LoginPage';
-import SignupPage from '../pages/Auth/SignupPage';
-import ForgetPasswordPage from '../pages/Auth/ForgetPasswordPage';
-import CheckEmailPage from './../pages/Auth/CheckEmailPage';
-import ResetPasswordPage from '../pages/Auth/ResetPasswordPage';
-import VerifyAccountPage from '../pages/Auth/VerifyAccountPage';
-import AfterVerifyPage from './../pages/Auth/AfterVerifyPage';
+import { BrowserRouter } from 'react-router-dom';
+import AppRouter from './AppRouter';
 
-function App() {
-  return <div>
-  <BrowserRouter>
-    <Routes>
-      <Route index element={<SignupPage/>}/>
-      <Route path='/login' element={<LoginPage/>}/>
-      <Route path='/forgetpassword' element={<ForgetPasswordPage/>}/>
-      <Route path='/checkemail' element={<CheckEmailPage/>}/>
-      <Route path='/resetpassword' element={<ResetPasswordPage/>}/>
-      <Route path='/verifyemail' element={<VerifyAccountPage/>}/>
-      <Route path='/verified' element={<AfterVerifyPage/>}/>
-
-
-    </Routes>
-</BrowserRouter>
-  </div>;
-}
+const App = () => {
+  return (
+    <div>
+      <BrowserRouter>
+        <AppRouter />
+      </BrowserRouter>
+    </div>
+  );
+};
 
 export default App;
 
