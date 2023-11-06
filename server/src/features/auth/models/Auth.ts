@@ -1,4 +1,4 @@
-import { hash } from 'bcryptjs'; // Importing password hashing functions
+import bcrypt, { hash } from 'bcryptjs'; // Importing password hashing functions
 import { model, Model, Schema, Document } from 'mongoose'; // Importing Mongoose functions
 import { ObjectId } from 'mongodb'; // Importing MongoDB's ObjectId
 
@@ -11,12 +11,11 @@ export interface IAuthDocument extends Document {
   confirmPassword: string;
   passwordResetToken?: string;
   passwordResetExpires?: number | string;
-  comparePassword(password: string): Promise<boolean>;
-  hashPassword(password: string): Promise<string>;
+  comparePassword(candidatePassword: string): Promise<boolean>;
 }
 
 // 2- Define the Mongoose schema for authentication
-const authSchema: Schema = new Schema(
+const authSchema: Schema = new Schema<IAuthDocument>(
   {
     name: { type: String, required: true },
     uId: { type: String },
@@ -45,6 +44,10 @@ authSchema.pre('save', async function (next) {
 
   next();
 });
+
+authSchema.methods.comparePassword = async function (candidatePassword: string) {
+  return await bcrypt.compare(candidatePassword, this.password);
+};
 
 const AuthModel: Model<IAuthDocument> = model<IAuthDocument>('Auth', authSchema);
 
