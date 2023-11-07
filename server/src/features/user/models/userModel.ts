@@ -7,6 +7,11 @@ const userSchema: Schema = new Schema(
   {
     firstName: { type: String },
     lastName: { type: String },
+    role: { 
+      type:String,
+      enum: ['admin', 'mentor', 'mentee'],
+    default:'mentee',
+    },
     photo: { type: String },
     country: { type: String },
     companyWorkingFor: { type: String },
