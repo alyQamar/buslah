@@ -32,6 +32,14 @@ class userController {
       throw new NotFoundError('Cannot find the user.');
     }
   }
+
+  public async getAllUsers(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      await CRUDFunctions.getAll(req, res);
+    } catch (error) {
+      throw new NotFoundError('Cannot find any users.');
+    }
+  }
 }
 
 export default userController;

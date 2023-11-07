@@ -8,6 +8,7 @@ class UserRoutes {
 
   constructor() {
     this.router = express.Router();
+    this.router.get('/', controller.getAllUsers);
     this.router.get('/:id', controller.getUser);
     this.router.delete('/:id', controller.deleteUser);
     this.router.put('/:id', controller.updateUser);
