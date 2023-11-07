@@ -2,10 +2,7 @@ import mongoose, { model, Model, Schema } from 'mongoose';
 import { IPostDocument } from '@post/post.interfaces';
 
 const postSchema: Schema = new Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', index: true },
-  username: { type: String },
-  email: { type: String },
-  profilePicture: { type: String },
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'users', index: true },
   post: { type: String, default: '' },
   bgColor: { type: String, default: '' },
   // For Uploaded media middleware------------------------
@@ -22,5 +19,5 @@ const postSchema: Schema = new Schema({
   }
 }, { timestamps: true });
 
-export const PostModel: Model<IPostDocument> = model<IPostDocument>('Post', postSchema, 'Post');
+export const PostModel: Model<IPostDocument> = model<IPostDocument>('Post', postSchema);
 

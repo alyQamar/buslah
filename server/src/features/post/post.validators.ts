@@ -20,4 +20,11 @@ export const imagePostValidator: ObjectSchema = basePostValidator.keys({
   }),
 });
 
+// Conditional validation to allow 'post' , 'image' or both if found
+export const postNullabilityValidator: ObjectSchema = Joi.object().keys({
+  post: Joi.string().optional().allow(null, ''),
+  image: Joi.string().optional().allow(null, ''),
+}).or('post', 'image').messages({
+  'object.or': 'At least one of "post" or "image" is required in a post',
+});
 

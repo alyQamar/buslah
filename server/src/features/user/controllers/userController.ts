@@ -3,10 +3,10 @@ import { config } from '@config/index';
 import { validate } from '@global/middlewares/validationMiddleware';
 import userModel from '@user/models/userModel';
 import { IUserDocument } from '@user/interfaces/userInterface';
-import { createCommonService, commonFunctions } from '@service/db/common.services';
+import { createCommonService, CommonFunctions } from '@service/db/common.services';
 import { NotFoundError } from '@global/middlewares/errorMiddleware';
 
-const CRUDFunctions: commonFunctions<IUserDocument> = createCommonService<IUserDocument>(userModel);
+const CRUDFunctions: CommonFunctions<IUserDocument> = createCommonService<IUserDocument>(userModel, 'Users');
 
 class userController {
   public async getUser(req: Request, res: Response, next: NextFunction): Promise<void> {
