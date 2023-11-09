@@ -1,3 +1,4 @@
+import { string } from 'joi';
 import dotenv from 'dotenv';
 import bunyan from 'bunyan';
 import cloudinary from 'cloudinary';
@@ -15,6 +16,8 @@ class Config {
   public CLOUD_NAME: string;
   public CLOUD_API_KEY: string;
   public CLOUD_API_SECRET: string;
+  public GMAIL_EMAIL: string;
+  public GMAIL_PASSWORD: string;
 
   constructor() {
     this.PORT = process.env.PORT || '3000';
@@ -28,6 +31,8 @@ class Config {
     this.CLOUD_NAME = process.env.CLOUD_NAME || '';
     this.CLOUD_API_KEY = process.env.CLOUD_API_KEY || '';
     this.CLOUD_API_SECRET = process.env.CLOUD_API_SECRET || '';
+    this.GMAIL_EMAIL = process.env.GMAIL_EMAIL || '';
+    this.GMAIL_PASSWORD = process.env.GMAIL_PASSWORD || '';
   }
 
   public createLogger(name: string): bunyan {

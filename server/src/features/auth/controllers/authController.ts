@@ -7,6 +7,7 @@ import { validate } from '@global/middlewares/validationMiddleware';
 import { signupValidator } from '@auth/validators/signupValidator';
 import Auth, { IAuthDocument } from '@auth/models/Auth';
 import { string } from 'joi';
+import emailServices from '@service/emailServices';
 
 class authController {
   public static createToken = (userId: ObjectId): string => {
@@ -89,6 +90,30 @@ class authController {
       // Handling any potential errors
     }
   }
-}
 
+  public async forgotPassword(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      // 1) Get user based on POSTed email
+      const user = await Auth.findOne({ email: req.body.email });
+
+      if (!user) {
+        // If no user is found, return an error response to the client.
+        return next(res.status(404).json({ error: 'User not found.' }));
+      }
+
+      // 2) Generate the random reset token
+      const resetCode = user.createPasswordResetToken();
+      // Save the user with the new password reset token without running validation.
+      await user.save({ validateBeforeSave: false });
+
+      emailServices.sendEmail(resetCode, user.email);
+
+      // 3) Respond to the client to indicate that the reset token has been sent.
+      res.status(200).json({ message: 'Password reset code sent successfully.' });
+    } catch (error) {
+      // Handle any unexpected errors by passing them to the error-handling middleware.
+      next(error);
+    }
+  }
+}
 export default authController;

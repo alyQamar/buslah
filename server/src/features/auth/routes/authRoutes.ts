@@ -10,6 +10,7 @@ class AuthRoutes {
     this.router = express.Router();
     this.router.post('/sign-up', controller.SignUp);
     this.router.post('/log-in', controller.LogIn);
+    this.router.post('/forgot-password', controller.forgotPassword);
   }
 
   routes(): Router {

@@ -31,7 +31,7 @@
       "@image/*": ["src/features/images/*"],
       "@chat/*": ["src/features/chat/*"],
       "@global/*": ["src/shared/global/*"],
-      "@service/*": ["src/shared/services/*"],
+      "@service/*": ["src/features/services/*"],
       "@socket/*": ["src/shared/sockets/*"],
       "@worker/*": ["src/shared/workers/*"],
       "@config/*": ["src/config/*"],
