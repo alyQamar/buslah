@@ -31,9 +31,13 @@
     "http-status-codes": "^2.2.0",
     "joi": "^17.11.0",
     "jsonwebtoken": "^9.0.2",
+<<<<<<< HEAD
     "mailgen": "^2.0.28",
     "mongoose": "^7.5.2",
     "nodemailer": "^6.9.7",
+=======
+    "mongoose": "^6.10.1",
+>>>>>>> 5d7b5b8a64eb3753a0d3d19e1497552d153a0388
     "nodemon": "^3.0.1",
     "redis": "^4.6.8",
     "socket.io": "^4.7.2",

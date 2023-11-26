@@ -7,7 +7,7 @@ import { validate } from '@global/middlewares/validationMiddleware';
 import { signupValidator } from '@auth/validators/signupValidator';
 import Auth, { IAuthDocument } from '@auth/models/Auth';
 import { string } from 'joi';
-import emailServices from '@service/emailServices';
+import emailServices from '@service/email/emailServices';
 
 class authController {
   public static createToken = (userId: ObjectId): string => {

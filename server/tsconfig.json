@@ -31,9 +31,11 @@
       "@image/*": ["src/features/images/*"],
       "@chat/*": ["src/features/chat/*"],
       "@global/*": ["src/shared/global/*"],
-      "@service/*": ["src/features/services/*"],
+      "@service/*": ["src/shared/services/*"],
+      "@util/*": ["src/shared/utils/*"],
       "@socket/*": ["src/shared/sockets/*"],
-      "@worker/*": ["src/shared/workers/*"],
+      "@redis/*": ["src/shared/redis/*"],
+      "@queue/*": ["src/shared/queues/*"],
       "@config/*": ["src/config/*"],
       "@root/*": ["src/*"]
     }
