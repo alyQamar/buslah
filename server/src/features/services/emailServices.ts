@@ -33,7 +33,7 @@ class EmailService {
     const message = {
       from: config.GMAIL_EMAIL,
       to: user,
-      subject: 'Place Order',
+      subject: 'Password Reset Code',
       html: mail
     };
 

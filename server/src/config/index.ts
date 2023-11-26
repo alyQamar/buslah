@@ -18,6 +18,7 @@ class Config {
   public CLOUD_API_SECRET: string;
   public GMAIL_EMAIL: string;
   public GMAIL_PASSWORD: string;
+  public RESET_PASSWORD_VERIFICATION_CODE_EXPIRE_IN: string;
 
   constructor() {
     this.PORT = process.env.PORT || '3000';
@@ -33,6 +34,7 @@ class Config {
     this.CLOUD_API_SECRET = process.env.CLOUD_API_SECRET || '';
     this.GMAIL_EMAIL = process.env.GMAIL_EMAIL || '';
     this.GMAIL_PASSWORD = process.env.GMAIL_PASSWORD || '';
+    this.RESET_PASSWORD_VERIFICATION_CODE_EXPIRE_IN = process.env.RESET_PASSWORD_VERIFICATION_CODE_EXPIRE_IN || '600000';
   }
 
   public createLogger(name: string): bunyan {

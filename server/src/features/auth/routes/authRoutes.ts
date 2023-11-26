@@ -11,6 +11,7 @@ class AuthRoutes {
     this.router.post('/sign-up', controller.SignUp);
     this.router.post('/log-in', controller.LogIn);
     this.router.post('/forgot-password', controller.forgotPassword);
+    this.router.post('/check-code', controller.checkPasswordResetCode);
   }
 
   routes(): Router {

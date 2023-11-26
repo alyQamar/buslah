@@ -2,6 +2,7 @@ import bcrypt, { hash } from 'bcryptjs'; // Importing password hashing functions
 import crypto from 'crypto';
 import { model, Model, Schema, Document } from 'mongoose'; // Importing Mongoose functions
 import { ObjectId } from 'mongodb'; // Importing MongoDB's ObjectId
+import { config } from '@config/index';
 
 export interface IAuthDocument extends Document {
   _id: string | ObjectId;
@@ -13,6 +14,7 @@ export interface IAuthDocument extends Document {
   passwordResetExpires?: number | string;
   comparePassword(candidatePassword: string): Promise<boolean>;
   createPasswordResetToken(): string;
+  checkResetPasswordCode(passwordResetCode: string): boolean;
 }
 
 // 2- Define the Mongoose schema for authentication
@@ -58,9 +60,15 @@ authSchema.methods.createPasswordResetToken = function (): number {
     .update(passwordResetCode + '')
     .digest('hex');
 
-  this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
+  this.passwordResetExpires = Date.now() + Number(config.RESET_PASSWORD_VERIFICATION_CODE_EXPIRE_IN);
 
   return passwordResetCode;
+};
+
+authSchema.methods.checkResetPasswordCode = function (passwordResetCode: string): boolean {
+  const hashedCode = crypto.createHash('sha256').update(passwordResetCode).digest('hex');
+
+  return this.passwordResetCode === hashedCode && this.passwordResetExpires > Date.now();
 };
 
 const AuthModel: Model<IAuthDocument> = model<IAuthDocument>('Auth', authSchema);

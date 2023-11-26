@@ -115,5 +115,24 @@ class authController {
       next(error);
     }
   }
+
+  public async checkPasswordResetCode(req: Request, res: Response, next: NextFunction): Promise<void> {
+    const { userEmail, code } = req.body;
+
+    // check if the user is existing
+    const user = await Auth.findOne({ email: userEmail });
+
+    if (!user) {
+      // If no user is found, return an error response to the client.
+      return next(res.status(404).json({ error: 'User not found.' }));
+    }
+
+    const isVerified = user.checkResetPasswordCode(code + '');
+    if (isVerified) {
+      res.status(200).json({ message: 'The code is verified ' });
+    } else {
+      res.status(401).json({ message: 'The code is not verified ' });
+    }
+  }
 }
 export default authController;
