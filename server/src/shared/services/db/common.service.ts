@@ -1,7 +1,7 @@
 import { Model, Document } from 'mongoose';
 import { Request, Response } from 'express';
 import { NotFoundError } from '@global/middlewares/errorMiddleware';
-import QueryService from './query.services';
+import QueryService from './query.service';
 
 export type CommonFunctions<T extends Document> = {
   getOne: (req: Request, res: Response) => Promise<void>,

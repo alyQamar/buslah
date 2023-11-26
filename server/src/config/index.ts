@@ -1,3 +1,4 @@
+import { string } from 'joi';
 import dotenv from 'dotenv';
 import bunyan from 'bunyan';
 import cloudinary from 'cloudinary';
@@ -11,9 +12,13 @@ class Config {
   public REDIS_HOST: string | undefined;
   public JWT_SECRET_KEY: string | '12325';
   public JWT_EXPIRE_TIME: string | undefined;
+  public JWT_COOKIE_EXPIRE_IN: string;
   public CLOUD_NAME: string;
   public CLOUD_API_KEY: string;
   public CLOUD_API_SECRET: string;
+  public GMAIL_EMAIL: string;
+  public GMAIL_PASSWORD: string;
+  public RESET_PASSWORD_VERIFICATION_CODE_EXPIRE_IN: string;
 
   constructor() {
     this.PORT = process.env.PORT || '3000';
@@ -23,9 +28,13 @@ class Config {
     this.REDIS_HOST = process.env.REDIS_HOST || '';
     this.JWT_SECRET_KEY = process.env.JWT_SECRET_KEY || '1234';
     this.JWT_EXPIRE_TIME = process.env.JWT_EXPIRE_TIME || '';
+    this.JWT_COOKIE_EXPIRE_IN = process.env.JWT_COOKIE_EXPIRE_IN || '30';
     this.CLOUD_NAME = process.env.CLOUD_NAME || '';
     this.CLOUD_API_KEY = process.env.CLOUD_API_KEY || '';
     this.CLOUD_API_SECRET = process.env.CLOUD_API_SECRET || '';
+    this.GMAIL_EMAIL = process.env.GMAIL_EMAIL || '';
+    this.GMAIL_PASSWORD = process.env.GMAIL_PASSWORD || '';
+    this.RESET_PASSWORD_VERIFICATION_CODE_EXPIRE_IN = process.env.RESET_PASSWORD_VERIFICATION_CODE_EXPIRE_IN || '600000';
   }
 
   public createLogger(name: string): bunyan {

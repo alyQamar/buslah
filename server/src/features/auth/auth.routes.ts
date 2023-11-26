@@ -1,5 +1,5 @@
 import express, { NextFunction, Router } from 'express';
-import authController from '@auth/controllers/authController';
+import authController from '@auth/auth.controllers';
 
 const controller = new authController();
 
@@ -9,6 +9,9 @@ class AuthRoutes {
   constructor() {
     this.router = express.Router();
     this.router.post('/sign-up', controller.SignUp);
+    this.router.post('/log-in', controller.LogIn);
+    this.router.post('/forgot-password', controller.forgotPassword);
+    this.router.post('/check-code', controller.checkPasswordResetCode);
   }
 
   routes(): Router {

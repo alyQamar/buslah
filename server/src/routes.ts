@@ -1,6 +1,6 @@
 import { Application } from 'express';
-import { authRoutes } from '@auth/routes/authRoutes';
-import { userRoutes } from '@user/routes/userRoutes';
+import { authRoutes } from '@auth/auth.routes';
+import { userRoutes } from '@user/user.routes';
 import { postRoutes } from '@post/post.routes';
 
 export default (app: Application) => {

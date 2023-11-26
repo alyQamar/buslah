@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { validate } from '@global/middlewares/validationMiddleware';
 import { basePostValidator, postNullabilityValidator } from '@post/post.validators';
 import { PostModel } from '@post/post.model';
-import { createCommonService, CommonFunctions } from '@service/db/common.services';
+import { createCommonService, CommonFunctions } from '@service/db/common.service';
 import { IPostDocument } from '@post/post.interfaces';
 import { NotFoundError } from '@global/middlewares/errorMiddleware';
 
