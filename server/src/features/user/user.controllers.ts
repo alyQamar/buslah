@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import { config } from '@config/index';
 import { validate } from '@global/middlewares/validationMiddleware';
-import userModel from '@user/models/userModel';
-import { IUserDocument } from '@user/interfaces/userInterface';
+import userModel from '@user/user.model';
+import { IUserDocument } from '@user/user.interfaces';
 import { createCommonService, CommonFunctions } from '@service/db/common.service';
 import { NotFoundError } from '@global/middlewares/errorMiddleware';
 

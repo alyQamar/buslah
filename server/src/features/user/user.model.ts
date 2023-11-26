@@ -1,16 +1,16 @@
 import { model, Model, Schema, Document } from 'mongoose'; // Importing Mongoose functions
 import { ObjectId } from 'mongodb'; // Importing MongoDB's ObjectId
-import { IUserDocument } from '@user/interfaces/userInterface';
+import { IUserDocument } from '@user/user.interfaces';
 
 // 2- Define a Mongoose schema for the user
 const userSchema: Schema = new Schema(
   {
     firstName: { type: String },
     lastName: { type: String },
-    role: { 
-      type:String,
+    role: {
+      type: String,
       enum: ['admin', 'mentor', 'mentee'],
-    default:'mentee',
+      default: 'mentee',
     },
     photo: { type: String },
     country: { type: String },
