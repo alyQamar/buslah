@@ -7,7 +7,7 @@ import SocialIcons from './SocialIcons';
 import SignupHook from '../../hook/Auth/signup-hook';
 
 const SignupForm = () => {
-  const [name,email,password,confirmPassword,onChangeName,onChangeEmail,onChangePassword
+  const [name,email,password,confirmPassword,,onChangeName,onChangeEmail,onChangePassword
     ,onChangeConfirmPassword,onSubmit] = SignupHook();
   return (
     <form className=' bg-white rounded-lg publicform signupform'>

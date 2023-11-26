@@ -1,6 +1,6 @@
-// import axios from 'axios'
+import axios from 'axios'
 
 
-// const baseUrl = axios.create({ baseURL: "http://127.0.0.1:8000" })
+const baseUrl = axios.create({ baseURL: "http://localhost:8643" })
 
-// export default baseUrl
+export default baseUrl
