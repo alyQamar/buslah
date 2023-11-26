@@ -4,8 +4,8 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import { config } from '@config/index';
 import { validate } from '@global/middlewares/validationMiddleware';
-import { signupValidator } from '@auth/validators/signupValidator';
-import Auth, { IAuthDocument } from '@auth/models/Auth';
+import { signupValidator } from '@auth/auth.validators';
+import Auth, { IAuthDocument } from '@auth/auth.model';
 import { string } from 'joi';
 import emailServices from '@service/email/emailServices';
 

@@ -1,5 +1,5 @@
 import express, { NextFunction, Router } from 'express';
-import authController from '@auth/controllers/authController';
+import authController from '@auth/auth.controllers';
 
 const controller = new authController();
 
