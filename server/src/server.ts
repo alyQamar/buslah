@@ -1,8 +1,6 @@
 import { Application, json, urlencoded, Response, Request, NextFunction } from 'express';
 import http from 'http';
 import cors from 'cors';
-import helmet from 'helmet';
-import hpp from 'hpp';
 import compression from 'compression';
 import cookieSession from 'cookie-session';
 import { Server } from 'socket.io';
@@ -39,8 +37,6 @@ export class ServerInit {
         secure: config.NODE_ENV === 'development' ? false : true
       })
     );
-    app.use(hpp);
-    app.use(helmet);
 
     app.use(
       cors({ origin: config.BASE_URL, credentials: true, optionsSuccessStatus: 200, methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'] })
