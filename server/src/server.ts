@@ -23,7 +23,7 @@ export class ServerInit {
   }
 
   public start(): void {
-    // this.securityMiddleware(this.app);
+    this.securityMiddleware(this.app);
     this.standardMiddleware(this.app);
     this.routesMiddleware(this.app);
     this.globalErrorHandler(this.app);
