@@ -1,12 +1,19 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
+import { loginUser } from '../../redux/Actions/authActions';
 
 const LoginHook = () => {
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 //states
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-//get elements
-  const emailinput = document.getElementById('emailinput');
-  const passwordinput = document.getElementById('passwordinput');
+  const [loading, setLoading] = useState(true)
+// //get elements
+//   const emailinput = document.getElementById('emailinput');
+//   const passwordinput = document.getElementById('passwordinput');
   //functions
   const onChangeEmail = (e) => {
     setEmail(e.target.value)
@@ -15,18 +22,44 @@ const LoginHook = () => {
 const onChangePassword = (e) => {
   setPassword(e.target.value)
 }
-const onSubmit = (e) => {
-//   if (location.pathname === '/login') {
-//   console.log('You are on the login page');
-// }
+const onSubmit = async(e) => {
   e.preventDefault();
-  console.log("Email: ",emailinput.value)
-  console.log("Password: ",passwordinput.value)
-  setEmail("")
-  setPassword("")
+  setLoading(true)
+  await dispatch(loginUser({
+      email,
+      password
+  }))
+
+  setLoading(false)
+
 }
 
-  return  [email,password,onChangeEmail,onSubmit,onChangePassword]
+//selector
+const res = useSelector(state => state.authReducer.loginUser)
+//use Efect
+useEffect(() => {
+  if (loading === false) {
+      if (res) {
+          console.log(res)
+          if (res.data.jwtToken) {
+              localStorage.setItem("token", res.data.jwtToken)
+
+            //   setTimeout(() => {
+            //     navigate('/login')
+            // }, 2000);
+          } else {
+              localStorage.removeItem("token")
+          }
+
+          if (res.data.message === "Incorrect email or password") {
+              localStorage.removeItem("token")
+          }
+          setLoading(true)
+      }
+  }
+}, [loading])
+
+  return  [email,password,loading,onChangeEmail,onSubmit,onChangePassword]
 
 }
 
