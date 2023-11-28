@@ -39,7 +39,7 @@ export class ServerInit {
     );
 
     app.use(
-      cors({ origin: config.BASE_URL, credentials: true, optionsSuccessStatus: 200, methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'] })
+      cors()
     );
   }
   private standardMiddleware(app: Application): void {
