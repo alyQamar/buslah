@@ -2,14 +2,7 @@ import { CREATE_NEW_USER} from '../type'  ///, UPDATE_USER_PASSWORD, UPDATE_USER
 
 const inital = {
     createUser: [],
-    // loginUser: [],
-    // currentUser: [],
-    // forgetPassword: [],
-    // verifyPassword: [],
-    // resetPassword: [],
-    // userProfile: [],
-    // userChangePassword: [],
-    // loading: true,
+    loading: true
 }
 const authReducer = (state = inital, action) => {
     switch (action.type) {
@@ -17,42 +10,8 @@ const authReducer = (state = inital, action) => {
             return {
                 ...state,
                 createUser: action.payload,
-            }
-        // case LOGIN_USER:
-        //     return {
-        //         ...state,
-        //         loginUser: action.payload,
-        //     }
-        // case GET_CURERNT_USER:
-        //     return {
-        //         ...state,
-        //         currentUser: action.payload,
-        //     }
-        // case FOREGT_PASSWORD:
-        //     return {
-        //         ...state,
-        //         forgetPassword: action.payload,
-        //     }
-        // case VERIFY_PASSWORD:
-        //     return {
-        //         ...state,
-        //         verifyPassword: action.payload,
-        //     }
-        // case RESET_PASSWORD:
-        //     return {
-        //         ...state,
-        //         resetPassword: action.payload,
-        //     }
-        // case UPDATE_USER_PROFILE:
-        //     return {
-        //         ...state,
-        //         userProfile: action.payload,
-        //     }
-        // case UPDATE_USER_PASSWORD:
-        //     return {
-        //         ...state,
-        //         userChangePassword: action.payload,
-        //     }
+                loading: false
+                  }
         default:
             return state;
     }

@@ -1,9 +1,7 @@
 
-import { CREATE_NEW_USER} from '../type'    //from type: ,{ RESET_PASSWORD, UPDATE_USER_PROFILE, VERIFY_PASSWORD, FOREGT_PASSWORD, GET_CURERNT_USER, LOGIN_USER, UPDATE_USER_PASSWORD }
-
+import { CREATE_NEW_USER} from '../type'
 import { useInsertData } from '../../hooks/useInsertData'
-//import { useGetData, useGetDataToken } from './../../hooks/useGetData';
-//import { useInsUpdateData } from '../../hooks/useUpdateData';
+
 
 //create new user
 export const createNewUser = (data) => async (dispatch) => {

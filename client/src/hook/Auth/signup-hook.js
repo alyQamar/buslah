@@ -32,36 +32,65 @@ const onChangeConfirmPassword = (e) => {
   setConfirmPassword(e.target.value)
   }
 
+
+  //validation
+
+  const validationValues = () => {
+    if (name === "" || name.length<3) {
+      return "Username should have at least 3 characters"
+    }
+    if (password != confirmPassword) {
+      return "Passwords do not match";
+    }
+
+return null;
+}
+
  //selectors
  const res = useSelector(state => state.authReducer.createUser)
 
+//console.log(res)
+
 const onSubmit = async(e) => {
-e.preventDefault();
-try {
+  e.preventDefault();
+  const validationMessage = validationValues();
+  if (validationMessage) {
+    console.log(validationMessage)
+    // Stop the onSubmit function
+    return;
+  }
+
   setLoading(true);
-  await dispatch(createNewUser({ name, email, password }));
+  await dispatch(createNewUser({
+      name,
+      email,
+      password
+    }));
   setLoading(false);
-} catch (error) {
-  setLoading(false);
-  // Handle error appropriately (e.g., display an error message)
-  console.error('Error submitting form:', error);
-}
 }
 //use effect
 
 useEffect(() => {
-  if (loading === false) {
+    if (loading === false) {
       if (res) {
           console.log(res)
           if (res.data.token) {
               localStorage.setItem("token", res.data.token)
+              console.log("تم تسجيل الحساب بنجاح")
               setTimeout(() => {
                   navigate('/login')
               }, 2000);
           }
-
-      }
   }
+  if (res.data.status==="error") {
+console.log(res.data.message)
+}
+if (res.data.error) {
+  console.log(res.data.error)
+  }
+
+
+}
 }, [loading])
 
   return [name,email,password,confirmPassword,loading,onChangeName,onChangeEmail,onChangePassword
