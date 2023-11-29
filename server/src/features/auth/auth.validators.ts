@@ -23,6 +23,22 @@ const signupValidator: ObjectSchema = Joi.object().keys({
   })
 });
 
+const LoginValidator: ObjectSchema = Joi.object().keys({
+  email: Joi.string().email().required().messages({
+    'string.base': 'Email must be of type string',
+    'string.email': 'Email must be valid',
+    'any.required': 'Email is a required field',
+    'string.empty': 'Email is not allowed to be empty'
+  }),
+  password: Joi.string().min(8).max(100).required().messages({
+    'string.base': 'Password must be of type string',
+    'string.min': 'Password should have at least {#limit} characters',
+    'string.max': 'Password should have at most {#limit} characters',
+    'any.required': 'Password is a required field',
+    'string.empty': 'Password is not allowed to be empty'
+  })
+});
+
 const resetPasswordValidator: ObjectSchema = Joi.object().keys({
   email: Joi.string().email().required().messages({
     'string.base': 'Email must be of type string',
@@ -61,4 +77,4 @@ const forgotPasswordValidator: ObjectSchema = Joi.object().keys({
   })
 });
 
-export { signupValidator, resetPasswordValidator, checkPasswordResetCodeValidator, forgotPasswordValidator };
+export { signupValidator, resetPasswordValidator, checkPasswordResetCodeValidator, forgotPasswordValidator, LoginValidator };

@@ -4,11 +4,17 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import { config } from '@config/index';
 import { validate } from '@global/middlewares/validationMiddleware';
-import { checkPasswordResetCodeValidator, forgotPasswordValidator, resetPasswordValidator, signupValidator } from '@auth/auth.validators';
+import {
+  LoginValidator,
+  checkPasswordResetCodeValidator,
+  forgotPasswordValidator,
+  resetPasswordValidator,
+  signupValidator
+} from '@auth/auth.validators';
 import Auth, { IAuthDocument } from '@auth/auth.model';
 import { string } from 'joi';
 import emailServices from '@service/email/emailServices';
-import { InternalServerError, NotFoundError } from '@global/middlewares/errorMiddleware';
+import { InternalServerError, NotFoundError, BadRequestError } from '@global/middlewares/errorMiddleware';
 
 class authController {
   public static createToken = (userId: ObjectId): string => {
@@ -64,31 +70,26 @@ class authController {
       res.status(500).json({ status: 'error', message: 'Internal server error' });
     }
   }
-
+  @validate(LoginValidator)
   public async LogIn(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const { email, password } = req.body;
 
-      // 1) Check if email and password exist
-      if (!email || !password) {
-        return next(new Error('Please provide email and password!'));
-      }
-
-      // 2) Check if user exists && password is correct
+      // Check if user exists && password is correct
       const user = await Auth.findOne({ email }).select('+password'); //the + herer because we want to select a field it is not selected
 
       if (!user || !(await user.comparePassword(password))) {
-        return next(new Error('Incorrect email or password'));
+        return next(new BadRequestError('Incorrect email or password'));
       }
 
-      // 3) If everything ok, send token to client
+      //  If everything ok, send token to client
 
       const id = user._id as unknown as ObjectId;
       const jwtToken = authController.createToken(id);
       authController.SendTokenViaCookie(jwtToken, res);
       res.status(200).json({ status: 'success', jwtToken });
     } catch (error) {
-      // Handling any potential errors
+      return next(new InternalServerError('Internal Server Error.'));
     }
   }
 
