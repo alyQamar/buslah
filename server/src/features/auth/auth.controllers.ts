@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import { config } from '@config/index';
 import { validate } from '@global/middlewares/validationMiddleware';
-import { resetPasswordValidator, signupValidator } from '@auth/auth.validators';
+import { checkPasswordResetCodeValidator, resetPasswordValidator, signupValidator } from '@auth/auth.validators';
 import Auth, { IAuthDocument } from '@auth/auth.model';
 import { string } from 'joi';
 import emailServices from '@service/email/emailServices';
@@ -116,6 +116,7 @@ class authController {
     }
   }
 
+  @validate(checkPasswordResetCodeValidator)
   public async checkPasswordResetCode(req: Request, res: Response, next: NextFunction): Promise<void> {
     const { userEmail, code } = req.body;
 

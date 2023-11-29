@@ -39,4 +39,17 @@ const resetPasswordValidator: ObjectSchema = Joi.object().keys({
   })
 });
 
-export { signupValidator, resetPasswordValidator };
+const checkPasswordResetCodeValidator: ObjectSchema = Joi.object().keys({
+  userEmail: Joi.string().email().required().messages({
+    'string.base': 'Email must be of type string',
+    'string.email': 'Email must be valid',
+    'any.required': 'Email is a required field',
+    'string.empty': 'Email is not allowed to be empty'
+  }),
+  code: Joi.number().required().messages({
+    'any.required': 'Code is a required field',
+    'string.empty': 'Code is not allowed to be empty'
+  })
+});
+
+export { signupValidator, resetPasswordValidator, checkPasswordResetCodeValidator };
