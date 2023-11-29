@@ -1,5 +1,5 @@
 
-import { CREATE_NEW_USER, LOGIN_USER} from '../type'
+import { CREATE_NEW_USER, FOREGT_PASSWORD, LOGIN_USER} from '../type'
 import { useInsertData } from '../../hooks/useInsertData'
 
 
@@ -39,6 +39,24 @@ export const loginUser = (data) => async (dispatch) => {
     }
 }
 
+//1-foregt  passwrod
+export const forgetPassword = (data) => async (dispatch) => {
+  try {
+      const response = await useInsertData(`/forgot-password`, data);
+      dispatch({
+          type: FOREGT_PASSWORD,
+          payload: response,
+          loading: true
+      })
+
+  } catch (e) {
+      dispatch({
+          type: FOREGT_PASSWORD,
+          payload: e.response,
+      })
+  }
+}
+
 // //login  user
 // export const getLoggedUser = () => async (dispatch) => {
 //     try {
@@ -58,23 +76,7 @@ export const loginUser = (data) => async (dispatch) => {
 // }
 
 
-// //1-foregt  passwrod
-// export const forgetPassword = (data) => async (dispatch) => {
-//     try {
-//         const response = await useInsertData(`/api/v1/auth/forgotPasswords`, data);
-//         dispatch({
-//             type: FOREGT_PASSWORD,
-//             payload: response,
-//             loading: true
-//         })
 
-//     } catch (e) {
-//         dispatch({
-//             type: FOREGT_PASSWORD,
-//             payload: e.response,
-//         })
-//     }
-// }
 
 
 // //2-verify  passwrod
