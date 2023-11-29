@@ -145,10 +145,9 @@ class authController {
     });
 
     if (!user) {
-      res.status(401).json({ message: "The verification code's time has expired. Please try again." });
-    }
-
-    if (user !== null) {
+      res.status(404).json({ message: "User not found or the verification code's time has expired. Please try again." });
+      return;
+    } else {
       user.password = req.body.password;
       user.passwordResetCode = undefined;
       user.passwordResetExpires = undefined;
@@ -159,7 +158,7 @@ class authController {
       const id = user._id as unknown as ObjectId;
       const jwtToken = authController.createToken(id);
       authController.SendTokenViaCookie(jwtToken, res);
-      res.status(200).json({ status: 'success', jwtToken });
+      res.status(200).json({ message: 'Password successfully reset.', jwtToken });
     }
   }
 }
