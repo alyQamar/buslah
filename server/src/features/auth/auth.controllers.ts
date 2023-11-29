@@ -138,28 +138,32 @@ class authController {
 
   @validate(resetPasswordValidator)
   public async resetPassword(req: Request, res: Response, next: NextFunction): Promise<void> {
-    // 1) Get user based on the token
-    const userEmail = req.body.email;
-    const user = await Auth.findOne({
-      email: userEmail,
-      passwordResetExpires: { $gt: Date.now() }
-    });
+    try {
+      // 1) Get user based on the token
+      const userEmail = req.body.email;
+      const user = await Auth.findOne({
+        email: userEmail,
+        passwordResetExpires: { $gt: Date.now() }
+      });
 
-    if (!user) {
-      res.status(404).json({ message: "User not found or the verification code's time has expired. Please try again." });
-      return;
-    } else {
-      user.password = req.body.password;
-      user.passwordResetCode = undefined;
-      user.passwordResetExpires = undefined;
-      await user.save();
+      if (!user) {
+        res.status(404).json({ message: "User not found or the verification code's time has expired. Please try again." });
+        return;
+      } else {
+        user.password = req.body.password;
+        user.passwordResetCode = undefined;
+        user.passwordResetExpires = undefined;
+        await user.save();
 
-      // 3) If everything ok, send token to client
+        // 3) If everything ok, send token to client
 
-      const id = user._id as unknown as ObjectId;
-      const jwtToken = authController.createToken(id);
-      authController.SendTokenViaCookie(jwtToken, res);
-      res.status(200).json({ message: 'Password successfully reset.', jwtToken });
+        const id = user._id as unknown as ObjectId;
+        const jwtToken = authController.createToken(id);
+        authController.SendTokenViaCookie(jwtToken, res);
+        res.status(200).json({ message: 'Password successfully reset.', jwtToken });
+      }
+    } catch (error) {
+      res.status(500).json({ message: 'Internal Server Error' });
     }
   }
 }
