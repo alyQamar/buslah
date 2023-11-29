@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import { config } from '@config/index';
 import { validate } from '@global/middlewares/validationMiddleware';
-import { signupValidator } from '@auth/auth.validators';
+import { resetPasswordValidator, signupValidator } from '@auth/auth.validators';
 import Auth, { IAuthDocument } from '@auth/auth.model';
 import { string } from 'joi';
 import emailServices from '@service/email/emailServices';
@@ -132,6 +132,34 @@ class authController {
       res.status(200).json({ message: 'The code is verified ' });
     } else {
       res.status(401).json({ message: 'The code is not verified ' });
+    }
+  }
+
+  @validate(resetPasswordValidator)
+  public async resetPassword(req: Request, res: Response, next: NextFunction): Promise<void> {
+    // 1) Get user based on the token
+    const userEmail = req.body.email;
+    const user = await Auth.findOne({
+      email: userEmail,
+      passwordResetExpires: { $gt: Date.now() }
+    });
+
+    if (!user) {
+      res.status(401).json({ message: "The verification code's time has expired. Please try again." });
+    }
+
+    if (user !== null) {
+      user.password = req.body.password;
+      user.passwordResetCode = undefined;
+      user.passwordResetExpires = undefined;
+      await user.save();
+
+      // 3) If everything ok, send token to client
+
+      const id = user._id as unknown as ObjectId;
+      const jwtToken = authController.createToken(id);
+      authController.SendTokenViaCookie(jwtToken, res);
+      res.status(200).json({ status: 'success', jwtToken });
     }
   }
 }
