@@ -8,6 +8,7 @@ import { checkPasswordResetCodeValidator, resetPasswordValidator, signupValidato
 import Auth, { IAuthDocument } from '@auth/auth.model';
 import { string } from 'joi';
 import emailServices from '@service/email/emailServices';
+import { InternalServerError, NotFoundError } from '@global/middlewares/errorMiddleware';
 
 class authController {
   public static createToken = (userId: ObjectId): string => {
@@ -118,21 +119,26 @@ class authController {
 
   @validate(checkPasswordResetCodeValidator)
   public async checkPasswordResetCode(req: Request, res: Response, next: NextFunction): Promise<void> {
-    const { userEmail, code } = req.body;
+    try {
+      const { userEmail, code } = req.body;
 
-    // check if the user is existing
-    const user = await Auth.findOne({ email: userEmail });
+      // Check if the user exists
+      const user = await Auth.findOne({ email: userEmail });
 
-    if (!user) {
-      // If no user is found, return an error response to the client.
-      return next(res.status(404).json({ error: 'User not found.' }));
-    }
+      if (!user) {
+        // If no user is found, return an error response to the client.
+        return next(new NotFoundError('User not found.'));
+      }
 
-    const isVerified = user.checkResetPasswordCode(code + '');
-    if (isVerified) {
-      res.status(200).json({ message: 'The code is verified ' });
-    } else {
-      res.status(401).json({ message: 'The code is not verified ' });
+      const isVerified = user.checkResetPasswordCode(code + '');
+
+      if (isVerified) {
+        res.status(204).end(); // No need for a response body
+      } else {
+        res.status(403).json({ message: 'The code is not verified' });
+      }
+    } catch (error) {
+      return next(new InternalServerError('Internal Server Error'));
     }
   }
 
@@ -147,8 +153,7 @@ class authController {
       });
 
       if (!user) {
-        res.status(404).json({ message: "User not found or the verification code's time has expired. Please try again." });
-        return;
+        return next(new NotFoundError("User not found or the verification code's time has expired. Please try again."));
       } else {
         user.password = req.body.password;
         user.passwordResetCode = undefined;
@@ -163,7 +168,7 @@ class authController {
         res.status(200).json({ message: 'Password successfully reset.', jwtToken });
       }
     } catch (error) {
-      res.status(500).json({ message: 'Internal Server Error' });
+      return next(new InternalServerError('Internal Server Error'));
     }
   }
 }
