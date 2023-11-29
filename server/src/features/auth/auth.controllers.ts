@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import { config } from '@config/index';
 import { validate } from '@global/middlewares/validationMiddleware';
-import { checkPasswordResetCodeValidator, resetPasswordValidator, signupValidator } from '@auth/auth.validators';
+import { checkPasswordResetCodeValidator, forgotPasswordValidator, resetPasswordValidator, signupValidator } from '@auth/auth.validators';
 import Auth, { IAuthDocument } from '@auth/auth.model';
 import { string } from 'joi';
 import emailServices from '@service/email/emailServices';
@@ -92,18 +92,20 @@ class authController {
     }
   }
 
+  @validate(forgotPasswordValidator)
   public async forgotPassword(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       // 1) Get user based on POSTed email
-      const user = await Auth.findOne({ email: req.body.email });
+      const userEmail = req.body.email;
+      const user = await Auth.findOne({ email: userEmail });
 
       if (!user) {
         // If no user is found, return an error response to the client.
-        return next(res.status(404).json({ error: 'User not found.' }));
+        return next(new NotFoundError('User not found.'));
       }
 
       // 2) Generate the random reset token
-      const resetCode = user.createPasswordResetToken();
+      const resetCode = user.createPasswordResetCode();
       // Save the user with the new password reset token without running validation.
       await user.save({ validateBeforeSave: false });
 
@@ -112,8 +114,7 @@ class authController {
       // 3) Respond to the client to indicate that the reset token has been sent.
       res.status(200).json({ message: 'Password reset code sent successfully.' });
     } catch (error) {
-      // Handle any unexpected errors by passing them to the error-handling middleware.
-      next(error);
+      next(new InternalServerError('Internal Server Error'));
     }
   }
 
