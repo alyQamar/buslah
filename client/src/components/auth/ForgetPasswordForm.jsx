@@ -2,8 +2,12 @@ import { Link } from "react-router-dom"
 import arrow from "../../assets/authSVG/arrow-left.svg"
 import AuthButton from "./AuthButton"
 import InputEmail from "./InputEmail"
+import ForgetPasswordHook from "../../hook/Auth/forget-password-hook"
 const ForgetPasswordForm = () => {
+  const [OnChangeEmail, email, onSubmit] = ForgetPasswordHook();
+
   return (
+
     <form className="publicform forgetpasswordform bg-white rounded-lg">
         <Link to='/login' className="w-full ml-[10%]">
             <img src={arrow} />
@@ -15,10 +19,10 @@ const ForgetPasswordForm = () => {
             <br/>reset your password</p>
         </div>
         <div>
-            <InputEmail/>
+            <InputEmail value={email} onChange={OnChangeEmail}/>
         </div>
         <div className="authbutton authbuttonbackground">
-            <AuthButton Bname="Send" />
+            <AuthButton Bname="Send" onClick={onSubmit}/>
         </div>
         <div>
             <p className="text-gray-700 text-xs font-normal font-['Montserrat'] inline-block">Remembered your password ?</p>

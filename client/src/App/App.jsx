@@ -1,17 +1,22 @@
-import './App.css';
+// App.jsx
+
 import { BrowserRouter } from 'react-router-dom';
+
 import AppRouter from './AppRouter';
 
 const App = () => {
   return (
-    <div>
-      <BrowserRouter>
-        <AppRouter />
-      </BrowserRouter>
-    </div>
+
+      <div>
+        <BrowserRouter>
+          <AppRouter />
+        </BrowserRouter>
+      </div>
+
   );
 };
 
 export default App;
+
 
 //path='/signup'

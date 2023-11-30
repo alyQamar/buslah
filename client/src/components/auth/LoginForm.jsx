@@ -7,7 +7,7 @@ import LoginHook from "../../hook/Auth/login-hook"
 
 
 const LoginForm = () => {
-  const [email,password,onChangeEmail,onSubmit,onChangePassword] = LoginHook();
+  const [email,password,,onChangeEmail,onSubmit,onChangePassword] = LoginHook();
   return (
     <form className="publicform loginform bg-white rounded-lg">
         <div>
