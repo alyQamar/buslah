@@ -73,3 +73,11 @@ export class FileOverflowError extends ApiError {
     super(message);
   }
 }
+
+export class InternalServerError extends ApiError {
+  statusCode = HTTP_STATUS.INTERNAL_SERVER_ERROR;
+  status = 'error';
+  constructor(message: string) {
+    super(message);
+  }
+}

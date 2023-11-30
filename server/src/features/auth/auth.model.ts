@@ -13,7 +13,7 @@ export interface IAuthDocument extends Document {
   passwordResetCode?: number;
   passwordResetExpires?: number | string;
   comparePassword(candidatePassword: string): Promise<boolean>;
-  createPasswordResetToken(): string;
+  createPasswordResetCode(): string;
   checkResetPasswordCode(passwordResetCode: string): boolean;
 }
 
@@ -52,7 +52,7 @@ authSchema.methods.comparePassword = async function (candidatePassword: string) 
   return await bcrypt.compare(candidatePassword, this.password);
 };
 
-authSchema.methods.createPasswordResetToken = function (): number {
+authSchema.methods.createPasswordResetCode = function (): number {
   const passwordResetCode = crypto.randomInt(100001, 999999);
 
   this.passwordResetCode = crypto
