@@ -130,7 +130,7 @@ class authController {
       const isVerified = user.checkResetPasswordCode(code + '');
 
       if (isVerified) {
-        res.status(204).end(); // No need for a response body
+        res.status(200).json({ message: 'success' }); // No need for a response body
       } else {
         res.status(403).json({ message: 'The code is not verified' });
       }
