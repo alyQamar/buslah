@@ -10,4 +10,8 @@ export interface IUserDocument extends Document {
   companyWorkingFor?: string;
   school?: string;
   interests?: string[];
+  authID: {
+    type: string | mongoose.Types.ObjectId;
+    ref: 'auth';
+  };
 }

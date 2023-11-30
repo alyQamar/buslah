@@ -1,10 +1,10 @@
 import mongoose, { Document } from 'mongoose';
 
 interface IReactions {
-  like: number,
-  love: number,
-  celebrate: number,
-  angry: number
+  like: number;
+  love: number;
+  celebrate: number;
+  angry: number;
 }
 
 export interface IPostDocument extends Document {
@@ -25,4 +25,8 @@ export interface IPostDocument extends Document {
   gifUrl?: string;
   privacy?: string;
   reactions?: IReactions;
+  author: {
+    type: string | mongoose.Types.ObjectId;
+    ref: 'user';
+  };
 }

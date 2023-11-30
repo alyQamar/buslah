@@ -13,6 +13,7 @@ import {
 import Auth from '@auth/auth.model';
 import emailServices from '@service/email/emailServices';
 import { InternalServerError, NotFoundError, BadRequestError } from '@global/middlewares/errorMiddleware';
+import UserModel from '@user/user.model';
 
 class authController {
   public static createToken = (userId: ObjectId): string => {
@@ -52,6 +53,12 @@ class authController {
 
       // Creating a new document using the Auth model
       const newDoc = await Auth.create(data);
+
+      // Creating a new user document using User model, sending Auth id with it
+      const newUser = await UserModel.create({
+        authID: newDoc._id,
+        firstName: data.name
+      });
 
       // generate a JWT token & send it via cookie
       const id = newDoc._id as unknown as ObjectId;
