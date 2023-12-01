@@ -39,9 +39,9 @@ useEffect(() => {
                    navigate("/checkemail")
                  }, 1000);
             }
-            // if (res.data.status === "fail") {
-            //     console.log("هذا الحساب غير موجود لدينا")
-            // }
+            if (res.data.error === "User not found.") {
+                console.log(res.data.error)
+            }
         }
     }
 }, [loading])

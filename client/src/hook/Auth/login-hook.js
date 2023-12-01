@@ -53,6 +53,7 @@ useEffect(() => {
 
           if (res.data.message === "Incorrect email or password") {
               localStorage.removeItem("token")
+              console.log(res.data.message)
           }
           setLoading(true)
       }

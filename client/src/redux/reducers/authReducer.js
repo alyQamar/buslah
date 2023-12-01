@@ -1,9 +1,11 @@
-import { CREATE_NEW_USER, FOREGT_PASSWORD, LOGIN_USER} from '../type'
+import { CREATE_NEW_USER, FOREGT_PASSWORD, LOGIN_USER, RESET_PASSWORD, VERIFY_PASSWORD} from '../type'
 
 const inital = {
     createUser: [],
     loginUser: [],
     forgetPassword: [],
+    verifyPassword: [],
+    resetPassword: [],
     loading: true
 }
 const authReducer = (state = inital, action) => {
@@ -23,6 +25,16 @@ const authReducer = (state = inital, action) => {
             return {
                 ...state,
                 forgetPassword: action.payload,
+            }
+        case VERIFY_PASSWORD:
+              return {
+                  ...state,
+                  verifyPassword: action.payload,
+              }
+        case RESET_PASSWORD:
+            return {
+                ...state,
+                resetPassword: action.payload,
             }
         default:
             return state;

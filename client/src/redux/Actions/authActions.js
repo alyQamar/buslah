@@ -1,6 +1,7 @@
 
-import { CREATE_NEW_USER, FOREGT_PASSWORD, LOGIN_USER} from '../type'
+import { CREATE_NEW_USER, FOREGT_PASSWORD, LOGIN_USER, RESET_PASSWORD, VERIFY_PASSWORD} from '../type'
 import { useInsertData } from '../../hooks/useInsertData'
+import { useInsUpdateData } from '../../hooks/useUpdateData';
 
 
 //create new user
@@ -57,6 +58,42 @@ export const forgetPassword = (data) => async (dispatch) => {
   }
 }
 
+//2-verify  passwrod
+export const verifyPassword = (data) => async (dispatch) => {
+  try {
+      const response = await useInsertData(`/check-code`, data);
+      dispatch({
+          type: VERIFY_PASSWORD,
+          payload: response,
+          loading: true
+      })
+
+  } catch (e) {
+      dispatch({
+          type: VERIFY_PASSWORD,
+          payload: e.response,
+      })
+  }
+}
+
+//2-reset  passwrod
+export const resetPassword = (data) => async (dispatch) => {
+  try {
+      const response = await useInsUpdateData(`/reset-password`, data);
+      dispatch({
+          type: RESET_PASSWORD,
+          payload: response,
+          loading: true
+      })
+
+  } catch (e) {
+      dispatch({
+          type: RESET_PASSWORD,
+          payload: e.response,
+      })
+  }
+}
+
 // //login  user
 // export const getLoggedUser = () => async (dispatch) => {
 //     try {
@@ -79,42 +116,10 @@ export const forgetPassword = (data) => async (dispatch) => {
 
 
 
-// //2-verify  passwrod
-// export const verifyPassword = (data) => async (dispatch) => {
-//     try {
-//         const response = await useInsertData(`/api/v1/auth/verifyResetCode`, data);
-//         dispatch({
-//             type: VERIFY_PASSWORD,
-//             payload: response,
-//             loading: true
-//         })
-
-//     } catch (e) {
-//         dispatch({
-//             type: VERIFY_PASSWORD,
-//             payload: e.response,
-//         })
-//     }
-// }
 
 
-// //2-reset  passwrod
-// export const resetPassword = (data) => async (dispatch) => {
-//     try {
-//         const response = await useInsUpdateData(`/api/v1/auth/resetPassword`, data);
-//         dispatch({
-//             type: RESET_PASSWORD,
-//             payload: response,
-//             loading: true
-//         })
 
-//     } catch (e) {
-//         dispatch({
-//             type: RESET_PASSWORD,
-//             payload: e.response,
-//         })
-//     }
-// }
+
 
 
 

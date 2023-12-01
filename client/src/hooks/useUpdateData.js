@@ -1,5 +1,15 @@
-// import baseUrl from '../Api/baseURL'
+import baseUrl from '../Api/baseURL'
 
+
+const useInsUpdateData = async (url, parmas) => {
+  const config = {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+  }
+  const res = await baseUrl.post(url, parmas, config);
+  return res;
+}
+
+export {  useInsUpdateData };
 
 // const useUpdateDataWithImage = async (url, parmas) => {
 //     const config = {
@@ -10,12 +20,3 @@
 //     return res;
 // }
 
-// const useUpdateData = async (url, parmas) => {
-//     const config = {
-//         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
-//     }
-//     const res = await baseUrl.put(url, parmas, config);
-//     return res;
-// }
-
-// export { useUpdateDataWithImage, useUpdateData };
