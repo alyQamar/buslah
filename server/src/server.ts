@@ -62,7 +62,8 @@ export class ServerInit {
     });
   }
 
-  private async startServer(app: Application): void {
+  // if you will test socket change it to async
+  private startServer(app: Application): void {
     try {
       const httpServer: http.Server = new http.Server(app);
       // const socketIO: Server = await this.createSocketIO(httpServer);
