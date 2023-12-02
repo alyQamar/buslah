@@ -2,6 +2,7 @@ import { Model, Document } from 'mongoose';
 import { Request, Response } from 'express';
 import { NotFoundError } from '@global/middlewares/errorMiddleware';
 import QueryService from './query.service';
+import HTTP_STATUS from 'http-status-codes';
 
 export type CommonFunctions<T extends Document> = {
   getOne: (req: Request, res: Response) => Promise<void>,
@@ -19,7 +20,7 @@ export const createCommonService = <T extends Document>(Model: Model<T>, modelNa
       throw new NotFoundError(`No document for this id: ${id}`);
     }
 
-    res.status(204).send();
+    res.status(HTTP_STATUS.NO_CONTENT).send();
   };
 
   const updateOne = async (req: Request, res: Response) => {
@@ -30,7 +31,7 @@ export const createCommonService = <T extends Document>(Model: Model<T>, modelNa
       throw new NotFoundError(`No document for this id ${req.params.id}`);
     }
 
-    res.status(200).json({
+    res.status(HTTP_STATUS.OK).json({
       status: 'success',
       data: { document }
     });
@@ -38,7 +39,7 @@ export const createCommonService = <T extends Document>(Model: Model<T>, modelNa
 
   const createOne = async (req: Request, res: Response) => {
     const document = await Model.create(req.body);
-    res.status(201).json({
+    res.status(HTTP_STATUS.CREATED).json({
       status: 'success',
       data: { document }
     });
@@ -50,7 +51,7 @@ export const createCommonService = <T extends Document>(Model: Model<T>, modelNa
     if (!document) {
       throw new NotFoundError(`No document for this id: ${id}`);
     }
-    res.status(200).json({
+    res.status(HTTP_STATUS.OK).json({
       status: 'success',
       data: { document }
     });
@@ -71,7 +72,7 @@ export const createCommonService = <T extends Document>(Model: Model<T>, modelNa
     const { mongooseQuery, paginationResult } = apiFeatures;
     const documents = await mongooseQuery.exec();
     res
-      .status(200)
+      .status(HTTP_STATUS.OK)
       .json({ results: documents.length, paginationResult, data: documents });
   };
 
