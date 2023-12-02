@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Application, json, urlencoded, Response, Request, NextFunction } from 'express';
 import http from 'http';
 import cors from 'cors';
@@ -11,6 +12,7 @@ import 'express-async-errors';  // pass an error happens to response
 import { config } from '@config/index';
 import routes from '@root/routes';
 import { ApiError, IErrorRes } from '@global/middlewares/errorMiddleware';
+import { SocketIOPost } from '@socket/post.socket';
 
 const log: Logger = config.createLogger('server');
 
@@ -60,14 +62,17 @@ export class ServerInit {
     });
   }
 
-  private startServer(app: Application): void {
+  private async startServer(app: Application): void {
     try {
       const httpServer: http.Server = new http.Server(app);
+      // const socketIO: Server = await this.createSocketIO(httpServer);
       this.listenServer(httpServer);
+      // this.socketIOConn(socketIO);
     } catch (error) {
       log.error(error);
     }
   }
+
   private async createSocketIO(httpServer: http.Server): Promise<Server> {
     const io: Server = new Server(httpServer, {
       cors: {
@@ -81,6 +86,12 @@ export class ServerInit {
     io.adapter(createAdapter(pubClient, subClient));
     return io;
   }
+
+  private socketIOConn(io: Server): void {
+    // handle all sockets connections
+    const postSocket: SocketIOPost = new SocketIOPost(io);
+  }
+
   private listenServer(httpServer: http.Server): void {
     httpServer.listen(config.PORT, () => {
       log.info(`Server running on port: ${config.PORT}, on process:${process.pid}`);
