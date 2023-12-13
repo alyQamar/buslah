@@ -1,4 +1,4 @@
-import { model, Model, Schema, Document } from 'mongoose'; // Importing Mongoose functions
+import { model, Model, Schema, Document, Types } from 'mongoose'; // Importing Mongoose functions
 import { ObjectId } from 'mongodb'; // Importing MongoDB's ObjectId
 import { IUserDocument } from '@user/user.interfaces';
 
@@ -11,13 +11,17 @@ const userSchema: Schema = new Schema(
     role: {
       type: String,
       enum: ['admin', 'mentor', 'mentee'],
-      default: 'mentee',
+      default: 'mentee'
     },
     photo: { type: String },
     country: { type: String },
     companyWorkingFor: { type: String },
     school: { type: String },
-    interests: { type: [String] }
+    interests: { type: [String] },
+    authID: {
+      type: String || ObjectId,
+      ref: 'auth'
+    }
   },
   {
     timestamps: true
