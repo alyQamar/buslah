@@ -5,11 +5,11 @@ import { PostModel } from '@post/post.model';
 import { createCommonService, CommonFunctions } from '@service/db/common.service';
 import { IPostDocument } from '@post/post.interfaces';
 import { NotFoundError } from '@global/middlewares/errorMiddleware';
+import UserModel from '@user/user.model';
 
 const CRUDFunctions: CommonFunctions<IPostDocument> = createCommonService<IPostDocument>(PostModel, 'Posts');
 
 export class PostController {
-
   /**
    * @desc Create a post
    * @route POST /posts/:id
@@ -18,6 +18,7 @@ export class PostController {
   @validate(basePostValidator.concat(postNullabilityValidator))
   public static async createPost(req: Request, res: Response) {
     try {
+      // if (!req.authorID) req.authorID = req.user.id;
       await CRUDFunctions.createOne(req, res);
     } catch (error) {
       throw new NotFoundError('Error creating post');
@@ -52,10 +53,10 @@ export class PostController {
   }
 
   /**
- * @desc Delete a single post by id
- * @route DELETE/posts/:id
- * @access Private/User
- */
+   * @desc Delete a single post by id
+   * @route DELETE/posts/:id
+   * @access Private/User
+   */
   public static async deletePost(req: Request, res: Response) {
     try {
       await CRUDFunctions.deleteOne(req, res);

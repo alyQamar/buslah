@@ -29,7 +29,6 @@ const postSchema: Schema = new Schema({
     bookmarks: { type: Number, default: 0 },
   }
 }, { timestamps: true });
-
 // Mongoose query middleware
 postSchema.pre(/^find/, function (next) {
   this.populate('user'); // Populate the 'user' field
@@ -51,4 +50,3 @@ postSchema.pre(/^find/, function (next) {
 });
 
 export const PostModel: Model<IPostDocument> = model<IPostDocument>('Post', postSchema);
-
