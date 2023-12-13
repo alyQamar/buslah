@@ -1,32 +1,38 @@
-import mongoose, { Document } from 'mongoose';
+import { ObjectId } from 'mongodb';
+import { Document } from 'mongoose';
+import { ICommentDocument } from '@comment/comment.interfaces';
+// import { IReactionsDocument } from '@reactions/reactions.interfaces';
 
-interface IReactions {
-  like: number;
-  love: number;
-  celebrate: number;
-  angry: number;
+export enum PrivacyOptions {
+  Public = 'public',
+  Private = 'private',
+  Followers = 'followers',
 }
 
-export interface IPostDocument extends Document {
-  _id?: string | mongoose.Types.ObjectId;
-  userId: string;
-  username: string;
-  email: string;
-  avatarColor: string;
-  profilePicture: string;
-  post: string;
+export enum Feelings {
+  Happy = 'happy',
+  Sad = 'sad',
+  Excited = 'excited',
+}
+
+
+interface IPostBase {
+  content: string;
   bgColor: string;
-  commentsCount: number;
-  imgVersion?: string;
-  imgId?: string;
-  videoId?: string;
-  videoVersion?: string;
-  feelings?: string;
-  gifUrl?: string;
-  privacy?: string;
-  reactions?: IReactions;
-  author: {
-    type: string | mongoose.Types.ObjectId;
-    ref: 'user';
-  };
+  feelings?: Feelings;
+  // imgVersion?: string;
+  // imgId?: string;
+  // videoId?: string;
+  // videoVersion?: string;
+  privacy?: PrivacyOptions;
+  shares: number;
+  // reactions?: IReactionsDocument[];
+  comments?: ICommentDocument[];
+}
+
+export interface IPostDocument extends Document, IPostBase {
+  _id: ObjectId;
+  parentPost?: ObjectId;
+  prevPost?: ObjectId;
+  user: ObjectId;
 }

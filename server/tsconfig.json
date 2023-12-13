@@ -25,7 +25,7 @@
       "@user/*": ["src/features/user/*"],
       "@post/*": ["src/features/post/*"],
       "@reaction/*": ["src/features/reactions/*"],
-      "@comment/*": ["src/features/comments/*"],
+      "@comment/*": ["src/features/comment/*"],
       "@follower/*": ["src/features/followers/*"],
       "@notification/*": ["src/features/notifications/*"],
       "@image/*": ["src/features/images/*"],

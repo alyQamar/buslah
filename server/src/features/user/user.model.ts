@@ -5,6 +5,7 @@ import { IUserDocument } from '@user/user.interfaces';
 // 2- Define a Mongoose schema for the user
 const userSchema: Schema = new Schema(
   {
+    savedPosts: [{ type: ObjectId, ref: 'Post' }],
     firstName: { type: String },
     lastName: { type: String },
     role: {
