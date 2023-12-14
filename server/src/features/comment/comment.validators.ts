@@ -1,30 +1,35 @@
 import Joi, { ObjectSchema } from 'joi';
 
-// Base post validator schema
-export const basePostValidator: ObjectSchema = Joi.object().keys({
-  post: Joi.string().optional().allow(null, ''),
-  bgColor: Joi.string().optional().allow(null, ''),
-  privacy: Joi.string().optional().allow(null, ''),
-  feelings: Joi.string().optional().allow(null, ''),
-  profilePicture: Joi.string().optional().allow(null, ''),
-  // For Uploaded media middleware------------------------
-  imgId: Joi.string().optional().allow(null, ''),
-  // -----------------------------------------------------
-});
+// Common error messages
+const requiredMessage = (field: string) => `${field} ID is a required field for a comment`;
+const emptyStringMessage = (field: string) => `${field} property is not allowed to be empty`;
 
-// Validator for image posts extending from basePostValidator
-export const imagePostValidator: ObjectSchema = basePostValidator.keys({
-  image: Joi.string().required().messages({
-    'any.required': 'Image is a required field',
-    'string.empty': 'Image property is not allowed to be empty'
+// Base comment validator schema
+export const baseCommentValidator: ObjectSchema = Joi.object({
+  comment: Joi.string().allow('').default(''),
+  post: Joi.string().required().messages({
+    'any.required': requiredMessage('Post'),
+    'string.empty': emptyStringMessage('Post'),
+  }),
+  user: Joi.string().required().messages({
+    'any.required': requiredMessage('User'),
+    'string.empty': emptyStringMessage('User'),
   }),
 });
 
-// Conditional validation to allow 'post' , 'image' or both if found
-export const postNullabilityValidator: ObjectSchema = Joi.object().keys({
-  post: Joi.string().optional().allow(null, ''),
-  image: Joi.string().optional().allow(null, ''),
-}).or('post', 'image').messages({
-  'object.or': 'At least one of "post" or "image" is required in a post',
+// Validator for comment with reactions extending from baseCommentValidator
+export const reactionCommentValidator: ObjectSchema = baseCommentValidator.keys({
+  reactions: Joi.array().items(Joi.string()).default([]),
 });
 
+// Conditional validation for comment properties
+export const commentNullabilityValidator: ObjectSchema = Joi.object({
+  comment: Joi.string().allow('').optional(),
+  post: Joi.string().required(),
+  user: Joi.string().required(),
+});
+
+// Validator for the entire comment, including reactions and nullability
+export const fullCommentValidator: ObjectSchema = baseCommentValidator.keys({
+  reactions: Joi.array().items(Joi.string()).default([]),
+}).concat(commentNullabilityValidator);

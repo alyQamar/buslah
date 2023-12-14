@@ -4,6 +4,7 @@ import { CommentModel } from '@comment/comment.model';
 import { createCommonService, CommonFunctions } from '@service/db/common.service';
 import { ICommentDocument } from '@comment/comment.interfaces';
 import { NotFoundError } from '@global/middlewares/errorMiddleware';
+import { baseCommentValidator } from './comment.validators';
 
 const CRUDFunctions: CommonFunctions<ICommentDocument> = createCommonService<ICommentDocument>(CommentModel, 'Comments');
 
@@ -14,6 +15,7 @@ export class CommentController {
    * @route POST /comments/:id
    * @access Private/User
    */
+  @validate(baseCommentValidator)
   public static async createComment(req: Request, res: Response) {
     try {
       await CRUDFunctions.createOne(req, res);

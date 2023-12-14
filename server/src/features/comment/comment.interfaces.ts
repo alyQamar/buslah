@@ -1,15 +1,14 @@
-import { ObjectId } from 'mongodb';
-import { Document } from 'mongoose';
-// import { IReactionsDocument } from '@reactions/reactions.interfaces';
+import mongoose, { Document } from 'mongoose';
+import { IReactionDocument } from '@reaction/reaction.interfaces';
 
 interface ICommentBase {
-  content: string;
-  // reactions: IReactionsDocument[];
+  comment: string;
+  reactions?: IReactionDocument[];
 }
 
 export interface ICommentDocument extends Document, ICommentBase {
-  _id: ObjectId;
-  parentComment?: ObjectId;
-  post: ObjectId;
-  user: ObjectId;
+  _id: mongoose.Types.ObjectId | string;
+  parentComment?: mongoose.Types.ObjectId | string;
+  post: mongoose.Types.ObjectId | string;
+  user: mongoose.Types.ObjectId | string;
 }
