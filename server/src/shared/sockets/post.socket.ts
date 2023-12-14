@@ -21,10 +21,9 @@ export class SocketIOPost {
     socket.on('disconnect', () => {
       console.log(`Socket disconnected: ${socket.id}`);
     });
-
   };
 
-  private handleReactionEvent = () => { };
+  private handleReactionEvent = () => {};
 
-  private handleCommentEvent = () => { };
+  private handleCommentEvent = () => {};
 }
