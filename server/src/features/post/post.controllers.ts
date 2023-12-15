@@ -5,7 +5,6 @@ import { PostModel } from '@post/post.model';
 import { createCommonService, CommonFunctions } from '@service/db/common.service';
 import { IPostDocument } from '@post/post.interfaces';
 import { NotFoundError } from '@global/middlewares/errorMiddleware';
-import UserModel from '@user/user.model';
 
 const CRUDFunctions: CommonFunctions<IPostDocument> = createCommonService<IPostDocument>(PostModel, 'Posts');
 

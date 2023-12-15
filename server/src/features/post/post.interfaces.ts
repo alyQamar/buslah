@@ -1,16 +1,37 @@
 import mongoose, { Document } from 'mongoose';
+import { ICommentDocument } from '@comment/comment.interfaces';
+import { IReactionDocument } from '@reaction/reaction.interfaces';
 
-export interface IPostDocument extends Document {
-  _id?: string | mongoose.Types.ObjectId;
+export enum PrivacyOptions {
+  Public = 'public',
+  Private = 'private',
+  Followers = 'followers',
+}
+
+export enum Feelings {
+  Happy = 'happy',
+  Sad = 'sad',
+  Excited = 'excited',
+}
+
+
+interface IPostBase {
   post: string;
   bgColor: string;
-  createdAt: Date;
-  authorID: {
-    type: string | mongoose.Types.ObjectId;
-    ref: 'user';
-  };
-  reactions: {
-    type: string | mongoose.Types.ObjectId;
-    ref: 'reaction';
-  };
+  // imgVersion?: string;
+  // imgId?: string;
+  // videoId?: string;
+  // videoVersion?: string;
+  feelings?: Feelings;
+  privacy?: PrivacyOptions;
+  shares: number;
+  reactions?: IReactionDocument[];
+  comments?: ICommentDocument[];
+}
+
+export interface IPostDocument extends Document, IPostBase {
+  _id: mongoose.Types.ObjectId | string;
+  parentPost?: mongoose.Types.ObjectId | string;
+  prevPost?: mongoose.Types.ObjectId | string;
+  user: mongoose.Types.ObjectId | string;
 }
