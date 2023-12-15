@@ -1,14 +1,22 @@
 import Joi, { ObjectSchema } from 'joi';
+import { Feelings, PrivacyOptions } from './post.interfaces';
+
+// Get enum values as an array
+const feelingsEnumValues = Object.values(Feelings);
+const privacyEnumValues = Object.values(PrivacyOptions);
 
 // Base post validator schema
 export const basePostValidator: ObjectSchema = Joi.object().keys({
+  user: Joi.string().required(),
   post: Joi.string().optional().allow(null, ''),
   bgColor: Joi.string().optional().allow(null, ''),
-  privacy: Joi.string().optional().allow(null, ''),
-  feelings: Joi.string().optional().allow(null, ''),
-  profilePicture: Joi.string().optional().allow(null, ''),
+  feelings: Joi.string().optional().valid(...feelingsEnumValues).allow(''),
+  privacy: Joi.string().optional().valid(...privacyEnumValues).allow(''),
+  shares: Joi.number(),
+  reactions: Joi.array().items(Joi.object()),
+  comments: Joi.array().items(Joi.object()),
   // For Uploaded media middleware------------------------
-  imgId: Joi.string().optional().allow(null, ''),
+  // imgId: Joi.string().optional().allow(null, ''),
   // -----------------------------------------------------
 });
 

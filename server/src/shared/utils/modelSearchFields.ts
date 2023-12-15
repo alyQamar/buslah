@@ -1,4 +1,5 @@
 export const fieldMapping: Record<string, string[]> = {
-  'Posts': ['post', 'imgID', 'bgColor'],
-  'Users': ['userName', 'bio']
+  'Users': ['userName', 'bio'],
+  'Posts': ['post'],
+  'Comments': ['comment'],
 };
