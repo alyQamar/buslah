@@ -9,6 +9,7 @@ class followsRoutes {
   constructor() {
     this.router = express.Router();
     this.router.post('/follow', controller.follow);
+    this.router.delete('/unfollow', controller.unfollow);
   }
 
   routes(): Router {
