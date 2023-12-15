@@ -14,6 +14,7 @@ import Auth from '@auth/auth.model';
 import emailServices from '@service/email/emailServices';
 import { InternalServerError, NotFoundError, BadRequestError } from '@global/middlewares/errorMiddleware';
 import UserModel from '@user/user.model';
+import followsModel from '@follows/follows.model';
 
 class authController {
   public static createToken = (userId: ObjectId): string => {
@@ -59,6 +60,11 @@ class authController {
         authID: newDoc._id,
         firstName: data.name
       });
+
+      // Creating a new follos document
+      const followDoc = await followsModel.create({});
+      newUser.followsID = followDoc._id;
+      await newUser.save();
 
       // generate a JWT token & send it via cookie
       const id = newDoc._id as unknown as ObjectId;
