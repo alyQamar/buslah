@@ -10,7 +10,7 @@ class followsRoutes {
     this.router = express.Router();
     this.router.post('/follow', controller.follow);
     this.router.delete('/unfollow', controller.unfollow);
-    this.router.get('/get-followers', controller.getFollowers);
+    this.router.get('/get-follows', controller.getFollows);
   }
 
   routes(): Router {

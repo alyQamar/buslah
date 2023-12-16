@@ -85,9 +85,9 @@ class followsController {
     }
   };
 
-  public static getFollowers = async (req: Request, res: Response, next: NextFunction) => {
+  public static getFollows = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { userID } = req.body;
+      const { userID, type } = req.body;
 
       // Check if user exist
       const user = await userModel.findById(userID);
@@ -98,13 +98,22 @@ class followsController {
       //get followsId of the user and follower
       const followsIdOfUser = user.followsID;
       const follows = await followsModel.findById(followsIdOfUser);
-      const followers = follows?.followings;
+      const followers = follows?.followers;
+      const followings = follows?.followings;
 
-      if (!followers || followers.length === 0) {
-        return res.status(200).json({ message: 'User has no followers' });
+      if (type === 'followers') {
+        if (!followers || followers.length === 0) {
+          return res.status(200).json({ message: 'User has no followers' });
+        }
+
+        return res.status(200).json({ message: 'success to get all followers ', Followers: followers });
+      } else if (type === 'followings') {
+        if (!followings || followings.length === 0) {
+          return res.status(200).json({ message: 'User has not follow anyone' });
+        }
+
+        return res.status(200).json({ message: 'success to get all followings ', Followings: followings });
       }
-
-      return res.status(200).json({ message: 'success to get all followers ', Followers: followers });
     } catch (error) {
       return res.status(500).json({ error: 'Internal server error' });
     }
