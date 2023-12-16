@@ -1,4 +1,4 @@
-import { model, Model, Schema, Document } from 'mongoose'; // Importing Mongoose functions
+import { model, Model, Schema, Document, Types } from 'mongoose'; // Importing Mongoose functions
 import { ObjectId } from 'mongodb'; // Importing MongoDB's ObjectId
 import { Request, Response, NextFunction } from 'express';
 import followsModel from '@follows/follows.model';
@@ -82,6 +82,31 @@ class followsController {
     } catch (error) {
       console.error('Error in follow function:', error);
       return res.status(500).json({ error: 'Internal Server Error' });
+    }
+  };
+
+  public static getFollowers = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { userID } = req.body;
+
+      // Check if user exist
+      const user = await userModel.findById(userID);
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+
+      //get followsId of the user and follower
+      const followsIdOfUser = user.followsID;
+      const follows = await followsModel.findById(followsIdOfUser);
+      const followers = follows?.followings;
+
+      if (!followers || followers.length === 0) {
+        return res.status(200).json({ message: 'User has no followers' });
+      }
+
+      return res.status(200).json({ message: 'success to get all followers ', Followers: followers });
+    } catch (error) {
+      return res.status(500).json({ error: 'Internal server error' });
     }
   };
 }
