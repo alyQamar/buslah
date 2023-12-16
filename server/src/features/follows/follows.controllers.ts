@@ -3,6 +3,7 @@ import { ObjectId } from 'mongodb'; // Importing MongoDB's ObjectId
 import { Request, Response, NextFunction } from 'express';
 import followsModel from '@follows/follows.model';
 import userModel from '@user/user.model';
+import { InternalServerError, NotFoundError, BadRequestError } from '@global/middlewares/errorMiddleware';
 
 class followsController {
   public static follow = async (req: Request, res: Response, next: NextFunction) => {
@@ -13,7 +14,7 @@ class followsController {
       const user = await userModel.findById(userID);
       const follower = await userModel.findById(followerID);
       if (!user || !follower) {
-        return res.status(404).json({ error: 'User not found' });
+        return next(new NotFoundError('User not found.'));
       }
 
       //get followsId of the user and follower
@@ -35,13 +36,13 @@ class followsController {
       );
 
       if (!updatedUser || !updatedFollower) {
-        return res.status(500).json({ error: 'Failed to update follows' });
+        next(new InternalServerError('Failed to update follows.'));
       }
 
       res.status(200).json({ message: 'Success' });
     } catch (error) {
       console.error('Error in follow function:', error);
-      return res.status(500).json({ error: 'Internal Server Error' });
+      next(new InternalServerError('Internal Server Error.'));
     }
   };
 
@@ -53,7 +54,7 @@ class followsController {
       const user = await userModel.findById(userID);
       const follower = await userModel.findById(followerID);
       if (!user || !follower) {
-        return res.status(404).json({ error: 'User not found' });
+        return next(new NotFoundError('User not found.'));
       }
 
       //get followsId of the user and follower
@@ -75,13 +76,13 @@ class followsController {
       );
 
       if (!updatedUser || !updatedFollower) {
-        return res.status(500).json({ error: 'Failed to update follows' });
+        next(new InternalServerError('Failed to update follows.'));
       }
 
       res.status(200).json({ message: 'Success to unfollow this user' });
     } catch (error) {
       console.error('Error in follow function:', error);
-      return res.status(500).json({ error: 'Internal Server Error' });
+      next(new InternalServerError('Internal Server Error.'));
     }
   };
 
@@ -92,7 +93,7 @@ class followsController {
       // Check if user exist
       const user = await userModel.findById(userID);
       if (!user) {
-        return res.status(404).json({ error: 'User not found' });
+        return next(new NotFoundError('User not found.'));
       }
 
       //get followsId of the user and follower
@@ -103,7 +104,7 @@ class followsController {
 
       if (type === 'followers') {
         if (!followers || followers.length === 0) {
-          return res.status(200).json({ message: 'User has no followers' });
+          return next(new BadRequestError('User has no followers'));
         }
 
         return res.status(200).json({ message: 'success to get all followers ', Followers: followers });
@@ -111,11 +112,10 @@ class followsController {
         if (!followings || followings.length === 0) {
           return res.status(200).json({ message: 'User has not follow anyone' });
         }
-
         return res.status(200).json({ message: 'success to get all followings ', Followings: followings });
       }
     } catch (error) {
-      return res.status(500).json({ error: 'Internal server error' });
+      next(new InternalServerError('Internal Server Error.'));
     }
   };
 }
