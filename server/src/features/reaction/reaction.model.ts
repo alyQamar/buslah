@@ -1,5 +1,6 @@
 import mongoose, { model, Model, Schema } from 'mongoose';
 import { IReactionDocument } from '@reaction/reaction.interfaces';
+import { boolean } from 'joi';
 
 const reactionSchema: Schema = new Schema({
   userID: {
@@ -8,9 +9,18 @@ const reactionSchema: Schema = new Schema({
     required: [true, 'Reaction must belong to a user.'],
     unique: true
   },
+  onPost: {
+    type: boolean
+  },
   postID: {
     type: String || mongoose.Schema.Types.ObjectId,
     ref: 'post',
+    required: [true, 'Reaction must belong to a post.'],
+    unique: true
+  },
+  commentID: {
+    type: String || mongoose.Schema.Types.ObjectId,
+    ref: 'comment',
     required: [true, 'Reaction must belong to a post.'],
     unique: true
   },
@@ -19,7 +29,6 @@ const reactionSchema: Schema = new Schema({
     enum: ['like', 'dislike', 'love'],
     default: 'like'
   }
-  // TODO: make reaction for the comments (add commentID) .. and make its controllers and routes
 });
 
 export const reactionModel: Model<IReactionDocument> = model<IReactionDocument>('Reaction', reactionSchema);

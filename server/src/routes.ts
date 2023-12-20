@@ -11,7 +11,7 @@ export default (app: Application) => {
     app.use('/users', userRoutes.routes());
     app.use('/posts', postRoutes.routes());
     app.use('/comments', commentRoutes.routes());
-    app.use('/reviews', reactionRoutes.routes());
+    app.use('/reactions', reactionRoutes.routes());
   };
   routes();
 };
