@@ -14,4 +14,8 @@ export interface IUserDocument extends Document {
     type: string | mongoose.Types.ObjectId;
     ref: 'auth';
   };
+  followsID: {
+    type: string | mongoose.Types.ObjectId;
+    ref: 'follows';
+  };
 }
