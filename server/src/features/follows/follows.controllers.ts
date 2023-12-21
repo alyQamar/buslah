@@ -1,12 +1,17 @@
 import { model, Model, Schema, Document, Types } from 'mongoose'; // Importing Mongoose functions
 import { ObjectId } from 'mongodb'; // Importing MongoDB's ObjectId
 import { Request, Response, NextFunction } from 'express';
-import followsModel from '@follows/follows.model';
-import userModel from '@user/user.model';
+
+import { validate } from '@global/middlewares/validationMiddleware';
 import { InternalServerError, NotFoundError, BadRequestError } from '@global/middlewares/errorMiddleware';
 
+import { followUnfollowValidator, getFollowsValidator } from './follows.validators';
+import followsModel from '@follows/follows.model';
+import userModel from '@user/user.model';
+
 class followsController {
-  public static follow = async (req: Request, res: Response, next: NextFunction) => {
+  @validate(followUnfollowValidator)
+  public static async follow(req: Request, res: Response, next: NextFunction) {
     try {
       const { userID, followerID } = req.body;
 
@@ -46,7 +51,8 @@ class followsController {
     }
   };
 
-  public static unfollow = async (req: Request, res: Response, next: NextFunction) => {
+  @validate(followUnfollowValidator)
+  public static async unfollow(req: Request, res: Response, next: NextFunction) {
     try {
       const { userID, followerID } = req.body;
 
@@ -86,7 +92,8 @@ class followsController {
     }
   };
 
-  public static getFollows = async (req: Request, res: Response, next: NextFunction) => {
+  @validate(getFollowsValidator)
+  public static async getFollows(req: Request, res: Response, next: NextFunction) {
     try {
       const { userID, type } = req.body;
 
