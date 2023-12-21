@@ -28,7 +28,7 @@
       "@comment/*": ["src/features/comment/*"],
       "@follows/*": ["src/features/follows/*"],
       "@notification/*": ["src/features/notifications/*"],
-      "@image/*": ["src/features/images/*"],
+      "@media/*": ["src/features/media/*"],
       "@chat/*": ["src/features/chat/*"],
       "@global/*": ["src/shared/global/*"],
       "@service/*": ["src/shared/services/*"],
