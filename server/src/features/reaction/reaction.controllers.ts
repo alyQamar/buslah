@@ -1,20 +1,39 @@
 import { Request, Response, NextFunction } from 'express';
-import { config } from '@config/index';
-import { validate } from '@global/middlewares/validationMiddleware';
+// import { config } from '@config/index';
+// import { validate } from '@global/middlewares/validationMiddleware';
 import { reactionModel } from '@reaction/reaction.model';
 import { IReactionDocument } from '@reaction/reaction.interfaces';
 import { createCommonService, CommonFunctions } from '@service/db/common.service';
-import { NotFoundError } from '@global/middlewares/errorMiddleware';
+import { BadRequestError, NotFoundError } from '@global/middlewares/errorMiddleware';
 
 const CRUDFunctions: CommonFunctions<IReactionDocument> = createCommonService<IReactionDocument>(reactionModel, 'Reactions');
 
 class reactionController {
-  // TODO: handle sending userID, PostID with the req
-  public async createReaction(req: Request, res: Response) {
+  public async createReaction(req: Request, res: Response, next: NextFunction) {
     try {
+      const { onPost, postID, commentID } = req.body;
+
+      // Checking if postID and commentID exists according to the type of onPost
+      if (onPost) {
+        if (!postID) {
+          return next(new BadRequestError('The reaction must belong to a post.'));
+        }
+      } else {
+        if (!commentID) {
+          return next(new BadRequestError('The reaction must belong to a comment.'));
+        }
+      }
+
+      // checking if the user makes a prev reaction on this post or comment
+      const foundPrevReaction = await reactionModel.find({ userID: req.body.userID });
+      if (foundPrevReaction) {
+        return next(new BadRequestError('Each user can only react once.'));
+      }
+
+      // If the body passes all this tests then create a new reaction
       await CRUDFunctions.createOne(req, res);
     } catch (error) {
-      throw new NotFoundError('Error creating reaction.');
+      return next(new NotFoundError('Error Creating reaction.'));
     }
   }
 
@@ -22,7 +41,7 @@ class reactionController {
     try {
       await CRUDFunctions.getOne(req, res);
     } catch (error) {
-      throw new NotFoundError('Cannot find the reaction.');
+      return next(new NotFoundError('Cannot find the reaction.'));
     }
   }
 
@@ -30,7 +49,7 @@ class reactionController {
     try {
       await CRUDFunctions.deleteOne(req, res);
     } catch (error) {
-      throw new NotFoundError('Cannot find the reaction.');
+      return next(new NotFoundError('Cannot find the reaction.'));
     }
   }
 
@@ -38,7 +57,7 @@ class reactionController {
     try {
       await CRUDFunctions.updateOne(req, res);
     } catch (error) {
-      throw new NotFoundError('Cannot find the reaction.');
+      return next(new NotFoundError('Cannot find the reaction.'));
     }
   }
 
@@ -46,11 +65,31 @@ class reactionController {
     try {
       await CRUDFunctions.getAll(req, res);
     } catch (error) {
-      throw new NotFoundError('Cannot find any reactions.');
+      return next(new NotFoundError('Cannot find any reactions.'));
     }
   }
 
-  // TODO: getAllReactions using postID
+  public async reactionsOnPost(req: Request, res: Response, next: NextFunction): Promise<void> {
+    const { id } = req.params;
+    const documents = await reactionModel.find({ postID: id });
+
+    if (!documents.length) {
+      return next(new NotFoundError('No reactions on this post.'));
+    }
+
+    res.status(200).json({ status: 'success', results: documents.length, data: documents });
+  }
+
+  public async reactionsOnComment(req: Request, res: Response, next: NextFunction): Promise<void> {
+    const { id } = req.params;
+    const documents = await reactionModel.find({ commentID: id });
+
+    if (!documents.length) {
+      return next(new NotFoundError('No reactions on this comment.'));
+    }
+
+    res.status(200).json({ status: 'success', results: documents.length, data: documents });
+  }
 }
 
 export default reactionController;

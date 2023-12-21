@@ -5,11 +5,11 @@ import QueryService from './query.service';
 import HTTP_STATUS from 'http-status-codes';
 
 export type CommonFunctions<T extends Document> = {
-  getOne: (req: Request, res: Response) => Promise<void>,
-  createOne: (req: Request, res: Response) => Promise<void>,
-  updateOne: (req: Request, res: Response) => Promise<void>,
-  deleteOne: (req: Request, res: Response) => Promise<void>
-  getAll: (req: Request, res: Response) => Promise<void>
+  getOne: (req: Request, res: Response) => Promise<void>;
+  createOne: (req: Request, res: Response) => Promise<void>;
+  updateOne: (req: Request, res: Response) => Promise<void>;
+  deleteOne: (req: Request, res: Response) => Promise<void>;
+  getAll: (req: Request, res: Response) => Promise<void>;
 };
 
 export const createCommonService = <T extends Document>(Model: Model<T>, modelName: string): CommonFunctions<T> => {
@@ -58,24 +58,15 @@ export const createCommonService = <T extends Document>(Model: Model<T>, modelNa
   };
 
   const getAll = async (req: Request, res: Response) => {
-
     // [x] Build query (prepare it for the next stage 'execution)
     const documentCnt = await Model.countDocuments();
-    const apiFeatures = new QueryService(Model.find(), req.query)
-      .paginate(documentCnt)
-      .filter()
-      .search(modelName)
-      .limitFields()
-      .sort();
+    const apiFeatures = new QueryService(Model.find(), req.query).paginate(documentCnt).filter().search(modelName).limitFields().sort();
 
     // [x] Execute query
     const { mongooseQuery, paginationResult } = apiFeatures;
     const documents = await mongooseQuery.exec();
-    res
-      .status(HTTP_STATUS.OK)
-      .json({ results: documents.length, paginationResult, data: documents });
+    res.status(HTTP_STATUS.OK).json({ results: documents.length, paginationResult, data: documents });
   };
-
 
   return {
     getOne,
