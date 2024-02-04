@@ -1,21 +1,20 @@
 import express, { NextFunction, Router } from 'express';
 import authController from '@auth/auth.controllers';
 
-const controller = new authController();
 
 class AuthRoutes {
   private router: Router;
 
   constructor() {
     this.router = express.Router();
-    this.router.post('/sign-up', controller.SignUp);
-    this.router.post('/log-in', controller.LogIn);
-    this.router.post('/forgot-password', controller.forgotPassword);
-    this.router.post('/check-code', controller.checkPasswordResetCode);
-    this.router.post('/reset-password', controller.resetPassword);
   }
 
   routes(): Router {
+    this.router.post('/signUp', authController.signUp);
+    this.router.post('/logn', authController.login);
+    this.router.post('/forgotPassword', authController.forgotPassword);
+    this.router.post('/checkCode', authController.checkPasswordResetCode);
+    this.router.post('/resetPassword', authController.resetPassword);
     return this.router;
   }
 }

@@ -36,7 +36,7 @@ class authController {
   };
 
   @validate(signupValidator)
-  public async SignUp(req: Request, res: Response, next: NextFunction): Promise<void> {
+  public static async signUp(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       // first we need to check if this user already exists
       const existingUser = await Auth.findOne({ email: req.body.email });
@@ -79,7 +79,7 @@ class authController {
   }
 
   @validate(LoginValidator)
-  public async LogIn(req: Request, res: Response, next: NextFunction): Promise<void> {
+  public static async login(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const { email, password } = req.body;
 
@@ -102,7 +102,7 @@ class authController {
   }
 
   @validate(forgotPasswordValidator)
-  public async forgotPassword(req: Request, res: Response, next: NextFunction): Promise<void> {
+  public static async forgotPassword(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       // 1) Get user based on POSTed email
       const userEmail = req.body.email;
@@ -128,7 +128,7 @@ class authController {
   }
 
   @validate(checkPasswordResetCodeValidator)
-  public async checkPasswordResetCode(req: Request, res: Response, next: NextFunction): Promise<void> {
+  public static async checkPasswordResetCode(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const { userEmail, code } = req.body;
 
@@ -153,7 +153,7 @@ class authController {
   }
 
   @validate(resetPasswordValidator)
-  public async resetPassword(req: Request, res: Response, next: NextFunction): Promise<void> {
+  public static async resetPassword(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       // 1) Get user based on the token
       const userEmail = req.body.email;

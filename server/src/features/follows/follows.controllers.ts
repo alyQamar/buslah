@@ -52,7 +52,7 @@ class followsController {
   };
 
   @validate(followUnfollowValidator)
-  public static async unfollow(req: Request, res: Response, next: NextFunction) {
+  public static async unFollow(req: Request, res: Response, next: NextFunction) {
     try {
       const { userID, followerID } = req.body;
 
