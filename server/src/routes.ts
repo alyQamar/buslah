@@ -6,6 +6,7 @@ import { reactionRoutes } from '@reaction/reaction.routes';
 import { commentRoutes } from '@comment/comment.routes';
 import { FollowsRoutes } from '@follows/follows.routes';
 import { mediaRoutes } from '@media/media.routes';
+import { askRoutes } from '@ask/ask.routes';
 
 export default (app: Application) => {
   const routes = () => {
@@ -16,6 +17,7 @@ export default (app: Application) => {
     app.use('/comments', commentRoutes.routes());
     app.use('/reactions', reactionRoutes.routes());
     app.use('/media', mediaRoutes.routes());
+    app.use('/asks', askRoutes.routes());
   };
   routes();
 };
