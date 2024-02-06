@@ -1,21 +1,22 @@
 import express, { Router } from 'express';
 import followsController from '@follows/follows.controllers';
 
-const controller = followsController;
 
-class followsRoutes {
+class FollowsRoutes {
   private router: Router;
 
   constructor() {
     this.router = express.Router();
-    this.router.post('/follow', controller.follow);
-    this.router.delete('/unfollow', controller.unfollow);
-    this.router.get('/get-follows', controller.getFollows);
   }
 
-  routes(): Router {
+  public routes(): Router {
+    this.router.route('/')
+      .post(followsController.follow)
+      .delete(followsController.unFollow)
+      .get(followsController.getFollows);
+
     return this.router;
   }
 }
 
-export const FollowsRoutes: followsRoutes = new followsRoutes();
+export const followsRoutes: FollowsRoutes = new FollowsRoutes();
