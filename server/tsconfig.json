@@ -27,6 +27,7 @@
       "@reaction/*": ["src/features/reaction/*"],
       "@comment/*": ["src/features/comment/*"],
       "@follows/*": ["src/features/follows/*"],
+      "@ask/*": ["src/features/ask/*"],
       "@notification/*": ["src/features/notifications/*"],
       "@media/*": ["src/features/media/*"],
       "@chat/*": ["src/features/chat/*"],
