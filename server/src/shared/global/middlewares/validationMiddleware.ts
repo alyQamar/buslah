@@ -3,7 +3,7 @@
 import { Request } from 'express';
 import { ObjectSchema } from 'joi';
 
-import { RequestValidationError } from '@global/middlewares/errorMiddleware';
+import { BadRequestError } from '@global/middlewares/errorMiddleware';
 
 // 1- Define a type for the decorator function
 type IJoiDecorator = (target: any, key: string, descriptor: PropertyDescriptor) => void;
@@ -26,7 +26,7 @@ export function validate(schema: ObjectSchema): IJoiDecorator {
       // If there are validation errors
       if (error?.details) {
         // Throw a custom error with the first error message
-        throw new RequestValidationError(error.details[0].message);
+        throw new BadRequestError(error.details[0].message);
       }
 
       // If validation passes, call the original method and return its result (Do controller logic)
