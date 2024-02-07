@@ -10,6 +10,10 @@ const askSchema: Schema = new Schema({
   question: {
     type: String,
     required: [true, 'An ask must have a question']
+  },
+  locked: {
+    type: Boolean,
+    default: false
   }
 });
 
