@@ -56,7 +56,11 @@ export class ServerInit {
     app.use((error: IErrorRes, _req: Request, res: Response, next: NextFunction) => {
       log.error(error);
       if (error instanceof ApiError) {
-        return res.status(error.statusCode).json(error.serialErrors());
+        if (config.NODE_ENV === 'development') {
+          return res.status(error.statusCode).json(error.sendErrorForDev());
+        } else {
+          return res.status(error.statusCode).json(error.sendErrorForProd());
+        }
       }
       next();
     });
