@@ -1,5 +1,11 @@
 import { ObjectId } from 'mongodb';
 
+export enum PrivacyOptions {
+  Public = 'public',
+  Private = 'private',
+  Followers = 'followers',
+}
+
 export interface IAuthDocument extends Document {
   _id: string | ObjectId;
   uId: string;

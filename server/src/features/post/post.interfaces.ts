@@ -1,12 +1,8 @@
 import mongoose, { Document } from 'mongoose';
 import { ICommentDocument } from '@comment/comment.interfaces';
 import { IReactionDocument } from '@reaction/reaction.interfaces';
+import { PrivacyOptions } from '@auth/auth.interfaces';
 
-export enum PrivacyOptions {
-  Public = 'public',
-  Private = 'private',
-  Followers = 'followers',
-}
 
 export enum Feelings {
   Happy = 'happy',
@@ -27,6 +23,7 @@ interface IPostBase {
   shares: number;
   reactions?: IReactionDocument[];
   comments?: ICommentDocument[];
+  bookmarksBy: mongoose.Types.ObjectId[] | string[];
 }
 
 export interface IPostDocument extends Document, IPostBase {

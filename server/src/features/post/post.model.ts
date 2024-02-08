@@ -1,5 +1,6 @@
 import mongoose, { model, Model, Schema } from 'mongoose';
-import { IPostDocument, Feelings, PrivacyOptions } from '@post/post.interfaces';
+import { IPostDocument, Feelings } from '@post/post.interfaces';
+import { PrivacyOptions } from '@auth/auth.interfaces';
 
 
 const postSchema: Schema = new Schema({
@@ -51,17 +52,7 @@ const postSchema: Schema = new Schema({
   comments: [{
     type: String || mongoose.Schema.Types.ObjectId,
     ref: 'Comment'
-  }],
-  sharingNumbers: {
-    shares: {
-      type: Number,
-      default: 0
-    },
-    bookmarks: {
-      type: Number,
-      default: 0
-    },
-  }
+  }]
 }, { timestamps: true });
 
 
@@ -73,7 +64,7 @@ postSchema.pre(/^find/, function (next) {
 
   this.populate({
     path: 'reactions',
-    select: 'reaction userID _id',
+    select: 'reaction user _id',
   });
 
   this.populate({
