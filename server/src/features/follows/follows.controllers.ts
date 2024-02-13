@@ -2,15 +2,15 @@ import { model, Model, Schema, Document, Types } from 'mongoose'; // Importing M
 import { ObjectId } from 'mongodb'; // Importing MongoDB's ObjectId
 import { Request, Response, NextFunction } from 'express';
 
-import { validate } from '@global/middlewares/validationMiddleware';
-import { InternalServerError, NotFoundError, BadRequestError } from '@global/middlewares/errorMiddleware';
+import { validateBody } from '@root/shared/decorators/joiValidation.decorator';
+import { InternalServerError, NotFoundError, BadRequestError } from '@global/errorHandler.global';
 
 import { followUnfollowValidator, getFollowsValidator } from './follows.validators';
 import followsModel from '@follows/follows.model';
 import userModel from '@user/user.model';
 
 class followsController {
-  @validate(followUnfollowValidator)
+  @validateBody(followUnfollowValidator)
   public static async follow(req: Request, res: Response, next: NextFunction) {
     try {
       const { userID, followerID } = req.body;
@@ -51,7 +51,7 @@ class followsController {
     }
   };
 
-  @validate(followUnfollowValidator)
+  @validateBody(followUnfollowValidator)
   public static async unFollow(req: Request, res: Response, next: NextFunction) {
     try {
       const { userID, followerID } = req.body;
@@ -92,7 +92,7 @@ class followsController {
     }
   };
 
-  @validate(getFollowsValidator)
+  @validateBody(getFollowsValidator)
   public static async getFollows(req: Request, res: Response, next: NextFunction) {
     try {
       const { userID, type } = req.body;

@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
 import { config } from '@config/index';
-import { validate } from '@global/middlewares/validationMiddleware';
+import { validateBody } from '@root/shared/decorators/joiValidation.decorator';
 import userModel from '@user/user.model';
 import { IUserDocument } from '@user/user.interfaces';
 import { createCommonService, CommonFunctions } from '@service/db/common.service';
-import { NotFoundError } from '@global/middlewares/errorMiddleware';
+import { NotFoundError } from '@global/errorHandler.global';
 
 const CRUDFunctions: CommonFunctions<IUserDocument> = createCommonService<IUserDocument>(userModel, 'Users');
 

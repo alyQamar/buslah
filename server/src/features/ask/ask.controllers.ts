@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { AskModel } from '@ask/ask.model';
 import { IAskDocument } from '@ask/ask.interface';
 import { createCommonService, CommonFunctions } from '@service/db/common.service';
-import { BadRequestError, NotFoundError } from '@global/middlewares/errorMiddleware';
+import { BadRequestError, NotFoundError } from '@global/errorHandler.global';
 
 const CRUDFunctions: CommonFunctions<IAskDocument> = createCommonService<IAskDocument>(AskModel, 'Asks');
 
