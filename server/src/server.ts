@@ -11,7 +11,7 @@ import Logger from 'bunyan';
 import 'express-async-errors';  // pass an error happens to response
 import { config } from '@config/index';
 import routes from '@root/routes';
-import { ApiError, IErrorRes } from '@global/middlewares/errorMiddleware';
+import { ApiError, IErrorRes } from '@global/errorHandler.global';
 import { SocketIOPost } from '@socket/post.socket';
 
 const log: Logger = config.createLogger('server');
@@ -26,7 +26,7 @@ export class ServerInit {
     this.securityMiddleware(this.app);
     this.standardMiddleware(this.app);
     this.routesMiddleware(this.app);
-    this.globalErrorHandler(this.app);
+    this.ErrorHandlerMiddleware(this.app);
     this.startServer(this.app);
   }
 
@@ -52,7 +52,7 @@ export class ServerInit {
   private routesMiddleware(app: Application): void {
     routes(app);
   }
-  private globalErrorHandler(app: Application): void {
+  private ErrorHandlerMiddleware(app: Application): void {
     app.use((error: IErrorRes, _req: Request, res: Response, next: NextFunction) => {
       log.error(error);
       if (error instanceof ApiError) {

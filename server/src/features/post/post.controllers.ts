@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
-import { validate } from '@global/middlewares/validationMiddleware';
+import { validateBody } from '@root/shared/decrators/joiValidation.decorator';
 import { basePostValidator, postNullabilityValidator } from '@post/post.validators';
 import { PostModel } from '@post/post.model';
 import { createCommonService, CommonFunctions } from '@service/db/common.service';
 import { IPostDocument } from '@post/post.interfaces';
-import { NotFoundError } from '@global/middlewares/errorMiddleware';
+import { NotFoundError } from '@global/errorHandler.global';
 
 const CRUDFunctions: CommonFunctions<IPostDocument> = createCommonService<IPostDocument>(PostModel, 'Posts');
 
@@ -14,7 +14,7 @@ export class PostController {
    * @route POST /posts/:id
    * @access Private/User
    */
-  @validate(basePostValidator.concat(postNullabilityValidator))
+  @validateBody(basePostValidator.concat(postNullabilityValidator))
   public static async createPost(req: Request, res: Response) {
     try {
       // if (!req.authorID) req.authorID = req.user.id;
@@ -42,7 +42,7 @@ export class PostController {
    * @route PUT/posts/:id
    * @access Private/User
    */
-  @validate(basePostValidator)
+  @validateBody(basePostValidator)
   public static async updatePost(req: Request, res: Response) {
     try {
       await CRUDFunctions.updateOne(req, res);

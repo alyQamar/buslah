@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
 // import { config } from '@config/index';
-// import { validate } from '@global/middlewares/validationMiddleware';
+// import { validateBody } from '@global/validationMiddleware';
 import { reactionModel } from '@reaction/reaction.model';
 import { IReactionDocument } from '@reaction/reaction.interfaces';
 import { createCommonService, CommonFunctions } from '@service/db/common.service';
-import { BadRequestError, NotFoundError } from '@global/middlewares/errorMiddleware';
+import { BadRequestError, NotFoundError } from '@global/errorHandler.global';
 
 const CRUDFunctions: CommonFunctions<IReactionDocument> = createCommonService<IReactionDocument>(reactionModel, 'Reactions');
 

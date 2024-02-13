@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { AnswerModel } from '@answer/answer.model';
 import { createCommonService, CommonFunctions } from '@service/db/common.service';
 import { IAnswerDocument } from '@answer/answer.interfaces';
-import { NotFoundError } from '@global/middlewares/errorMiddleware';
+import { NotFoundError } from '@global/errorHandler.global';
 
 
 const CRUDFunctions: CommonFunctions<IAnswerDocument> = createCommonService<IAnswerDocument>(AnswerModel, 'Answers');

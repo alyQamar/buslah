@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
-import { validate } from '@global/middlewares/validationMiddleware';
+import { validateBody } from '@root/shared/decrators/joiValidation.decorator';
 import { CommentModel } from '@comment/comment.model';
 import { createCommonService, CommonFunctions } from '@service/db/common.service';
 import { ICommentDocument } from '@comment/comment.interfaces';
-import { NotFoundError } from '@global/middlewares/errorMiddleware';
+import { NotFoundError } from '@global/errorHandler.global';
 import { baseCommentValidator } from './comment.validators';
 
 const CRUDFunctions: CommonFunctions<ICommentDocument> = createCommonService<ICommentDocument>(CommentModel, 'Comments');
@@ -15,7 +15,7 @@ export class CommentController {
    * @route POST /comments/:id
    * @access Private/User
    */
-  @validate(baseCommentValidator)
+  @validateBody(baseCommentValidator)
   public static async createComment(req: Request, res: Response) {
     try {
       await CRUDFunctions.createOne(req, res);
