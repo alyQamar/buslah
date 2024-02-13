@@ -9,7 +9,7 @@ const CRUDFunctions: CommonFunctions<IAskDocument> = createCommonService<IAskDoc
 class askController {
   public async createAsk(req: Request, res: Response, next: NextFunction) {
     try {
-      if (!req.body.user) throw new Error('You can not create an Ask without a user ID');
+      // if (!req.body.user) throw new Error('You can not create an Ask without a user ID');
       await CRUDFunctions.createOne(req, res);
     } catch (error) {
       return next(new BadRequestError(`${error}`));
