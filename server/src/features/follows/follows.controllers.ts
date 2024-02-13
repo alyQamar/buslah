@@ -2,7 +2,7 @@ import { model, Model, Schema, Document, Types } from 'mongoose'; // Importing M
 import { ObjectId } from 'mongodb'; // Importing MongoDB's ObjectId
 import { Request, Response, NextFunction } from 'express';
 
-import { validateBody } from '@root/shared/decrators/joiValidation.decorator';
+import { validateBody } from '@root/shared/decorators/joiValidation.decorator';
 import { InternalServerError, NotFoundError, BadRequestError } from '@global/errorHandler.global';
 
 import { followUnfollowValidator, getFollowsValidator } from './follows.validators';

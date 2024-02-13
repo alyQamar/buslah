@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { validateBody } from '@root/shared/decrators/joiValidation.decorator';
+import { validateBody } from '@root/shared/decorators/joiValidation.decorator';
 import { basePostValidator, postNullabilityValidator } from '@post/post.validators';
 import { PostModel } from '@post/post.model';
 import { createCommonService, CommonFunctions } from '@service/db/common.service';

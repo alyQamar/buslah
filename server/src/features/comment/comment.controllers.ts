@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { validateBody } from '@root/shared/decrators/joiValidation.decorator';
+import { validateBody } from '@root/shared/decorators/joiValidation.decorator';
 import { CommentModel } from '@comment/comment.model';
 import { createCommonService, CommonFunctions } from '@service/db/common.service';
 import { ICommentDocument } from '@comment/comment.interfaces';

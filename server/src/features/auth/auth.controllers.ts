@@ -2,7 +2,7 @@ import { ObjectId } from 'mongoose';
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { config } from '@config/index';
-import { validateBody } from '@root/shared/decrators/joiValidation.decorator';
+import { validateBody } from '@root/shared/decorators/joiValidation.decorator';
 import {
   LoginValidator,
   checkPasswordResetCodeValidator,

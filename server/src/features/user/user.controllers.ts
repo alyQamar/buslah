@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { config } from '@config/index';
-import { validateBody } from '@root/shared/decrators/joiValidation.decorator';
+import { validateBody } from '@root/shared/decorators/joiValidation.decorator';
 import userModel from '@user/user.model';
 import { IUserDocument } from '@user/user.interfaces';
 import { createCommonService, CommonFunctions } from '@service/db/common.service';
