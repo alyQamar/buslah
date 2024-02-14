@@ -3,13 +3,13 @@ import mongoose, { Document } from 'mongoose';
 import { PrivacyOptions } from '@auth/auth.interfaces';
 import { IAnswerDocument } from '@answer/answer.interfaces';
 
-
-export enum Feelings {
+export enum AskType {
+  Normal = 'normal',
   Bug = 'bug',
   Confused = 'confused',
   Stuck = 'stuck',
   Anxious = 'anxious',
-  Motivated = 'motivated',
+  Motivated = 'motivated'
 }
 
 export interface IAskBase extends Document {
@@ -19,7 +19,7 @@ export interface IAskBase extends Document {
   bookmarksBy: mongoose.Types.ObjectId[] | string[];
   answers: IAnswerDocument[];
   locked?: boolean;
-  feelings?: Feelings;
+  feelings?: AskType;
   privacy?: PrivacyOptions;
 }
 
