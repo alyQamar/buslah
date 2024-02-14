@@ -9,6 +9,7 @@ import { mediaRoutes } from '@media/media.routes';
 import { askRoutes } from '@ask/ask.routes';
 import { answerRoutes } from '@answer/answer.routes';
 import { reviewRoutes } from '@review/review.route';
+import { feedbackRoutes } from '@feedback/feedback.routes';
 
 export default (app: Application) => {
   const routes = () => {
@@ -22,6 +23,7 @@ export default (app: Application) => {
     app.use('/asks', askRoutes.routes());
     app.use('/answers', answerRoutes.routes());
     app.use('/reviews', reviewRoutes.routes());
+    app.use('/feedbacks', feedbackRoutes.routes());
   };
   routes();
 };
