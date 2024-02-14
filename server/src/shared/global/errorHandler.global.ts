@@ -2,7 +2,7 @@ import { httpStatusInfo } from '@util/httpStatusInfo';
 
 export interface IError {
   status: string;
-  statusCode: number;
+  statusCode?: number;
   type?: string;
   subType?: string;
   feature?: string;
@@ -46,7 +46,6 @@ export abstract class ApiError extends Error implements IErrorRes {
   sendErrorForDev(): IError {
     return {
       status: this.status,
-      statusCode: this.statusCode,
       type: this.type,
       subType: this.subType,
       feature: this.feature,
@@ -58,7 +57,7 @@ export abstract class ApiError extends Error implements IErrorRes {
   sendErrorForProd(): IError {
     return {
       status: this.status,
-      statusCode: this.statusCode,
+      type: this.type,
       message: this.message,
     };
   }
