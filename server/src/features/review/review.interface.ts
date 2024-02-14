@@ -1,4 +1,4 @@
-import mongoose, { Document } from 'mongoose';
+import mongoose, { Document, Model } from 'mongoose';
 
 
 interface IReviewBase {
@@ -9,5 +9,6 @@ interface IReviewBase {
 
 export interface IReviewDocument extends Document, IReviewBase {
   mentor: mongoose.Types.ObjectId | string;
-  calcAverageRatingsAndQuantity(mentorId: mongoose.Types.ObjectId | string): Promise<void>;
+  model(name?: string): Model<IReviewDocument>;
+  calcAverageRatingsAndQuantity(): Promise<void>;
 }
