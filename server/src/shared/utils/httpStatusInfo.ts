@@ -25,6 +25,10 @@ export const httpStatusInfo: Record<string, IErrorInfo> = {
     type: 'Not Found',
     message: 'The requested resource could not be found on the server.',
   },
+  409: {
+    type: 'Conflict',
+    message: 'The resource already exists and cannot be created again.',
+  },
   413: {
     type: 'Payload Too Large',
     message: 'The server refuses to process a request because the request payload is larger than the server is willing or able to process.',
