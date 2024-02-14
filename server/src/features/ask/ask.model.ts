@@ -1,5 +1,5 @@
 import mongoose, { model, Model, Schema } from 'mongoose';
-import { Feelings, IAskDocument } from '@ask/ask.interface';
+import { AskType, IAskDocument } from '@ask/ask.interface';
 import { PrivacyOptions } from '@auth/auth.interfaces';
 
 const askSchema: Schema = new Schema({
@@ -12,35 +12,44 @@ const askSchema: Schema = new Schema({
     type: String,
     required: [true, 'An ask must have a question']
   },
-  helpfulUsers: [{
-    type: String || mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  }],
-  unhelpfulUsers: [{
-    type: String || mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  }],
-  bookmarksBy: [{
-    type: String || mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  }],
+  helpfulUsers: [
+    {
+      type: String || mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    }
+  ],
+  unhelpfulUsers: [
+    {
+      type: String || mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    }
+  ],
+  bookmarksBy: [
+    {
+      type: String || mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    }
+  ],
   locked: {
     type: Boolean,
     default: false
   },
-  feelings: {
+  type: {
     type: String,
-    enum: Object.values(Feelings)
+    enum: Object.values(AskType),
+    default: 'normal'
   },
   privacy: {
     type: String,
     enum: Object.values(PrivacyOptions),
     default: PrivacyOptions.Public
   },
-  answers: [{
-    type: String || mongoose.Schema.Types.ObjectId,
-    ref: 'Answer'
-  }],
+  answers: [
+    {
+      type: String || mongoose.Schema.Types.ObjectId,
+      ref: 'Answer'
+    }
+  ]
 });
 
 // Mongoose query middleware
@@ -53,7 +62,7 @@ askSchema.pre(/^find/, function (next) {
 
   this.populate({
     path: 'answers',
-    select: 'answer user _id',
+    select: 'answer user _id'
   });
   next();
 });
@@ -75,6 +84,5 @@ askSchema.methods.markAsUnhelpful = function (userId: mongoose.Schema.Types.Obje
     return this.save(); // Save the updated document
   }
 };
-
 
 export const AskModel: Model<IAskDocument> = model<IAskDocument>('Ask', askSchema);
