@@ -88,6 +88,12 @@ export class NotFoundError extends ApiError {
   }
 }
 
+export class ConflictError extends ApiError {
+  constructor(message?: string) {
+    super(message || httpStatusInfo[409]?.message, 409);
+  }
+}
+
 export class PayloadTooLargeError extends ApiError {
   constructor(message?: string) {
     super(message || httpStatusInfo[413]?.message, 413);
