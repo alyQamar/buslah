@@ -2,7 +2,7 @@ import mongoose, { model, Model, Schema } from 'mongoose';
 import { IReactionDocument } from '@reaction/reaction.interfaces';
 
 const reactionSchema: Schema = new Schema({
-  userID: {
+  user: {
     type: String || mongoose.Schema.Types.ObjectId,
     ref: 'user',
     required: [true, 'Reaction must belong to a user.'],
@@ -11,13 +11,13 @@ const reactionSchema: Schema = new Schema({
   onPost: {
     type: Boolean
   },
-  postID: {
+  post: {
     type: String || mongoose.Schema.Types.ObjectId,
     ref: 'post',
     // required: [true, 'Reaction must belong to a post.'],
     unique: true
   },
-  commentID: {
+  comment: {
     type: String || mongoose.Schema.Types.ObjectId,
     ref: 'comment',
     // required: [true, 'Reaction must belong to a post.'],

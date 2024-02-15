@@ -1,6 +1,8 @@
 import { Model, Document } from 'mongoose';
 import { Request, Response } from 'express';
-import { NotFoundError } from '@global/middlewares/errorMiddleware';
+
+import { IFilterRequest } from '@root/shared/interfaces/request.interface';
+import { NotFoundError } from '@global/errorHandler.global';
 import QueryService from './query.service';
 import HTTP_STATUS from 'http-status-codes';
 
@@ -22,6 +24,7 @@ export const createCommonService = <T extends Document>(Model: Model<T>, modelNa
 
     res.status(HTTP_STATUS.NO_CONTENT).send();
   };
+
 
   const updateOne = async (req: Request, res: Response) => {
     const document = await Model.findByIdAndUpdate(req.params.id, req.body, {
@@ -57,10 +60,15 @@ export const createCommonService = <T extends Document>(Model: Model<T>, modelNa
     });
   };
 
-  const getAll = async (req: Request, res: Response) => {
+  const getAll = async (req: IFilterRequest, res: Response) => {
+    let filter = {};
+    if (req.filterObj) {
+      filter = req.filterObj;
+    }
+
     // [x] Build query (prepare it for the next stage 'execution)
     const documentCnt = await Model.countDocuments();
-    const apiFeatures = new QueryService(Model.find(), req.query).paginate(documentCnt).filter().search(modelName).limitFields().sort();
+    const apiFeatures = new QueryService(Model.find(filter), req.query).paginate(documentCnt).filter().search(modelName).limitFields().sort();
 
     // [x] Execute query
     const { mongooseQuery, paginationResult } = apiFeatures;

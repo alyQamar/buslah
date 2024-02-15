@@ -1,5 +1,6 @@
 import mongoose, { model, Model, Schema } from 'mongoose';
-import { IPostDocument, Feelings, PrivacyOptions } from '@post/post.interfaces';
+import { IPostDocument, Feelings } from '@post/post.interfaces';
+import { PrivacyOptions } from '@auth/auth.interfaces';
 
 const postSchema: Schema = new Schema(
   {
@@ -10,7 +11,6 @@ const postSchema: Schema = new Schema(
       ref: 'Post',
       index: true
     },
-
     prevPost: {
       type: String || mongoose.Schema.Types.ObjectId,
       ref: 'Post',
@@ -28,7 +28,6 @@ const postSchema: Schema = new Schema(
         ref: 'User'
       }
     ],
-    imgId: { type: String || mongoose.Schema.Types.ObjectId, ref: 'MediaModel' },
     // -----------------------------------------------------
     post: {
       type: String,

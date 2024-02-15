@@ -2,7 +2,7 @@ import { ObjectId } from 'mongoose';
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { config } from '@config/index';
-import { validate } from '@global/middlewares/validationMiddleware';
+import { validateBody } from '@root/shared/decorators/joiValidation.decorator';
 import {
   LoginValidator,
   checkPasswordResetCodeValidator,
@@ -12,7 +12,7 @@ import {
 } from '@auth/auth.validators';
 import Auth from '@auth/auth.model';
 import emailServices from '@service/email/emailServices';
-import { InternalServerError, NotFoundError, BadRequestError } from '@global/middlewares/errorMiddleware';
+import { InternalServerError, NotFoundError, BadRequestError, IncorrectEmailOrPassError } from '@global/errorHandler.global';
 import UserModel from '@user/user.model';
 import followsModel from '@follows/follows.model';
 
@@ -35,7 +35,7 @@ class authController {
     res.cookie('jwt', token, cookiesOptions);
   };
 
-  @validate(signupValidator)
+  @validateBody(signupValidator)
   public static async signUp(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       // first we need to check if this user already exists
@@ -78,7 +78,7 @@ class authController {
     }
   }
 
-  @validate(LoginValidator)
+  @validateBody(LoginValidator)
   public static async login(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const { email, password } = req.body;
@@ -87,7 +87,7 @@ class authController {
       const user = await Auth.findOne({ email }).select('+password'); //the + herer because we want to select a field it is not selected
 
       if (!user || !(await user.comparePassword(password))) {
-        return next(new BadRequestError('Incorrect email or password'));
+        return next(new IncorrectEmailOrPassError());
       }
 
       //  If everything ok, send token to client
@@ -101,7 +101,7 @@ class authController {
     }
   }
 
-  @validate(forgotPasswordValidator)
+  @validateBody(forgotPasswordValidator)
   public static async forgotPassword(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       // 1) Get user based on POSTed email
@@ -127,7 +127,7 @@ class authController {
     }
   }
 
-  @validate(checkPasswordResetCodeValidator)
+  @validateBody(checkPasswordResetCodeValidator)
   public static async checkPasswordResetCode(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const { userEmail, code } = req.body;
@@ -152,7 +152,7 @@ class authController {
     }
   }
 
-  @validate(resetPasswordValidator)
+  @validateBody(resetPasswordValidator)
   public static async resetPassword(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       // 1) Get user based on the token

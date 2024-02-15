@@ -1,5 +1,6 @@
 import Joi, { ObjectSchema } from 'joi';
-import { Feelings, PrivacyOptions } from './post.interfaces';
+import { Feelings } from './post.interfaces';
+import { PrivacyOptions } from '@auth/auth.interfaces';
 
 // Get enum values as an array
 const feelingsEnumValues = Object.values(Feelings);
