@@ -115,6 +115,33 @@ class MediaController {
         user.coverPhoto = newMedia._id;
         await user.save();
       }
+    } else if (type === 'post') {
+      // Create new document for the media
+      let post = await PostModel.findById(Id);
+
+      const data = {
+        post: Id,
+        mediaType: MediaType.Image,
+        type: ImageType.Post,
+        url: result.secure_url,
+        publicId: result.public_id,
+        size: req.file.size,
+        mimeType: req.file.mimetype,
+        originalName: req.file.filename
+      };
+      const newMedia = await MediaModel.create(data);
+      if (post) {
+        post.imgId = newMedia._id;
+        await post.save();
+      }
     }
+
+    //  send response to the client
+    res.status(200).json({ message: 'upload image successfully.', photo: { url: result.secure_url, publicId: result.public_id } });
+
+    //  remove image from the server
+    fs.unlinkSync(imagePath);
   }
 }
+
+export const mediaController: MediaController = new MediaController();
