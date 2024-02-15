@@ -89,6 +89,32 @@ class MediaController {
         user.profilePhoto = newMedia._id;
         await user.save();
       }
+    } else if (type === 'cover') {
+      //  Delete the old cover photo if exist
+      if (user && user.coverPhoto && user.coverPhoto !== null) {
+        const photo = await MediaModel.findById(user.coverPhoto);
+        if (photo) {
+          await clodService.removeImage(photo.publicId);
+          photo.url = result.secure_url;
+          photo.publicId = result.public_id;
+          await photo.save();
+        }
+      } else if (user) {
+        // Create new document for the media
+        const data = {
+          user: Id,
+          mediaType: MediaType.Image,
+          type: ImageType.Cover,
+          url: result.secure_url,
+          publicId: result.public_id,
+          size: req.file.size,
+          mimeType: req.file.mimetype,
+          originalName: req.file.filename
+        };
+        const newMedia = await MediaModel.create(data);
+        user.coverPhoto = newMedia._id;
+        await user.save();
+      }
     }
   }
 }
