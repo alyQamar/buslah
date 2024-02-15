@@ -5,21 +5,20 @@ import { IReactionDocument } from '@reaction/reaction.interfaces';
 export enum PrivacyOptions {
   Public = 'public',
   Private = 'private',
-  Followers = 'followers',
+  Followers = 'followers'
 }
 
 export enum Feelings {
   Happy = 'happy',
   Sad = 'sad',
-  Excited = 'excited',
+  Excited = 'excited'
 }
-
 
 interface IPostBase {
   post: string;
   bgColor: string;
   // imgVersion?: string;
-  // imgId?: string;
+
   // videoId?: string;
   // videoVersion?: string;
   feelings?: Feelings;
@@ -34,4 +33,5 @@ export interface IPostDocument extends Document, IPostBase {
   parentPost?: mongoose.Types.ObjectId | string;
   prevPost?: mongoose.Types.ObjectId | string;
   user: mongoose.Types.ObjectId | string;
+  imgId?: mongoose.Types.ObjectId | string;
 }
