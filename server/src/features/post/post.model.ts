@@ -1,69 +1,78 @@
 import mongoose, { model, Model, Schema } from 'mongoose';
 import { IPostDocument, Feelings, PrivacyOptions } from '@post/post.interfaces';
 
-
-const postSchema: Schema = new Schema({
-  // -----------------------------------------------------
-  // referenced to another documents
-  parentPost: {
-    type: String || mongoose.Schema.Types.ObjectId,
-    ref: 'Post',
-    index: true
-  },
-  prevPost: {
-    type: String || mongoose.Schema.Types.ObjectId,
-    ref: 'Post',
-    index: true
-  },
-  user: {
-    type: String || mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    index: true,
-    required: true
-  },
-  bookmarksBy: [{
-    type: String || mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  }],
-  // -----------------------------------------------------
-  post: {
-    type: String,
-    default: '',
-    required: true
-  },
-  bgColor: {
-    type: String,
-    default: ''
-  },
-  feelings: {
-    type: String,
-    enum: Object.values(Feelings)
-  },
-  privacy: {
-    type: String,
-    enum: Object.values(PrivacyOptions),
-    default: PrivacyOptions.Public
-  },
-  reactions: [{
-    type: String || mongoose.Schema.Types.ObjectId,
-    ref: 'Reaction'
-  }],
-  comments: [{
-    type: String || mongoose.Schema.Types.ObjectId,
-    ref: 'Comment'
-  }],
-  sharingNumbers: {
-    shares: {
-      type: Number,
-      default: 0
+const postSchema: Schema = new Schema(
+  {
+    // -----------------------------------------------------
+    // referenced to another documents
+    parentPost: {
+      type: String || mongoose.Schema.Types.ObjectId,
+      ref: 'Post',
+      index: true
     },
-    bookmarks: {
-      type: Number,
-      default: 0
-    },
-  }
-}, { timestamps: true });
 
+    prevPost: {
+      type: String || mongoose.Schema.Types.ObjectId,
+      ref: 'Post',
+      index: true
+    },
+    user: {
+      type: String || mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      index: true,
+      required: true
+    },
+    bookmarksBy: [
+      {
+        type: String || mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+      }
+    ],
+    imgId: { type: String || mongoose.Schema.Types.ObjectId, ref: 'MediaModel' },
+    // -----------------------------------------------------
+    post: {
+      type: String,
+      default: '',
+      required: true
+    },
+    bgColor: {
+      type: String,
+      default: ''
+    },
+    feelings: {
+      type: String,
+      enum: Object.values(Feelings)
+    },
+    privacy: {
+      type: String,
+      enum: Object.values(PrivacyOptions),
+      default: PrivacyOptions.Public
+    },
+    reactions: [
+      {
+        type: String || mongoose.Schema.Types.ObjectId,
+        ref: 'Reaction'
+      }
+    ],
+    comments: [
+      {
+        type: String || mongoose.Schema.Types.ObjectId,
+        ref: 'Comment'
+      }
+    ],
+    sharingNumbers: {
+      shares: {
+        type: Number,
+        default: 0
+      },
+      bookmarks: {
+        type: Number,
+        default: 0
+      }
+    }
+  },
+  { timestamps: true }
+);
 
 // Mongoose query middleware
 postSchema.pre(/^find/, function (next) {
@@ -73,12 +82,12 @@ postSchema.pre(/^find/, function (next) {
 
   this.populate({
     path: 'reactions',
-    select: 'reaction userID _id',
+    select: 'reaction userID _id'
   });
 
   this.populate({
     path: 'comments',
-    select: 'comment user _id',
+    select: 'comment user _id'
   });
   next();
 });
