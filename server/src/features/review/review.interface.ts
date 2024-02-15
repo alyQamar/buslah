@@ -2,7 +2,7 @@ import mongoose, { Document, Model } from 'mongoose';
 
 
 interface IReviewBase {
-  title?: string;
+  txt?: string;
   ratings: number;
   mentee: mongoose.Types.ObjectId | string;
 }
