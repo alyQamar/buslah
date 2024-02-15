@@ -1,20 +1,34 @@
-import { ObjectId } from 'mongodb';
+import mongoose, { Document } from 'mongoose';
 
+// Enum for defining privacy options
 export enum PrivacyOptions {
   Public = 'public',
   Private = 'private',
   Followers = 'followers',
 }
 
-export interface IAuthDocument extends Document {
-  _id: string | ObjectId;
-  uId: string;
-  name: string;
+// Enum for defining user roles
+export enum Roles {
+  Mentee = 'mentee',
+  Mentor = 'mentor',
+  Admin = 'admin',
+  Manager = 'manager',
+  Owner = 'owner'
+}
+
+export interface IAuthBase {
+  username: string;
+  role: Roles;
   email: string;
   password: string;
-  passwordResetCode?: number;
+  passwordResetCode?: string;
   passwordResetExpires?: number | string;
+
   comparePassword(candidatePassword: string): Promise<boolean>;
-  createPasswordResetCode(): string;
+  createPasswordResetCode(): number;
   checkResetPasswordCode(passwordResetCode: string): boolean;
+}
+
+export interface IAuthDocument extends Document, IAuthBase {
+  user: string | mongoose.Schema.Types.ObjectId;
 }

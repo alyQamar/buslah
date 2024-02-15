@@ -1,18 +1,47 @@
-import { model, Model, Schema, Document } from 'mongoose'; // Importing Mongoose functions
-import bcrypt, { hash } from 'bcryptjs'; // Importing password hashing functions
+import mongoose, { model, Model, Schema } from 'mongoose';
+import bcrypt from 'bcryptjs';
 import crypto from 'crypto';
 
 import { config } from '@config/index';
-import { IAuthDocument } from './auth.interfaces';
+import { IAuthDocument, Roles } from '@auth/auth.interfaces';
 
-const authSchema: Schema = new Schema<IAuthDocument>(
+const authSchema: Schema<IAuthDocument> = new Schema(
   {
-    name: { type: String, required: true },
-    uId: { type: String },
-    email: { type: String, unique: true, lowercase: true, required: true },
-    password: { type: String, select: false, required: true },
-    passwordResetCode: { type: String, default: '' },
-    passwordResetExpires: { type: Number }
+    user: {
+      type: String || mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      index: true,
+    },
+    username: {
+      type: String,
+      unique: true,
+      required: [true, 'Username is required']
+    },
+    email: {
+      type: String,
+      unique: true,
+      lowercase: true,
+      required: [true, 'Email is required']
+    },
+    role: {
+      type: String,
+      enum: Roles,
+      default: Roles.Mentee
+    },
+    password: {
+      type: String,
+      select: false,
+      required: [true, 'Password is required']
+    },
+    passwordResetCode: {
+      type: String,
+      default: '',
+      required: false
+    },
+    passwordResetExpires: {
+      type: Number,
+      required: false
+    }
   },
   {
     timestamps: true,
@@ -25,12 +54,13 @@ const authSchema: Schema = new Schema<IAuthDocument>(
   }
 );
 
+
 authSchema.pre('save', async function (next) {
   //runs only this function if the password is actually modified
   if (!this.isModified('password')) return next();
 
   //hash the password with cost  of 12
-  this.password = await hash(this.password, 10);
+  this.password = await bcrypt.hash(this.password, 10);
 
   next();
 });
