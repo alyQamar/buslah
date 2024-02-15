@@ -24,7 +24,7 @@ class AuthController {
       AuthService.SendTokenViaCookie(newUser.token, res);
       res.status(201).json({ status: 'success', data: newUser });
     } catch (error) {
-      next(error || new InternalServerError());
+      next(error);
     }
   }
 
@@ -35,7 +35,7 @@ class AuthController {
       AuthService.SendTokenViaCookie(jwtToken, res);
       res.status(200).json({ status: 'success', jwtToken });
     } catch (error) {
-      next(error || new InternalServerError());
+      next(error);
     }
   }
 
@@ -45,7 +45,7 @@ class AuthController {
       await AuthService.forgotPassword(req.body.email);
       res.status(200).json({ message: 'Password reset code sent successfully.' });
     } catch (error) {
-      next(error || new InternalServerError());
+      next(error);
     }
   }
 
@@ -55,7 +55,7 @@ class AuthController {
       await AuthService.checkPasswordResetCode(req.body.userEmail, req.body.code);
       res.status(200).json({ message: 'success' });
     } catch (error) {
-      next(error || new InternalServerError());
+      next(error);
     }
   }
 
@@ -66,7 +66,7 @@ class AuthController {
       AuthService.SendTokenViaCookie(jwtToken, res);
       res.status(200).json({ message: 'success', jwtToken });
     } catch (error) {
-      next(error || new InternalServerError());
+      next(error);
     }
   }
 }
