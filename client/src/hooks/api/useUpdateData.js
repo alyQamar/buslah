@@ -1,4 +1,4 @@
-import baseUrl from './baseURL';
+import baseUrl from '../../shared/services/api/baseURL';
 
 const useInsUpdateData = async (url, parmas) => {
   const config = {

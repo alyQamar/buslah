@@ -1,10 +1,9 @@
-import { Link } from "react-router-dom";
-import arrow from "../../assets/authSVG/arrow-left.svg";
-import CheckEmailCodeHook from "../../hook/Auth/check-email-code-hook";
+import { Link } from 'react-router-dom';
+import arrow from '../../assets/authSVG/arrow-left.svg';
+import CheckEmailCodeHook from '../../hooks/Auth/check-email-code-hook';
 
 const CheckEmailForm = () => {
-
-const [writtenCode,inputRefs,handleChange] = CheckEmailCodeHook();
+  const [writtenCode, inputRefs, handleChange] = CheckEmailCodeHook();
   return (
     <form className="publicform forgetpasswordform bg-white rounded-lg">
       <Link to="/forgetpassword" className="w-full ml-[10%]">
@@ -14,7 +13,8 @@ const [writtenCode,inputRefs,handleChange] = CheckEmailCodeHook();
         <p className="text-center text-black text-2xl font-semibold font-['Montserrat'] mb-2">Check your email</p>
         <p className="w-[231px] text-center text-gray-700 text-xs font-medium font-['Montserrat']">
           Enter the verification code that sent
-          <br />to the email Omar *** ***@gmail.com
+          <br />
+          to the email Omar *** ***@gmail.com
         </p>
       </div>
       <div className="w-full flex flex-row gap-[2%] justify-center mt-[-5%]">
@@ -31,7 +31,9 @@ const [writtenCode,inputRefs,handleChange] = CheckEmailCodeHook();
       </div>
       <div className="w-[147px] h-[30px] flex-col justify-center items-center inline-flex">
         <p className="text-gray-700 text-xs font-normal font-['Montserrat']">Didn’t receive any code?</p>
-        <Link to="/forgetpassword" className="text-gray-700 text-xs font-bold font-['Montserrat'] underline">Resend new code</Link>
+        <Link to="/forgetpassword" className="text-gray-700 text-xs font-bold font-['Montserrat'] underline">
+          Resend new code
+        </Link>
       </div>
     </form>
   );
