@@ -124,3 +124,25 @@ export class IncorrectEmailOrPassError extends UnauthorizedError {
     this.feature = 'auth';
   }
 }
+
+export class DatabaseValidationError extends ConflictError {
+  constructor(message?: string) {
+    super(message || 'Database validation error occurred, please check your request body fields');
+    this.subType = 'DatabaseError'
+  }
+}
+
+export class UserNotAuthenticatedError extends NotFoundError {
+  constructor(email: string, message?: string) {
+    super(`User with email '${email}' is not authenticated`);
+    this.subType = 'UserNotAuthenticated';
+    this.feature = 'auth';
+  }
+}
+export class UserNotAuthenticatedOrTimeExpiredError extends NotFoundError {
+  constructor(email: string, message?: string) {
+    super(`User with email '${email}' is not authenticated or the verification code's time has expired`);
+    this.subType = 'UserNotAuthenticated';
+    this.feature = 'auth';
+  }
+}

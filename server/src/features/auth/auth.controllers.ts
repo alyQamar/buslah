@@ -1,3 +1,4 @@
+// *! Deprecated Class, Do not use
 import { ObjectId } from 'mongoose';
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';

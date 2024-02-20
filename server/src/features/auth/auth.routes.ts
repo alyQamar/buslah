@@ -1,5 +1,5 @@
 import express, { NextFunction, Router } from 'express';
-import authController from '@auth/auth.controllers';
+import authController from '@auth/auth.controller';
 
 
 class AuthRoutes {

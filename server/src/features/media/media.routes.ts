@@ -1,4 +1,5 @@
 import express, { Router } from 'express';
+import { mediaController } from './media.controllers';
 
 class MediaRoutes {
   private router: Router;
@@ -8,7 +9,7 @@ class MediaRoutes {
   }
 
   public routes(): Router {
-    // this.router.route('/images')
+    this.router.post('/uploadImage/:Id/:type', mediaController.uploadMiddleware.single('image'), mediaController.uploadPhoto);
 
     // this.router.route('/images/:id')
 

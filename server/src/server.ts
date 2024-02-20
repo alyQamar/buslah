@@ -31,12 +31,15 @@ export class ServerInit {
   }
 
   private securityMiddleware(app: Application): void {
+    const expiredTime: number = Number(config.JWT_COOKIE_EXPIRE_IN);
+
     app.use(
       cookieSession({
         name: 'session',
         keys: [config.JWT_SECRET_KEY],
-        maxAge: 24 * 7 * 3600000,
-        secure: config.NODE_ENV === 'development' ? false : true
+        maxAge: expiredTime * 24 * 60 * 60 * 1000, // Set maxAge in milliseconds
+        secure: config.NODE_ENV === 'development' ? false : true,
+        httpOnly: true // this make the browser able to receive and send cookies only not access it
       })
     );
 

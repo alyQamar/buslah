@@ -15,7 +15,8 @@ const userSchema: Schema = new Schema(
       enum: ['admin', 'mentor', 'mentee'],
       default: 'mentee'
     },
-    photo: { type: String },
+    profilePhoto: { type: String || ObjectId, ref: 'MediaModel' },
+    coverPhoto: { type: String || ObjectId, ref: 'MediaModel' },
     country: { type: String },
     companyWorkingFor: { type: String },
     school: { type: String },

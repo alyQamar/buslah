@@ -1,5 +1,4 @@
-import baseUrl from '../Api/baseURL'
-
+import baseUrl from '../../shared/services/api/baseURL';
 
 // const useInsertDataWithImage = async (url, parmas) => {
 //     const config = {
@@ -13,14 +12,14 @@ import baseUrl from '../Api/baseURL'
 // }
 
 const useInsertData = async (url, parmas) => {
-    const config = {
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`
-        }
+  const config = {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('token')}`
     }
-    const res = await baseUrl.post(url, parmas, config);
+  };
+  const res = await baseUrl.post(url, parmas, config);
 
-    return res;
-}
+  return res;
+};
 
-export { useInsertData };//useInsertDataWithImage
+export { useInsertData }; //useInsertDataWithImage
