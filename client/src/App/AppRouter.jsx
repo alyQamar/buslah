@@ -8,7 +8,9 @@ import ResetPasswordPage from '../pages/Auth/ResetPasswordPage';
 import VerifyAccountPage from '../pages/Auth/VerifyAccountPage';
 import AfterVerifyPage from '../pages/Auth/AfterVerifyPage';
 //
-import HomePostsPage from '../pages/MentoringPages/HomePostsPage';
+import MentorPage from '../pages/MentoringPages/MentorPage';
+import NavBar from '../components/publicComponents/NavBar';
+import Test2 from '../components/publicComponents/Test2';
 
 const AppRouter = () => {
   const elements = useRoutes([
@@ -40,10 +42,20 @@ const AppRouter = () => {
       path: '/verified',
       element: <AfterVerifyPage />
     },
-    //test
+    //testp
+    {
+      path: '/testp',
+      element: <MentorPage/>
+    },
+     //test
     {
       path: '/test',
-      element: <HomePostsPage/>
+      element: <NavBar/>
+    },
+    //test
+    {
+      path: '/test2',
+      element: <Test2/>
     }
   ]);
 
