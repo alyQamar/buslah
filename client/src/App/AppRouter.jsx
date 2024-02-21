@@ -8,9 +8,9 @@ import ResetPasswordPage from '../pages/Auth/ResetPasswordPage';
 import VerifyAccountPage from '../pages/Auth/VerifyAccountPage';
 import AfterVerifyPage from '../pages/Auth/AfterVerifyPage';
 //
-import MentorPage from '../pages/MentoringPages/MentorPage';
-import NavBar from '../components/publicComponents/NavBar';
-import Test2 from '../components/publicComponents/Test2';
+import MentorPage from '../pages/Social/Mentor';
+import NavBar from '../components/Common/NavBar';
+import Test2 from '../components/Home/Test2';
 
 const AppRouter = () => {
   const elements = useRoutes([
@@ -45,17 +45,17 @@ const AppRouter = () => {
     //testp
     {
       path: '/testp',
-      element: <MentorPage/>
+      element: <MentorPage />
     },
-     //test
+    //test
     {
       path: '/test',
-      element: <NavBar/>
+      element: <NavBar />
     },
     //test
     {
       path: '/test2',
-      element: <Test2/>
+      element: <Test2 />
     }
   ]);
 

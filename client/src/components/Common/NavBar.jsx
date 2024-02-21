@@ -1,13 +1,13 @@
-import img from '../../assets/mainSVG/Image.svg'
-import msg from '../../assets/mainSVG/Left Icon (2).svg'
-import notify from '../../assets/mainSVG/bell-02.svg'
-import SearchInput from './SearchInput'
+import img from '../../assets/mainSVG/Image.svg';
+import msg from '../../assets/mainSVG/Left Icon (2).svg';
+import notify from '../../assets/mainSVG/bell-02.svg';
+import SearchInput from '../Common/SearchInput';
 const NavBar = () => {
   return (
     <div className="w-[1440px] h-[100px] px-[104px] py-4 bg-white rounded-xl justify-center items-center gap-6 inline-flex">
       <div className="text-black text-2xl font-normal font-['Luminari']">BUSLAH</div>
       <div>
-      <SearchInput/>
+        <SearchInput />
       </div>
       <div className="w-[237px] pl-4 pr-2 py-3.5 bg-slate-50 rounded-lg items-start gap-[4px] flex flex-row">
         <div className="w-10 self-stretch p-2 bg-white rounded-lg shadow justify-center items-center inline-flex">
@@ -24,10 +24,7 @@ const NavBar = () => {
         </div>
       </div>
     </div>
+  );
+};
 
-  )
-}
-
-export default NavBar
-
-
+export default NavBar;
