@@ -1,13 +1,13 @@
-import GroupedSelectors from '../../components/Common/GroupedSelectors';
-import MentorCard from '../../components/Mentor/MentorCard';
-import NavBarWithoutSearch from '../../components/Common/NavBarWithoutSearch';
-import Pagination from '../../components/Common/Pagination';
-import SearchInput from '../../components/Common/SearchInput';
-import SideBar from '../../components/Common/SideNav';
+import GroupedSelectors from '../../../components/Common/GroupedSelectors';
+import MentorCard from '../../../components/Mentor/MentorCard';
+import NavBarWithoutSearch from '../../../components/Common/NavBarWithoutSearch';
+import Pagination from '../../../components/Common/Pagination';
+import SearchInput from '../../../components/Common/SearchInput';
+import SideBar from '../../../components/Common/SideNav';
 //
 import { useState, useEffect } from 'react';
 
-const MentorPage = () => {
+const Mentors = () => {
   // for pagination
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -136,4 +136,4 @@ const MentorPage = () => {
   );
 };
 
-export default MentorPage;
+export default Mentors;

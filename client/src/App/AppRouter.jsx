@@ -7,10 +7,10 @@ import CheckEmailPage from '../pages/Auth/CheckEmailPage';
 import ResetPasswordPage from '../pages/Auth/ResetPasswordPage';
 import VerifyAccountPage from '../pages/Auth/VerifyAccountPage';
 import AfterVerifyPage from '../pages/Auth/AfterVerifyPage';
-//
-import MentorPage from '../pages/Social/Mentor';
-import NavBar from '../components/Common/NavBar';
-import Test2 from '../components/Home/Test2';
+
+import Social from '../pages/Social/Social';
+import Home from '../pages/Social/Home/Home';
+import Mentors from '../pages/Social/Mentors/Mentors';
 
 const AppRouter = () => {
   const elements = useRoutes([
@@ -42,20 +42,23 @@ const AppRouter = () => {
       path: '/verified',
       element: <AfterVerifyPage />
     },
-    //testp
     {
-      path: '/testp',
-      element: <MentorPage />
+      path: '/social',
+      element: <Social />,
+      children: [
+        {
+          path: 'home',
+          element: <Home />
+        },
+        {
+          path: 'mentors',
+          element: <Mentors />
+        }
+      ]
     },
-    //test
     {
-      path: '/test',
-      element: <NavBar />
-    },
-    //test
-    {
-      path: '/test2',
-      element: <Test2 />
+      path: '*',
+      element: <Error />
     }
   ]);
 

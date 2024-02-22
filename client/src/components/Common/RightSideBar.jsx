@@ -1,6 +1,7 @@
 import ProgressBarA from './ProgressBarA';
 import Calender from './Calender';
-import RecommendationFollow from '../Home/RecommendationFollow';
+import RecommendationFollow from './../Follow/RecommendationFollow';
+
 const RightSideBar = () => {
   return (
     <div className="w-[284px] h-[1780px] bg-stone-50 rounded-2xl flex flex-col items-center gap-[30px] pt-[30px]">
