@@ -1,6 +1,5 @@
-import axios from 'axios'
+import axios from 'axios';
 
+const baseUrl = axios.create({ baseURL: process.env.BASE_URL });
 
-const baseUrl = axios.create({ baseURL: "http://localhost:8643" })
-
-export default baseUrl
+export default baseUrl;
