@@ -1,10 +1,9 @@
-import GroupedSelectors from '../../../components/Common/GroupedSelectors';
-import MentorCard from '../../../components/Mentor/MentorCard';
-import NavBarWithoutSearch from '../../../components/Common/NavBarWithoutSearch';
-import Pagination from '../../../components/Common/Pagination';
-import SearchInput from '../../../components/Common/SearchInput';
-import SideBar from '../../../components/Common/SideNav';
-//
+import GroupedSelectors from '@common/GroupedSelectors';
+import MentorCard from '@components/Mentor/MentorCard';
+import NavBarWithoutSearch from '@components/Navbar/NavbarWithoutSearch';
+import Pagination from '@common/Pagination';
+import SearchInput from '@common/SearchInput/SearchInput';
+import SideBar from '@common/SideNav';
 import { useState, useEffect } from 'react';
 
 const Mentors = () => {
