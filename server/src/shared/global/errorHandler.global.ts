@@ -146,3 +146,10 @@ export class UserNotAuthenticatedOrTimeExpiredError extends NotFoundError {
     this.feature = 'auth';
   }
 }
+export class SessionDataNotAvailableError extends InternalServerError {
+  constructor(message?: string) {
+    super(message || "Session data is not available in the response object");
+    this.subType = 'SessionDataNotAvailableError';
+    this.feature = 'auth';
+  }
+}
