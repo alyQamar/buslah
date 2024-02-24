@@ -1,4 +1,5 @@
 import Joi, { ObjectSchema } from 'joi';
+import { Roles } from './auth.interfaces';
 
 const signupValidator = Joi.object().keys({
   username: Joi.string().min(3).max(15).required().messages({
@@ -20,6 +21,12 @@ const signupValidator = Joi.object().keys({
     'string.empty': 'Email is not allowed to be empty',
     'string.email': 'Email must be valid',
     'any.required': 'Email is a required field'
+  }),
+  role: Joi.string().valid(...Object.values(Roles)).required().messages({
+    'string.base': 'Role must be of type string',
+    'string.empty': 'Role is not allowed to be empty',
+    'any.only': 'Role must be one of: ' + Object.values(Roles).join(', '), // Error message if role is not valid
+    'any.required': 'Role is a required field'
   })
 });
 

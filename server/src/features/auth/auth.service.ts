@@ -5,7 +5,8 @@ import { config } from '@config/index';
 import Auth from '@auth/auth.model';
 import UserModel from '@user/user.model';
 import emailServices from '@service/email/emailServices';
-import { BadRequestError, IncorrectEmailOrPassError, NotFoundError, UserNotAuthenticatedError, UserNotAuthenticatedOrTimeExpiredError } from '@global/errorHandler.global';
+import { BadRequestError, IncorrectEmailOrPassError, NotFoundError, SessionDataNotAvailableError, UserNotAuthenticatedError, UserNotAuthenticatedOrTimeExpiredError } from '@global/errorHandler.global';
+import { Roles } from './auth.interfaces';
 
 class AuthService {
 
@@ -17,14 +18,14 @@ class AuthService {
     if (res && res.req && res.req.session) {
       res.req.session.jwt = token;
     } else {
-      throw new Error("Session data is not available in the response object.");
+      throw new SessionDataNotAvailableError();
     }
 
   };
 
 
-  public static async signUp(username: string, email: string, password: string): Promise<any> {
-    const newAuthDoc = await Auth.create({ username, email, password });
+  public static async signUp(username: string, email: string, password: string, role: Roles): Promise<any> {
+    const newAuthDoc = await Auth.create({ username, email, password, role });
     const newUserDoc = await UserModel.create({ authID: newAuthDoc._id, firstName: username });
     await newUserDoc.save();
 

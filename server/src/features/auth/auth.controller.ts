@@ -20,8 +20,11 @@ class AuthController {
   @validateBody(signupValidator)
   public static async signUp(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const newUser = await AuthService.signUp(req.body.username, req.body.email, req.body.password);
+      const { username, email, password, role } = req.body;
+      const newUser = await AuthService.signUp(username, email, password, role);
+
       AuthService.SendTokenViaCookie(newUser.token, res);
+
       res.status(201).json({ status: 'success', data: newUser });
     } catch (error) {
       next(error);
