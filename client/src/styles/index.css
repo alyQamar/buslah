@@ -55,10 +55,10 @@ body {
 }
 
 .signupbackground {
-  background-image: url("./assets/authIMG/bg-1.jpg");
+  background-image: url("../assets/authIMG/bg-1.jpg");
 }
 .loginbackground {
-  background-image: url("./assets/authIMG/bg-2.jpg");
+  background-image: url("../assets/authIMG/bg-2.jpg");
 }
 
 .overlaybackground {

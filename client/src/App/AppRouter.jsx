@@ -56,10 +56,10 @@ const AppRouter = () => {
         }
       ]
     },
-    {
-      path: '*',
-      element: <Error />
-    }
+    // {
+    //   path: '*',
+    //   element: <Error />
+    // }
   ]);
 
   return elements;
