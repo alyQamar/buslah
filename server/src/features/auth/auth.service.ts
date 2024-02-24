@@ -29,6 +29,9 @@ class AuthService {
     const newUserDoc = await UserModel.create({ authID: newAuthDoc._id, firstName: username });
     await newUserDoc.save();
 
+    newAuthDoc.user = String(newUserDoc._id);
+    await newAuthDoc.save();
+
     const jwtToken = AuthService.createToken(newAuthDoc._id as unknown as ObjectId);
     return { token: jwtToken, data: newAuthDoc };
   }
