@@ -4,7 +4,6 @@ export interface IUserDocument extends Document {
   _id: string | mongoose.Types.ObjectId;
   firstName: string;
   lastName: string;
-  role: string;
   profilePhoto?: string | mongoose.Types.ObjectId;
   coverPhoto?: string | mongoose.Types.ObjectId;
   country?: string;

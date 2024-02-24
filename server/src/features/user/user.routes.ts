@@ -8,15 +8,19 @@ class UserRoutes {
 
   constructor() {
     this.router = express.Router();
-    this.router.get('/', controller.getAllUsers);
-    this.router.get('/:id', controller.getUser);
-    this.router.delete('/:id', controller.deleteUser);
-    this.router.put('/:id', controller.updateUser);
+    this.routes();
   }
+  public routes(): Router {
+    this.router.get('/', controller.getAllUsers);
+    this.router.get('/mentors', controller.getAllMentors);
 
-  routes(): Router {
+    this.router.route('/:id')
+      .get(controller.getUser)
+      .delete(controller.deleteUser);
+
     return this.router;
   }
+
 }
 
 export const userRoutes: UserRoutes = new UserRoutes();

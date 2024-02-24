@@ -1,8 +1,6 @@
 import { model, Model, Schema, Document, Types } from 'mongoose'; // Importing Mongoose functions
 import { ObjectId } from 'mongodb'; // Importing MongoDB's ObjectId
 import { IUserDocument } from '@user/user.interfaces';
-import { NextFunction } from 'express';
-import followsModel from '@follows/follows.model';
 
 // 2- Define a Mongoose schema for the user
 const userSchema: Schema = new Schema(
@@ -10,11 +8,6 @@ const userSchema: Schema = new Schema(
     savedPosts: [{ type: ObjectId, ref: 'Post' }],
     firstName: { type: String },
     lastName: { type: String },
-    role: {
-      type: String,
-      enum: ['admin', 'mentor', 'mentee'],
-      default: 'mentee'
-    },
     profilePhoto: { type: String || ObjectId, ref: 'MediaModel' },
     coverPhoto: { type: String || ObjectId, ref: 'MediaModel' },
     country: { type: String },
