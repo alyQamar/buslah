@@ -11,9 +11,14 @@ export type CommonFunctions<T extends Document> = {
   updateOne: (req: Request, res: Response) => Promise<void>;
   deleteOne: (req: Request, res: Response) => Promise<void>;
   getAll: (req: Request, res: Response) => Promise<void>;
+  createMany: (req: Request, res: Response) => Promise<void>;
+  updateMany: (req: Request, res: Response) => Promise<void>;
+  softDeleteOne: (req: Request, res: Response) => Promise<void>;
+  softDeleteMany: (req: Request, res: Response) => Promise<void>;
 };
 
 export const createCommonService = <T extends Document>(Model: Model<T>, modelName: string): CommonFunctions<T> => {
+
   const deleteOne = async (req: Request, res: Response) => {
     const { id } = req.params;
     const document = await Model.findByIdAndDelete(id);
@@ -24,6 +29,15 @@ export const createCommonService = <T extends Document>(Model: Model<T>, modelNa
     res.status(204).send();
   };
 
+  const softDeleteOne = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const document = await Model.findByIdAndUpdate(id, { deletedAt: new Date() }, { isDeleted: true });
+    if (!document) {
+      throw new NotFoundError(`No document for this id ${id}`);
+    }
+
+    res.status(204).send();
+  };
 
   const updateOne = async (req: Request, res: Response) => {
     const document = await Model.findByIdAndUpdate(req.params.id, req.body, {
@@ -52,7 +66,7 @@ export const createCommonService = <T extends Document>(Model: Model<T>, modelNa
 
   const getOne = async (req: Request, res: Response) => {
     const { id } = req.params;
-    const document = await Model.findById(id);
+    const document = await Model.findOne({ _id: id, isDeleted: { $ne: true } });
     if (!document) {
       throw new NotFoundError(`No document for this id: ${id}`);
     }
@@ -63,7 +77,7 @@ export const createCommonService = <T extends Document>(Model: Model<T>, modelNa
   };
 
   const getAll = async (req: IFilterRequest, res: Response) => {
-    let filter = {};
+    let filter = { isDeleted: { $ne: true } };
     if (req.filterObj) {
       filter = req.filterObj;
     }
@@ -82,12 +96,47 @@ export const createCommonService = <T extends Document>(Model: Model<T>, modelNa
 
     res.status(200).json({ status: 'success', results: documents.length, paginationResult, data: documents });
   };
+  const createMany = async (req: Request, res: Response) => {
+    const documents = await Model.create(req.body);
+    if (!documents) {
+      throw new InternalServerError();
+    }
+    res.status(201).json({
+      status: 'success',
+      data: { documents }
+    });
+  };
+
+  const updateMany = async (req: Request, res: Response) => {
+    const { filter, update } = req.body;
+    const documents = await Model.updateMany(filter, update);
+    if (!documents) {
+      throw new InternalServerError();
+    }
+    res.status(200).json({
+      status: 'success',
+      data: { documents }
+    });
+  };
+
+  const softDeleteMany = async (req: Request, res: Response) => {
+    const { filter } = req.body;
+    const documents = await Model.updateMany(filter, { deletedAt: new Date() }, { isDeleted: true });
+    if (!documents) {
+      throw new InternalServerError();
+    }
+    res.status(204).send();
+  };
 
   return {
-    getOne,
+    deleteOne,
+    softDeleteOne,
     createOne,
     updateOne,
-    deleteOne,
-    getAll
+    getOne,
+    getAll,
+    softDeleteMany,
+    createMany,
+    updateMany,
   };
 };
