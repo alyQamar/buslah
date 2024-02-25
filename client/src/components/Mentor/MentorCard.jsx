@@ -5,11 +5,14 @@ import raring from "../../assets/publicIcons/RatingStar.svg"
 
 
 
-const MentorCard = () => {
+const MentorCard = ({ mentor }) => {
+  //console.log("n:",mentor.firstName)
+
   return (
     <div className="w-[333px] h-[467px] relative bg-stone-50 bg-opacity-25 rounded-3xl shadow overflow-hidden">
-  <div className="left-[12px] top-[305px] absolute text-black text-2xl font-medium font-['Montserrat']">Mostafa Mahmoud</div>
-  <div className="left-[12px] top-[342px] absolute text-black text-base font-normal font-['Montserrat']">Software Developer</div>
+  <div className="left-[12px] top-[305px] absolute text-black text-2xl font-medium font-['Montserrat']">{mentor.firstName}</div>
+  <div className="left-[12px] top-[342px] absolute text-black text-base font-normal font-['Montserrat']">{mentor.interests
+  }</div>
 
   <div className="w-[307.94px] h-[59px] left-[12px] top-[386px] absolute">
     <div className="w-[54.12px] h-[59px] left-0 top-0 absolute bg-stone-50 rounded-2xl border border-slate-300 justify-center items-center gap-2 inline-flex">
@@ -39,7 +42,7 @@ const MentorCard = () => {
   <div className="w-14 h-[31px] left-[265px] top-[305px] absolute rounded-[9.08px] flex-col justify-center items-center gap-[2.42px] inline-flex">
     <div className="relative">
       <img src={raring} />
-      <div className="left-[19.36px] top-0 absolute text-gray-700 text-sm font-semibold font-['Montserrat']">4.5</div>
+      <div className="left-[19.36px] top-0 absolute text-gray-700 text-sm font-semibold font-['Montserrat']">{mentor.ratingsQuantity}</div>
     </div>
   </div>
 </div>
