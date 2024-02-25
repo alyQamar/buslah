@@ -1,4 +1,4 @@
-import { Model, Document } from 'mongoose';
+import { Model, Document, ObjectId } from 'mongoose';
 import { Request, Response } from 'express';
 
 import { IFilterRequest } from '@root/shared/interfaces/request.interface';
@@ -11,6 +11,7 @@ export type CommonFunctions<T extends Document> = {
   updateOne: (req: Request, res: Response) => Promise<void>;
   deleteOne: (req: Request, res: Response) => Promise<void>;
   getAll: (req: Request, res: Response) => Promise<void>;
+  getAllByIds: (req: Request, res: Response, docIds: (string | ObjectId)[]) => Promise<void>;
   createMany: (req: Request, res: Response) => Promise<void>;
   updateMany: (req: Request, res: Response) => Promise<void>;
   softDeleteOne: (req: Request, res: Response) => Promise<void>;
@@ -107,6 +108,34 @@ export const createCommonService = <T extends Document>(Model: Model<T>, modelNa
     });
   };
 
+  const getAllByIds = async (req: IFilterRequest, res: Response, docIds: (string | ObjectId)[]) => {
+
+    // [x] Fetch docs based on the extracted doc ids
+    const users = await Model.find({ _id: { $in: docIds } });
+
+    // [x] Apply additional filtering if specified in the request
+    let filter = { isDeleted: { $ne: true } };
+
+    // [x] Build and execute the query using QueryServices
+    const documentCnt = users.length;
+    const apiFeatures = new QueryService(Model.find({ ...filter, _id: { $in: docIds } }), req.query)
+      .paginate(documentCnt)
+      .filter()
+      .search(modelName)
+      .limitFields()
+      .sort();
+
+    const { mongooseQuery, paginationResult } = apiFeatures;
+    const documents = await mongooseQuery.exec();
+
+
+    if (!documents) {
+      throw new NotFoundError();
+    }
+
+    res.status(200).json({ status: 'success', results: documents.length, paginationResult, data: documents, users });
+  };
+
   const updateMany = async (req: Request, res: Response) => {
     const { filter, update } = req.body;
     const documents = await Model.updateMany(filter, update);
@@ -135,6 +164,7 @@ export const createCommonService = <T extends Document>(Model: Model<T>, modelNa
     updateOne,
     getOne,
     getAll,
+    getAllByIds,
     softDeleteMany,
     createMany,
     updateMany,

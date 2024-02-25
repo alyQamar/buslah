@@ -52,10 +52,8 @@ class userController {
   // @access  Public
   public async getAllMentors(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const mentors = await UserService.getUsersByRole(req, Roles.Mentor);
-
-      res.status(200).json(mentors);
-
+      const mentorIds = await UserService.getUsersIdsByRole(req, Roles.Mentor);
+      await CRUDFunctions.getAllByIds(req, res, mentorIds);
     } catch (error) {
       next(error);
     }
