@@ -133,7 +133,7 @@ export const createCommonService = <T extends Document>(Model: Model<T>, modelNa
       throw new NotFoundError();
     }
 
-    res.status(200).json({ status: 'success', results: documents.length, paginationResult, data: documents, users });
+    res.status(200).json({ status: 'success', results: documents.length, paginationResult, data: documents });
   };
 
   const updateMany = async (req: Request, res: Response) => {
