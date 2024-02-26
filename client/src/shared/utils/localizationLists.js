@@ -10,6 +10,11 @@ export const getAllCountries = () => {
   return filteredCountries;
 };
 
+export const getAllLanguageNames = () => {
+  const languages = getAllLanguages();
+  return Object.values(languages).map(({ name }) => name);
+};
+
 export const getAllCountryNames = () => {
   const countries = getAllCountries();
   return Object.values(countries).map(({ name }) => name);
