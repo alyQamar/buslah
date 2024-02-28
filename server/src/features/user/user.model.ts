@@ -1,13 +1,14 @@
-import { model, Model, Schema, Document, Types } from 'mongoose'; // Importing Mongoose functions
-import { ObjectId } from 'mongodb'; // Importing MongoDB's ObjectId
-import { IUserDocument } from '@user/user.interfaces';
+import { model, Model, Schema, Document, Types } from 'mongoose';
+import { ObjectId } from 'mongodb';
+import { AnalysisCategory, IUserDocument } from '@user/user.interfaces';
 
-// 2- Define a Mongoose schema for the user
 const userSchema: Schema = new Schema(
   {
-    savedPosts: [{ type: ObjectId, ref: 'Post' }],
     firstName: { type: String },
     lastName: { type: String },
+    headline: { type: String },
+    pricePerHour: { type: Number },
+    analysisCategory: { type: String, enum: AnalysisCategory },
     profilePhoto: { type: String || ObjectId, ref: 'MediaModel' },
     coverPhoto: { type: String || ObjectId, ref: 'MediaModel' },
     country: { type: String },
@@ -42,6 +43,7 @@ const userSchema: Schema = new Schema(
         ref: 'user',
       },
     ],
+    savedPosts: [{ type: ObjectId, ref: 'Post' }],
   },
   {
     timestamps: true
@@ -54,8 +56,6 @@ userSchema.virtual('reviews', {
   localField: '_id',
 });
 
-// 3) Creating the model from the schema
 const UserModel: Model<IUserDocument> = model<IUserDocument>('User', userSchema);
 
-// 4) Exporting the model to use it in other files/modules
 export default UserModel;

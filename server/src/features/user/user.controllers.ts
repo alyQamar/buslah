@@ -62,7 +62,16 @@ class userController {
   // [ ] changeUserPassword
   // [ ] getLoggedUserData
   // [ ] updateLoggedUserData
+  // @desc    Get list of users
+  // @route   GET /{URL}/users
+  // @access  Private/User
+  public async updateLoggedUserData(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      await CRUDFunctions.updateOne(req, res);
+    } catch (error) {
+      throw new NotFoundError('Cannot find any users.');
+    }
+  }
   // [ ] deleteLoggedUserData
 }
-
 export default userController;

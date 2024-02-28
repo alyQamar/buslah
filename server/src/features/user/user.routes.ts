@@ -16,6 +16,7 @@ class UserRoutes {
 
     this.router.route('/:id')
       .get(controller.getUser)
+      .put(controller.updateLoggedUserData)
       .delete(controller.deleteUser);
 
     return this.router;
