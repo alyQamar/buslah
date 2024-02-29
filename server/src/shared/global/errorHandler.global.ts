@@ -153,3 +153,26 @@ export class SessionDataNotAvailableError extends InternalServerError {
     this.feature = 'auth';
   }
 }
+export class TokenTimeExpiredError extends UnauthorizedError {
+  constructor(message?: string) {
+    super("Token has expired.");
+    this.subType = 'TokenExpired';
+    this.feature = 'auth';
+  }
+}
+
+export class InvalidTokenError extends UnauthorizedError {
+  constructor(message?: string) {
+    super("Token is invalid.");
+    this.subType = 'InvalidToken';
+    this.feature = 'auth';
+  }
+}
+
+export class MissingTokenError extends UnauthorizedError {
+  constructor(message?: string) {
+    super("Token is missing.");
+    this.subType = 'MissingToken';
+    this.feature = 'auth';
+  }
+}

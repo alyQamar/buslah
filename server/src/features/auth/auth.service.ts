@@ -1,14 +1,19 @@
 import { Request, Response } from 'express';
 import { ObjectId } from 'mongoose';
-import jwt, { JsonWebTokenError, TokenExpiredError, decode } from 'jsonwebtoken';
+import jwt, { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken';
 import { config } from '@config/index';
 import Auth from '@auth/auth.model';
 import UserModel from '@user/user.model';
 import emailServices from '@service/email/emailServices';
-import { BadRequestError, ForbiddenError, IncorrectEmailOrPassError, NotFoundError, SessionDataNotAvailableError, UnauthorizedError, UserNotAuthenticatedError, UserNotAuthenticatedOrTimeExpiredError } from '@global/errorHandler.global';
+import {
+  BadRequestError, IncorrectEmailOrPassError, InvalidTokenError, MissingTokenError,
+  TokenTimeExpiredError, SessionDataNotAvailableError, UnauthorizedError, UserNotAuthenticatedError,
+  UserNotAuthenticatedOrTimeExpiredError
+} from '@global/errorHandler.global';
 import { IAuthDocument, Roles } from './auth.interface';
 import { IUserDocument } from '@user/user.interfaces';
 import AuthModel from '@auth/auth.model';
+
 
 class AuthService {
 
@@ -115,7 +120,7 @@ class AuthService {
   private static tokenExists(auth: string | undefined): string {
     const token = this.getToken(auth);
     if (!token) {
-      throw new UnauthorizedError("Token is missing or invalid.");
+      throw new MissingTokenError();
     }
     return token;
   }
@@ -126,9 +131,9 @@ class AuthService {
       return decoded;
     } catch (error) {
       if (error instanceof TokenExpiredError) {
-        throw new Error('Token expired');
+        throw new TokenTimeExpiredError();
       } else if (error instanceof JsonWebTokenError) {
-        throw new Error('Invalid token');
+        throw new InvalidTokenError();
       } else {
         throw error;
       }
