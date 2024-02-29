@@ -6,7 +6,7 @@ import { NotFoundError } from '@global/errorHandler.global';
 import { createCommonService, CommonFunctions } from '@service/db/common.service';
 
 import { IUserDocument } from '@user/user.interfaces';
-import { Roles } from '@auth/auth.interfaces';
+import { Roles } from '@auth/auth.interface';
 import userModel from '@user/user.model';
 import UserService from './user.service';
 

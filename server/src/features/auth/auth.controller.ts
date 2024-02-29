@@ -10,10 +10,10 @@ import {
   forgotPasswordValidator,
   resetPasswordValidator,
   signupValidator
-} from '@auth/auth.validators';
+} from '@auth/auth.validator';
 import { checkExists, checkNotExists } from '@root/shared/decorators/customValidation.decorator';
 import AuthModel from './auth.model';
-import { Roles } from './auth.interfaces';
+import { Roles } from './auth.interface';
 import { IUserAuthRequest } from '@root/shared/interfaces/request.interface';
 
 class AuthController {

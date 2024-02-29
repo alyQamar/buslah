@@ -1,6 +1,6 @@
 import mongoose, { Document } from 'mongoose';
 
-import { PrivacyOptions } from '@auth/auth.interfaces';
+import { PrivacyOptions } from '@auth/auth.interface';
 import { IAnswerDocument } from '@answer/answer.interfaces';
 
 export enum AskType {

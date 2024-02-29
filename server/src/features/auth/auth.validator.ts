@@ -1,5 +1,5 @@
 import Joi, { ObjectSchema } from 'joi';
-import { Roles } from './auth.interfaces';
+import { Roles } from './auth.interface';
 
 const signupValidator = Joi.object().keys({
   username: Joi.string().min(3).max(15).required().messages({

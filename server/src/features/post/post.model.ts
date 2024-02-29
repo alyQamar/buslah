@@ -1,6 +1,6 @@
 import mongoose, { model, Model, Schema } from 'mongoose';
 import { IPostDocument, Feelings } from '@post/post.interfaces';
-import { PrivacyOptions } from '@auth/auth.interfaces';
+import { PrivacyOptions } from '@auth/auth.interface';
 
 const postSchema: Schema = new Schema(
   {

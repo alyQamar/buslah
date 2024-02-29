@@ -1,7 +1,7 @@
 import mongoose, { Document } from 'mongoose';
 import { ICommentDocument } from '@comment/comment.interfaces';
 import { IReactionDocument } from '@reaction/reaction.interfaces';
-import { PrivacyOptions } from '@auth/auth.interfaces';
+import { PrivacyOptions } from '@auth/auth.interface';
 
 
 export enum Feelings {

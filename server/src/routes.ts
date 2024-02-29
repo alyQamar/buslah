@@ -1,5 +1,5 @@
 import { Application } from 'express';
-import { authRoutes } from '@auth/auth.routes';
+import { authRoutes } from '@auth/auth.route';
 import { userRoutes } from '@user/user.routes';
 import { postRoutes } from '@post/post.routes';
 import { reactionRoutes } from '@reaction/reaction.routes';

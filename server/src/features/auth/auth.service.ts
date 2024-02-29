@@ -6,7 +6,7 @@ import Auth from '@auth/auth.model';
 import UserModel from '@user/user.model';
 import emailServices from '@service/email/emailServices';
 import { BadRequestError, ForbiddenError, IncorrectEmailOrPassError, NotFoundError, SessionDataNotAvailableError, UnauthorizedError, UserNotAuthenticatedError, UserNotAuthenticatedOrTimeExpiredError } from '@global/errorHandler.global';
-import { IAuthDocument, Roles } from './auth.interfaces';
+import { IAuthDocument, Roles } from './auth.interface';
 import { IUserDocument } from '@user/user.interfaces';
 import AuthModel from '@auth/auth.model';
 

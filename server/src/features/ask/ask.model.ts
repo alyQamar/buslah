@@ -1,6 +1,6 @@
 import mongoose, { model, Model, Schema } from 'mongoose';
 import { AskType, IAskDocument } from '@ask/ask.interface';
-import { PrivacyOptions } from '@auth/auth.interfaces';
+import { PrivacyOptions } from '@auth/auth.interface';
 
 const askSchema: Schema = new Schema({
   user: {

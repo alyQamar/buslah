@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs';
 import crypto from 'crypto';
 
 import { config } from '@config/index';
-import { IAuthDocument, Roles } from '@auth/auth.interfaces';
+import { IAuthDocument, Roles } from '@auth/auth.interface';
 
 const authSchema: Schema<IAuthDocument> = new Schema(
   {

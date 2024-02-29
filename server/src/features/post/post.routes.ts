@@ -1,7 +1,7 @@
 import express, { Router } from 'express';
 import { PostController } from './post.controllers';
 import authController from '@auth/auth.controller';
-import { Roles } from '@auth/auth.interfaces';
+import { Roles } from '@auth/auth.interface';
 
 class PostRoutes {
   private router: Router;

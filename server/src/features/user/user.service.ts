@@ -1,6 +1,6 @@
 import AuthModel from "@auth/auth.model";
 import UserModel from '@user/user.model';
-import { Roles } from "@auth/auth.interfaces";
+import { Roles } from "@auth/auth.interface";
 import { NotFoundError } from "@global/errorHandler.global";
 import { IFilterRequest } from "@root/shared/interfaces/request.interface";
 import QueryServices from "@service/db/query.service";
