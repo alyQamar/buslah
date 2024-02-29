@@ -1,5 +1,7 @@
 import express, { Router } from 'express';
 import { PostController } from './post.controllers';
+import authController from '@auth/auth.controller';
+import { Roles } from '@auth/auth.interfaces';
 
 class PostRoutes {
   private router: Router;
@@ -10,7 +12,7 @@ class PostRoutes {
 
   public routes(): Router {
     this.router.route('/')
-      .post(PostController.createPost).get(PostController.getPosts);
+      .post(authController.protect, authController.allowedTo(Roles.Mentor), PostController.createPost).get(PostController.getPosts);
 
     this.router.route('/:id')
       .get(PostController.getPost)

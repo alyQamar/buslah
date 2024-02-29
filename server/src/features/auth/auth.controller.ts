@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 
 import { validateBody } from '@root/shared/decorators/joiValidation.decorator';
-import { InternalServerError } from '@global/errorHandler.global';
+import { ForbiddenError, InternalServerError, UnauthorizedError } from '@global/errorHandler.global';
 
 import AuthService from './auth.service';
 import {
@@ -13,6 +13,8 @@ import {
 } from '@auth/auth.validators';
 import { checkExists, checkNotExists } from '@root/shared/decorators/customValidation.decorator';
 import AuthModel from './auth.model';
+import { Roles } from './auth.interfaces';
+import { IUserAuthRequest } from '@root/shared/interfaces/request.interface';
 
 class AuthController {
 
@@ -25,7 +27,7 @@ class AuthController {
 
       AuthService.SendTokenViaCookie(newUser.token, res);
 
-      res.status(201).json({ status: 'success', data: newUser });
+      res.status(201).json({ status: 'success', data: newUser.data, token: newUser.token });
     } catch (error) {
       next(error);
     }
@@ -36,7 +38,7 @@ class AuthController {
     try {
       const jwtToken = await AuthService.login(req.body.email, req.body.password);
       AuthService.SendTokenViaCookie(jwtToken, res);
-      res.status(200).json({ status: 'success', jwtToken });
+      res.status(200).json({ status: 'success', token: jwtToken });
     } catch (error) {
       next(error);
     }
@@ -72,6 +74,44 @@ class AuthController {
       next(error);
     }
   }
+
+  /**
+   *
+   * @param req Request
+   * @param res Response
+   * @param next Function called when the request is successful and the response is returned and call next function or middleware
+   * @desc  Pre feature controller middleware make sure the user is logged in and token validation is enabled
+   */
+  public static async protect(req: IUserAuthRequest, res: Response, next: NextFunction): Promise<void> {
+    try {
+      req.userAuth = await AuthService.isLoggedUser(req.headers.authorization);
+      next();
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   *
+   * @param roles user roles
+   * @desc  Pre feature controller middleware make sure the user role is allowed to access the controller route
+   */
+  public static allowedTo(...roles: Roles[]): (req: Request, res: Response, next: NextFunction) => Promise<void> {
+    return async (req: IUserAuthRequest, res: Response, next: NextFunction): Promise<void> => {
+      try {
+        if (!roles.includes(req.userAuth.role)) {
+          throw new ForbiddenError();
+        }
+        next();
+      } catch (error) {
+        next(error);
+      }
+    };
+  }
+
+
+
+
 }
 
 export default AuthController;

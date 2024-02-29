@@ -15,12 +15,15 @@ const authSchema: Schema<IAuthDocument> = new Schema(
     username: {
       type: String,
       unique: true,
+      lowercase: true,
+      trim: true,
       required: [true, 'Username is required']
     },
     email: {
       type: String,
       unique: true,
       lowercase: true,
+      trim: true,
       required: [true, 'Email is required']
     },
     role: {
@@ -41,6 +44,9 @@ const authSchema: Schema<IAuthDocument> = new Schema(
     passwordResetExpires: {
       type: Number,
       required: false
+    },
+    passwordChangedAt: {
+      type: Date,
     }
   },
   {
