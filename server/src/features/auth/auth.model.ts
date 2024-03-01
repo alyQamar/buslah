@@ -65,7 +65,7 @@ authSchema.pre('save', async function (next) {
   //runs only this function if the password is actually modified
   if (!this.isModified('password')) return next();
 
-  //hash the password with cost  of 12
+  //hash the password with cost  of 10
   this.password = await bcrypt.hash(this.password, 10);
 
   next();

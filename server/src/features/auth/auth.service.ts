@@ -2,37 +2,26 @@ import { Request, Response } from 'express';
 import { ObjectId } from 'mongoose';
 import jwt, { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken';
 import { config } from '@config/index';
-import Auth from '@auth/auth.model';
+
+import AuthModel from '@auth/auth.model';
 import UserModel from '@user/user.model';
 import emailServices from '@service/email/emailServices';
 import {
   BadRequestError, IncorrectEmailOrPassError, InvalidTokenError, MissingTokenError,
   TokenTimeExpiredError, SessionDataNotAvailableError, UnauthorizedError, UserNotAuthenticatedError,
-  UserNotAuthenticatedOrTimeExpiredError
+  UserNotAuthenticatedOrTimeExpiredError,
+  NotFoundError,
+  IncorrectPasswordError
 } from '@global/errorHandler.global';
 import { IAuthDocument, Roles } from './auth.interface';
-import { IUserDocument } from '@user/user.interfaces';
-import AuthModel from '@auth/auth.model';
+import { IUserDocument } from '@user/user.interface';
+import { IUserAuthRequest } from '@root/shared/interfaces/request.interface';
 
 
 class AuthService {
 
-  private static createToken(userId: ObjectId): string {
-    return jwt.sign({ id: userId }, config.JWT_SECRET_KEY, { expiresIn: config.JWT_EXPIRE_TIME });
-  }
-
-  public static SendTokenViaCookie = (token: string, res: Response): void => {
-    if (res && res.req && res.req.session) {
-      res.req.session.jwt = token;
-    } else {
-      throw new SessionDataNotAvailableError();
-    }
-
-  };
-
-
   public static async signUp(username: string, email: string, password: string, role: Roles): Promise<any> {
-    const newAuthDoc: IAuthDocument = await Auth.create({ username, email, password, role });
+    const newAuthDoc: IAuthDocument = await AuthModel.create({ username, email, password, role });
     const newUserDoc: IUserDocument = await UserModel.create({ authID: newAuthDoc._id, firstName: username });
     await newUserDoc.save();
 
@@ -44,60 +33,72 @@ class AuthService {
   }
 
   public static async login(email: string, password: string): Promise<string> {
-    const user = await Auth.findOne({ email }).select('+password');
-    if (!user || !(await user.comparePassword(password))) {
+    const userAuth = await AuthModel.findOne({ email }).select('+password');
+    if (!userAuth || !(await userAuth.comparePassword(password))) {
       throw new IncorrectEmailOrPassError();
     }
 
-    return AuthService.createToken(user._id as unknown as ObjectId);
+    return AuthService.createToken(userAuth._id as unknown as ObjectId);
   }
 
 
   public static async forgotPassword(email: string): Promise<void> {
-    const user = await Auth.findOne({ email });
-    if (!user) {
+    const userAuth = await AuthModel.findOne({ email });
+    if (!userAuth) {
       throw new UserNotAuthenticatedError(email);
     }
-    const resetCode = user.createPasswordResetCode();
-    await user.save({ validateBeforeSave: false });
-    emailServices.sendEmail(resetCode.toString(), user.email);
+    const resetCode = userAuth.createPasswordResetCode();
+    await userAuth.save({ validateBeforeSave: false });
+    emailServices.sendEmail(resetCode.toString(), userAuth.email);
   }
 
   public static async checkPasswordResetCode(email: string, code: string): Promise<void> {
-    const user = await Auth.findOne({ email });
-    if (!user) {
+    const userAuth = await AuthModel.findOne({ email });
+    if (!userAuth) {
       throw new UserNotAuthenticatedError(email);
     }
 
-    if (!user.checkResetPasswordCode(code)) {
+    if (!userAuth.checkResetPasswordCode(code)) {
       throw new BadRequestError('The code is not verified');
     }
   }
 
   public static async resetPassword(email: string, newPassword: string): Promise<string> {
-    const user = await Auth.findOne({ email, passwordResetExpires: { $gt: Date.now() } });
-    if (!user) {
+    const userAuth = await AuthModel.findOne({ email, passwordResetExpires: { $gt: Date.now() } });
+    if (!userAuth) {
       throw new UserNotAuthenticatedOrTimeExpiredError('email');
     }
 
-    user.password = newPassword;
-    user.passwordResetCode = undefined;
-    user.passwordResetExpires = undefined;
-    await user.save();
+    await this.updateUserPassword(userAuth, newPassword);
 
-    return AuthService.createToken(user._id as unknown as ObjectId);
+    return AuthService.createToken(userAuth._id as unknown as ObjectId);
   }
 
+  public static async changePassword(oldPassword: string, newPassword: string, userAuth: IAuthDocument): Promise<void> {
+    try {
 
-  public static async isLoggedUser(auth: (string | undefined)): Promise<IAuthDocument> {
-    // [x] Check if token exists and get it
-    const token = this.tokenExists(auth);
+      userAuth = await this.findUserWithPass(userAuth);
 
+      if (!userAuth) {
+        throw new NotFoundError();
+      }
+
+      // [x] Check if old password is correct
+      await this.validatePassword(userAuth, oldPassword);
+
+      // [x] Update user password based user payload (req.userAuth._id)
+      await this.updateUserPassword(userAuth, newPassword);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  public static async isLoggedUser(token: string): Promise<IAuthDocument> {
     // [x] Verify token (check not correct or expired token)
     const decoded = this.verifyToken(token);
 
     // [x] Check if user exists
-    const currentUserAuth = await this.findUser(decoded.userId);
+    const currentUserAuth = await this.findUser(decoded.id);
 
     // [x] Check if user changed their password after token creation
     this.checkPasswordChanged(currentUserAuth, decoded.iat);
@@ -105,24 +106,23 @@ class AuthService {
     return currentUserAuth;
   }
 
-
-  private static isToken(auth: string | undefined): boolean {
-    return !!auth && auth.startsWith("Bearer");
+  public static createToken(userId: ObjectId): string {
+    return jwt.sign({ id: userId }, config.JWT_SECRET_KEY, { expiresIn: config.JWT_EXPIRE_TIME });
   }
 
-  private static getToken(auth: string | undefined): string | undefined {
-    if (this.isToken(auth)) {
-      return auth?.split(' ')[1];
+  public static SendTokenViaCookie = (token: string, req: Request, res: Response): void => {
+    if (req && req.session) {
+      req.session.jwt = token;
+    } else {
+      throw new SessionDataNotAvailableError();
+    }
+  };
+
+  public static GetTokenFromCookie = (req: Request): string | undefined => {
+    if (req && req.session && req.session.jwt) {
+      return req.session.jwt;
     }
     return undefined;
-  }
-
-  private static tokenExists(auth: string | undefined): string {
-    const token = this.getToken(auth);
-    if (!token) {
-      throw new MissingTokenError();
-    }
-    return token;
   }
 
   private static verifyToken(token: string): any {
@@ -141,12 +141,35 @@ class AuthService {
   }
 
 
-  private static async findUser(userId: string): Promise<IAuthDocument> {
-    const currentUserAuth = await AuthModel.findOne({ user: userId });
+  private static async findUser(userAuthId: string): Promise<IAuthDocument> {
+    const currentUserAuth = await AuthModel.findById(userAuthId);
     if (!currentUserAuth) {
       throw new UnauthorizedError();
     }
     return currentUserAuth;
+  }
+
+  private static async findUserWithPass(userAuth: IAuthDocument) {
+    const currentUserAuth = await AuthModel.findById(userAuth._id).select('+password');
+    if (!currentUserAuth) {
+      throw new UnauthorizedError();
+    }
+    return currentUserAuth;
+  }
+
+  private static async validatePassword(userAuth: IAuthDocument, password: string) {
+    const isPasswordCorrect = await userAuth.comparePassword(password);
+    if (!isPasswordCorrect) {
+      throw new IncorrectPasswordError();
+    }
+  }
+
+  private static async updateUserPassword(userAuth: IAuthDocument, newPassword: string) {
+    userAuth.password = newPassword;
+    userAuth.passwordChangedAt = new Date();
+    userAuth.passwordResetCode = undefined;
+    userAuth.passwordResetExpires = undefined;
+    await userAuth.save();
   }
 
   private static checkPasswordChanged(currentUserAuth: IAuthDocument, iat: number): void {

@@ -1,5 +1,5 @@
 import mongoose, { Document } from 'mongoose';
-import { IUserDocument } from '@user/user.interfaces';
+import { IUserDocument } from '@user/user.interface';
 
 export interface IFollowsDocument extends Document {
   followers: mongoose.Types.ObjectId[];

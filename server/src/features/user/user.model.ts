@@ -1,6 +1,6 @@
 import { model, Model, Schema, Document, Types } from 'mongoose';
 import { ObjectId } from 'mongodb';
-import { AnalysisCategory, IUserDocument } from '@user/user.interfaces';
+import { AnalysisCategory, IUserDocument } from '@user/user.interface';
 
 const userSchema: Schema = new Schema(
   {

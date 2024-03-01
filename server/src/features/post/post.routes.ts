@@ -12,7 +12,7 @@ class PostRoutes {
 
   public routes(): Router {
     this.router.route('/')
-      .post(authController.protect, authController.allowedTo(Roles.Mentor), PostController.createPost).get(PostController.getPosts);
+      .post(authController.protect, authController.allowedTo(Roles.Mentee), PostController.createPost).get(PostController.getPosts);
 
     this.router.route('/:id')
       .get(PostController.getPost)

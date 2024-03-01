@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 
 import { validateBody } from '@root/shared/decorators/joiValidation.decorator';
-import { ForbiddenError, InternalServerError, UnauthorizedError } from '@global/errorHandler.global';
+import { ForbiddenError, InternalServerError, MissingTokenError, UnauthorizedError } from '@global/errorHandler.global';
 
 import AuthService from './auth.service';
 import {
@@ -25,7 +25,7 @@ class AuthController {
       const { username, email, password, role } = req.body;
       const newUser = await AuthService.signUp(username, email, password, role);
 
-      AuthService.SendTokenViaCookie(newUser.token, res);
+      AuthService.SendTokenViaCookie(newUser.token, req, res);
 
       res.status(201).json({ status: 'success', data: newUser.data, token: newUser.token });
     } catch (error) {
@@ -37,7 +37,7 @@ class AuthController {
   public static async login(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const jwtToken = await AuthService.login(req.body.email, req.body.password);
-      AuthService.SendTokenViaCookie(jwtToken, res);
+      AuthService.SendTokenViaCookie(jwtToken, req, res);
       res.status(200).json({ status: 'success', token: jwtToken });
     } catch (error) {
       next(error);
@@ -68,7 +68,7 @@ class AuthController {
   public static async resetPassword(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const jwtToken = await AuthService.resetPassword(req.body.email, req.body.password);
-      AuthService.SendTokenViaCookie(jwtToken, res);
+      AuthService.SendTokenViaCookie(jwtToken, req, res);
       res.status(200).json({ message: 'success', jwtToken });
     } catch (error) {
       next(error);
@@ -84,7 +84,11 @@ class AuthController {
    */
   public static async protect(req: IUserAuthRequest, res: Response, next: NextFunction): Promise<void> {
     try {
-      req.userAuth = await AuthService.isLoggedUser(req.headers.authorization);
+      const token = AuthService.GetTokenFromCookie(req);
+      if (!token) {
+        throw new MissingTokenError();
+      }
+      req.userAuth = await AuthService.isLoggedUser(token);
       next();
     } catch (error) {
       next(error);
@@ -108,8 +112,6 @@ class AuthController {
       }
     };
   }
-
-
 
 
 }

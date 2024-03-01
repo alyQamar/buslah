@@ -124,6 +124,13 @@ export class IncorrectEmailOrPassError extends UnauthorizedError {
     this.feature = 'auth';
   }
 }
+export class IncorrectPasswordError extends UnauthorizedError {
+  constructor(message?: string) {
+    super(message || 'Incorrect password.');
+    this.subType = 'IncorrectPasswordError';
+    this.feature = 'auth';
+  }
+}
 
 export class DatabaseValidationError extends ConflictError {
   constructor(message?: string) {

@@ -2,7 +2,7 @@ import { model, Model, Schema, Document } from 'mongoose'; // Importing Mongoose
 import { ObjectId } from 'mongodb'; // Importing MongoDB's ObjectId
 import { config } from '@config/index';
 import { IFollowsDocument } from './follows.interface';
-import { IUserDocument } from '@user/user.interfaces';
+import { IUserDocument } from '@user/user.interface';
 
 // Define the Mongoose schema for follows
 const followsSchema: Schema = new Schema<IFollowsDocument>({
