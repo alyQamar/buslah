@@ -1,15 +1,13 @@
-import LivesessionSeeall from './../Live/LivesessionSeeall';
-import LiveSessionCard from './../Live/LiveSessionCard';
-import AllPostQa from './../Post/All-Post-qa';
-import WritePost from './../Post/WritePost';
-import PostCard from './../Post/PostCard';
-const ContentBody = () => {
+import AllPostQa from '@components/SocialFeed/SocialFeed';
+import WritePost from '@components/WritePost/WritePost';
+import PostCard from '@components/PostCard/PostCard';
+const HomeContentBody = () => {
   return (
     <div
       className="w-[680px] h-[1780px] relative bg-stone-50 rounded-2xl border-t overflow-y-scroll
                     flex flex-col pl-[32px] pr-[32px] pt-[30px]"
     >
-      <div className="mb-[60px]">
+      {/* <div className="mb-[60px]">
         <div className="mb-[20px]">
           <LivesessionSeeall />
         </div>
@@ -17,7 +15,7 @@ const ContentBody = () => {
           <LiveSessionCard />
           <LiveSessionCard />
         </div>
-      </div>
+      </div> */}
 
       <div>
         <div className="mb-[30px]">
@@ -49,4 +47,4 @@ const ContentBody = () => {
   );
 };
 
-export default ContentBody;
+export default HomeContentBody;

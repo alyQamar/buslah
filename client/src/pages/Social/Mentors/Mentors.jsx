@@ -1,22 +1,19 @@
 import GroupedSelectors from '@common/GroupedSelectors';
-import MentorCard from '@components/Mentor/MentorCard';
-import NavBarWithoutSearch from '@components/Navbar/NavbarWithoutSearch';
+import MentorCard from '@components/MentorCard/MentorCard';
 import Pagination from '@common/Pagination';
 import SearchInput from '@common/SearchInput/SearchInput';
-import SideBar from '@common/SideNav';
 import { useState, useEffect } from 'react';
 import GetAllMentorsHook from '../../../hooks/Mentor/get-all-mentors-hook';
 
 const Mentors = () => {
-
   const [currentPage, setCurrentPage] = useState(0); // Ensure this comes before any use of currentPage
   const limit = 5;
-  const [items,pagination] = GetAllMentorsHook(currentPage, limit);
-  console.log("items :",items);
+  const [items, pagination] = GetAllMentorsHook(currentPage, limit);
+  console.log('items :', items);
   // for pagination
 
   const handlePageChange = ({ selected }) => {
-    setCurrentPage(selected +1);
+    setCurrentPage(selected + 1);
   };
 
   useEffect(() => {
@@ -77,12 +74,6 @@ const Mentors = () => {
 
   return (
     <div className="relative">
-      <div className="flex justify-center items-center fixed mb-[200px] z-10">
-        <NavBarWithoutSearch />
-      </div>
-      <div className="absolute left-[60px] top-[120px]">
-        <SideBar />
-      </div>
       <div className="absolute left-[375px] top-[130px]">
         <div>
           <SearchInput />
@@ -122,14 +113,12 @@ const Mentors = () => {
           />
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-x-4 gap-y-6">
-
-        {items.map((mentor, index) => (
-          <MentorCard key={index} mentor={mentor} />
-        ))}
-
+          {items.map((mentor, index) => (
+            <MentorCard key={index} mentor={mentor} />
+          ))}
         </div>
         <div className="h-[41px] mt-[50px] mb-[50px] w-full">
-        <Pagination pageCount={pagination.numberOfPages} onPageChange={handlePageChange} />
+          <Pagination pageCount={pagination.numberOfPages} onPageChange={handlePageChange} />
         </div>
       </div>
     </div>

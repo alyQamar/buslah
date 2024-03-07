@@ -1,8 +1,8 @@
-import ProgressBarA from './ProgressBarA';
-import Calender from './Calender';
-import RecommendationFollow from './../Follow/RecommendationFollow';
+import ProgressBarA from '../Common/ProgressBarA';
+import Calender from '../Common/Calender';
+import RecommendationFollow from '../Follow/RecommendationFollow';
 
-const RightSideBar = () => {
+const HomeRightSideBar = () => {
   return (
     <div className="w-[284px] h-[1780px] bg-stone-50 rounded-2xl flex flex-col items-center gap-[30px] pt-[30px]">
       <div className="w-[174px] text-cyan-800 text-xl font-medium font-['Montserrat']">Achievement</div>
@@ -31,4 +31,4 @@ const RightSideBar = () => {
   );
 };
 
-export default RightSideBar;
+export default HomeRightSideBar;
