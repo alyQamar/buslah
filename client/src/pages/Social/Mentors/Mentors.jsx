@@ -6,17 +6,27 @@ import SearchInput from '@common/SearchInput/SearchInput';
 import SideBar from '@common/SideNav';
 import { useState, useEffect } from 'react';
 import GetAllMentorsHook from '../../../hooks/Mentor/get-all-mentors-hook';
+import { getAllCountryNames, getAllLanguageNames } from '../../../shared/utils/localizationLists';
 
 const Mentors = () => {
 
   const [currentPage, setCurrentPage] = useState(0); // Ensure this comes before any use of currentPage
-  const limit = 5;
-  const [items,pagination] = GetAllMentorsHook(currentPage, limit);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCountry, setSelectedCountry] = useState('');
+  const [selectedLanguage, setSelectedLanguage] = useState('');
+  const limit = 10;
+
+  const [items, pagination] = GetAllMentorsHook(currentPage, limit, searchTerm, selectedCountry, selectedLanguage);
   console.log("items :",items);
   // for pagination
 
   const handlePageChange = ({ selected }) => {
     setCurrentPage(selected +1);
+  };
+
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+    setCurrentPage(1); // Reset to the first page for new search results
   };
 
   useEffect(() => {
@@ -25,17 +35,10 @@ const Mentors = () => {
 
   //for groupSelectors
 
-  const countryOptions = [
-    { value: 'us', label: 'United States' },
-    { value: 'ca', label: 'Canada' }
-    // Add more countries here
-  ];
+  const countryOptions = getAllCountryNames().map(name => ({ value: name.toLowerCase(), label: name }));
+  const languageOptions = getAllLanguageNames().map(name => ({ value: name.toLowerCase(), label: name }));
 
-  const languageOptions = [
-    { value: 'en', label: 'English' },
-    { value: 'fr', label: 'French' }
-    // Add more languages here
-  ];
+
 
   const fieldOptions = [
     { value: 'engineering', label: 'Engineering' },
@@ -62,13 +65,13 @@ const Mentors = () => {
   ];
   //////////////////////////////////////////////////////////////////
   const handleCountryChange = (selectedOption) => {
-    console.log('Selected country:', selectedOption);
-    // Implement your logic here
+    setSelectedCountry(selectedOption.value);
+    setCurrentPage(1); // Reset to the first page for new filter results
   };
 
   const handleLanguageChange = (selectedOption) => {
-    console.log('Selected language:', selectedOption);
-    // Implement your logic here
+    setSelectedLanguage(selectedOption.value);
+    setCurrentPage(1); // Reset to the first page for new filter results
   };
 
   const handleChange = (selectedOption) => {
@@ -85,7 +88,7 @@ const Mentors = () => {
       </div>
       <div className="absolute left-[375px] top-[130px]">
         <div>
-          <SearchInput />
+          <SearchInput onChange={handleSearchChange}/>
         </div>
 
         <div className="mb-[20px] mt-[20px] grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-0 gap-y-5">
