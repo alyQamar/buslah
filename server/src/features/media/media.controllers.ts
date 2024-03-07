@@ -14,12 +14,13 @@ import mongoose from 'mongoose';
 const CRUDFunctions: CommonFunctions<IMediaDocument> = createCommonService<IMediaDocument>(MediaModel, 'Media');
 
 class MediaController {
-  private storage: multer.StorageEngine;
+  private diskStorage: multer.StorageEngine;
+  private memoryStorege: multer.StorageEngine;
   private fileName: string | undefined;
   public uploadMiddleware;
 
   constructor() {
-    this.storage = multer.diskStorage({
+    this.diskStorage = multer.diskStorage({
       destination: function (req: Request, file: Express.Multer.File, cb: (error: Error | null, path: string) => void) {
         cb(null, path.join(__dirname, '../../../images'));
       },
@@ -30,8 +31,11 @@ class MediaController {
         }
       }
     });
+
+    this.memoryStorege = multer.memoryStorage();
+
     this.uploadMiddleware = multer({
-      storage: this.storage,
+      storage: this.memoryStorege,
       fileFilter: function (req: Request, file: Express.Multer.File, cb: multer.FileFilterCallback) {
         if (file.mimetype.startsWith('image')) {
           cb(null, true);
@@ -41,6 +45,8 @@ class MediaController {
       },
       limits: { fileSize: 1024 * 1024 } // 1 megabyte
     });
+
+    this.uploadMiddleware = multer({ storage: this.memoryStorege });
   }
 
   public async uploadPhoto(req: Request, res: Response, next: NextFunction) {
@@ -50,13 +56,15 @@ class MediaController {
       return res.status(400).json({ message: 'no file provided ' });
     }
 
-    //  Get the path of the image
+    // Extract the image data from req.file.buffer
 
-    const imagePath = path.join(__dirname, `../../../images/${req.file.filename}`);
+    const base64Image = req.file.buffer.toString('base64');
 
     //  upload to cloudinary
 
-    const result: { secure_url: string; public_id: string } = (await clodService.uploadImage(imagePath)) as any;
+    const result: { secure_url: string; public_id: string } = (await clodService.uploadImage(
+      `data:${req.file.mimetype};base64,${base64Image}`
+    )) as any;
 
     //  Get the user from DB
     const { Id, type } = req.params;
@@ -65,7 +73,6 @@ class MediaController {
     if (type === 'profile') {
       //  Delete the old profile photo if exist
       if (user && user.profilePhoto && user.profilePhoto !== null) {
-        console.log('here');
         const photo = await MediaModel.findById(user.profilePhoto);
         if (photo) {
           await clodService.removeImage(photo.publicId);
@@ -83,7 +90,7 @@ class MediaController {
           publicId: result.public_id,
           size: req.file.size,
           mimeType: req.file.mimetype,
-          originalName: req.file.filename
+          originalName: req.file.originalname
         };
         const newMedia = await MediaModel.create(data);
         user.profilePhoto = newMedia._id;
@@ -109,7 +116,7 @@ class MediaController {
           publicId: result.public_id,
           size: req.file.size,
           mimeType: req.file.mimetype,
-          originalName: req.file.filename
+          originalName: req.file.originalname
         };
         const newMedia = await MediaModel.create(data);
         user.coverPhoto = newMedia._id;
@@ -127,7 +134,7 @@ class MediaController {
         publicId: result.public_id,
         size: req.file.size,
         mimeType: req.file.mimetype,
-        originalName: req.file.filename
+        originalName: req.file.originalname
       };
       const newMedia = await MediaModel.create(data);
       if (post) {
@@ -139,8 +146,8 @@ class MediaController {
     //  send response to the client
     res.status(200).json({ message: 'upload image successfully.', photo: { url: result.secure_url, publicId: result.public_id } });
 
-    //  remove image from the server
-    fs.unlinkSync(imagePath);
+    // //  remove image from the server
+    // fs.unlinkSync(imagePath);
   }
 }
 
