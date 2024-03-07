@@ -165,6 +165,11 @@ img.icon {
 .side-nav-item:hover span {
   filter: brightness(0) saturate(100%) invert(100%) sepia(0%) hue-rotate(0deg);
 }
-.side-nav-item:hover {
+.side-nav-item:hover,
+.side-nav-item-active {
   background-color: #295576;
+}
+.side-nav-item-active img,
+.side-nav-item-active span {
+  filter: brightness(0) saturate(100%) invert(100%) sepia(0%) hue-rotate(0deg);
 }
