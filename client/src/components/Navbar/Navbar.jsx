@@ -10,6 +10,8 @@ import MsgIcon from '@assets/icons/message.svg';
 import BellIcon from '@assets/icons/bell.svg';
 import ProfileImg from '@assets/images/ProfileImage.svg';
 import { useLocation } from 'react-router';
+import { routes } from '../../routes';
+import { Link } from 'react-router-dom';
 
 const Navbar = ({ searchPaths }) => {
   const location = useLocation();
@@ -17,7 +19,9 @@ const Navbar = ({ searchPaths }) => {
 
   return (
     <div className="px-[104px] py-4 bg-white rounded-xl flex justify-between items-center mx-auto">
-      <Logo />
+      <Link to={routes.home}>
+        <Logo />
+      </Link>
       {isSearchPage && <SearchInput />}
       <ul className="nav-items flex items-center gap-2 bg-slate-50 rounded-lg px-4 py-3.5">
         <NavItem iconSrc={MsgIcon} altText="Message" className="nav-item" />
