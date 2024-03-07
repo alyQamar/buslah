@@ -8,14 +8,15 @@ import {
   ProfileIcon,
   DotsIcon
 } from '@utils/Icons';
+import { routes } from '../../routes';
 
 export const sideNavItems = [
-  { name: 'Home', icon: HomeIcon },
-  { name: 'Explore', icon: SearchIcon },
-  { name: 'Sessions', icon: CalendarIcon },
-  { name: 'Messages', icon: MessageIcon },
-  { name: 'Bookmarks', icon: BookmarkIcon },
-  { name: 'Wishlist', icon: HeartIcon },
-  { name: 'Profile', icon: ProfileIcon },
-  { name: 'More', icon: DotsIcon }
+  { name: 'Home', icon: HomeIcon, route: routes.home },
+  { name: 'Explore', icon: SearchIcon, route: routes.mentors },
+  { name: 'Sessions', icon: CalendarIcon, route: routes.social },
+  { name: 'Messages', icon: MessageIcon, route: routes.social },
+  { name: 'Bookmarks', icon: BookmarkIcon, route: routes.social },
+  { name: 'Wishlist', icon: HeartIcon, route: routes.social },
+  { name: 'Profile', icon: ProfileIcon, route: routes.social },
+  { name: 'More', icon: DotsIcon, route: routes.social }
 ];
