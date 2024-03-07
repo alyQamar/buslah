@@ -1,29 +1,32 @@
 
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllMentors } from '../../redux/Actions/mentorsActions';
+import { getAllMentorsSearch } from '../../redux/Actions/mentorsActions';
 
-const GetAllMentorsHook = (page, limit) => {
-
+const GetAllMentorsHook = (page, limit, searchTerm, selectedCountry, selectedLanguage) => {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getAllMentors(page, limit));
-  }, [page, limit]);
 
-  const allmentors = useSelector((state) => state.allmentors.allmentors)
+  useEffect(() => {
+    // Dispatch action with all filters
+    dispatch(getAllMentorsSearch(searchTerm, page, limit, selectedCountry, selectedLanguage));
+  }, [dispatch, page, limit, searchTerm, selectedCountry, selectedLanguage]);
+
+  const allmentors = useSelector((state) => state.allmentors.allmentors);
   const pagination = allmentors?.paginationResult || { currentPage: 1, numberOfPages: 1 };
 
-
   let items = [];
-    try {
-        if (allmentors.data)
-            items = allmentors.data;
-        else
-            items = []
-    } catch (e) { }
+  try {
+    if (allmentors.data) {
+      items = allmentors.data;
+    } else {
+      items = [];
+    }
+  } catch (e) {
+    console.error("Error fetching mentors:", e);
+  }
 
-    return [items,pagination]
-
+  return [items, pagination];
 }
 
-export default GetAllMentorsHook
+export default GetAllMentorsHook;
+

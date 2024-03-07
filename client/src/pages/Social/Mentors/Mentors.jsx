@@ -4,124 +4,95 @@ import Pagination from '@common/Pagination';
 import SearchInput from '@common/SearchInput/SearchInput';
 import { useState, useEffect } from 'react';
 import GetAllMentorsHook from '../../../hooks/Mentor/get-all-mentors-hook';
+import { getAllCountryNames, getAllLanguageNames } from '../../../shared/utils/localizationLists';
 
 const Mentors = () => {
-  const [currentPage, setCurrentPage] = useState(0); // Ensure this comes before any use of currentPage
+  const [currentPage, setCurrentPage] = useState(1); // Pagination typically starts at 1
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCountry, setSelectedCountry] = useState('');
+  const [selectedLanguage, setSelectedLanguage] = useState('');
   const limit = 5;
-  const [items, pagination] = GetAllMentorsHook(currentPage, limit);
-  console.log('items :', items);
-  // for pagination
+
+  // Assuming GetAllMentorsHook now correctly handles searchTerm, selectedCountry, and selectedLanguage
+  const [items, pagination] = GetAllMentorsHook(currentPage, limit, searchTerm, selectedCountry, selectedLanguage);
 
   const handlePageChange = ({ selected }) => {
     setCurrentPage(selected + 1);
   };
 
-  useEffect(() => {
-    console.log(`Selected Page: ${currentPage + 1}`);
-  }, [currentPage]);
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+    setCurrentPage(1); // Reset to the first page for new search results
+  };
 
-  //for groupSelectors
+  // Map country and language names to selector options
+  const countryOptions = getAllCountryNames().map(name => ({ value: name.toLowerCase(), label: name }));
+  const languageOptions = getAllLanguageNames().map(name => ({ value: name.toLowerCase(), label: name }));
 
-  const countryOptions = [
-    { value: 'us', label: 'United States' },
-    { value: 'ca', label: 'Canada' }
-    // Add more countries here
-  ];
-
-  const languageOptions = [
-    { value: 'en', label: 'English' },
-    { value: 'fr', label: 'French' }
-    // Add more languages here
-  ];
-
+  // Define options for other selectors
   const fieldOptions = [
     { value: 'engineering', label: 'Engineering' },
-    { value: 'design', label: 'Design' }
+    { value: 'design', label: 'Design' },
     // Add more fields here
   ];
 
   const experienceOptions = [
     { value: 'entry', label: 'Entry Level' },
-    { value: 'mid', label: 'Mid Level' }
+    { value: 'mid', label: 'Mid Level' },
     // Add more experiences here
   ];
 
   const skillsOptions = [
     { value: 'management', label: 'Management' },
-    { value: 'communication', label: 'Communication' }
+    { value: 'communication', label: 'Communication' },
     // Add more skills here
   ];
 
   const sortByOptions = [
     { value: 'relevance', label: 'Relevance' },
-    { value: 'date', label: 'Date' }
+    { value: 'date', label: 'Date' },
     // Add more sort criteria here
   ];
-  //////////////////////////////////////////////////////////////////
+
   const handleCountryChange = (selectedOption) => {
-    console.log('Selected country:', selectedOption);
-    // Implement your logic here
+    setSelectedCountry(selectedOption.value);
+    setCurrentPage(1); // Reset to the first page for new filter results
   };
 
   const handleLanguageChange = (selectedOption) => {
-    console.log('Selected language:', selectedOption);
-    // Implement your logic here
-  };
-
-  const handleChange = (selectedOption) => {
-    console.log('Selected option:', selectedOption);
+    setSelectedLanguage(selectedOption.value);
+    setCurrentPage(1); // Reset to the first page for new filter results
   };
 
   return (
     <div className="relative">
       <div className="absolute left-[375px] top-[130px]">
         <div>
-          <SearchInput />
+          <SearchInput onChange={handleSearchChange} />
         </div>
 
         <div className="mb-[20px] mt-[20px] grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-0 gap-y-5">
-          <GroupedSelectors
-            groupLabel="Countries"
-            options={countryOptions}
-            placeholder="Country"
-            onChange={handleCountryChange}
-          />
-
-          <GroupedSelectors
-            groupLabel="Languages"
-            options={languageOptions}
-            placeholder="Language"
-            onChange={handleLanguageChange}
-          />
-
-          <GroupedSelectors groupLabel="Field" options={fieldOptions} placeholder="Field" onChange={handleChange} />
-
-          <GroupedSelectors
-            groupLabel="Experiences"
-            options={experienceOptions}
-            placeholder="Experience"
-            onChange={handleChange}
-          />
-
-          <GroupedSelectors groupLabel="Skills" options={skillsOptions} placeholder="Skill" onChange={handleChange} />
-
-          <GroupedSelectors
-            groupLabel="Sort by"
-            options={sortByOptions}
-            placeholder="Sort by..."
-            onChange={handleChange}
-          />
+          <GroupedSelectors groupLabel="Countries" options={countryOptions} placeholder="Country" onChange={handleCountryChange} />
+          <GroupedSelectors groupLabel="Languages" options={languageOptions} placeholder="Language" onChange={handleLanguageChange} />
+          <GroupedSelectors groupLabel="Field" options={fieldOptions} placeholder="Field" />
+          <GroupedSelectors groupLabel="Experiences" options={experienceOptions} placeholder="Experience" />
+          <GroupedSelectors groupLabel="Skills" options={skillsOptions} placeholder="Skill" />
+          <GroupedSelectors groupLabel="Sort by" options={sortByOptions} placeholder="Sort by..." />
         </div>
+
         <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-x-4 gap-y-6">
           {items.map((mentor, index) => (
             <MentorCard key={index} mentor={mentor} />
           ))}
         </div>
+
         <div className="h-[41px] mt-[50px] mb-[50px] w-full">
           <Pagination pageCount={pagination.numberOfPages} onPageChange={handlePageChange} />
         </div>
       </div>
     </div>
+
+
   );
 };
 
