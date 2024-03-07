@@ -6,7 +6,7 @@ export const setEnvMode = () => {
     // Check for string 'true'
     return { mode: 'BETA', bgColor: 'bg-yellow-500' };
   } else if (env === 'development') {
-    return { mode: 'DEV', bgColor: 'bg-blue-500' };
+    return { mode: 'DEV', bgColor: '#295576' };
   }
 };
 

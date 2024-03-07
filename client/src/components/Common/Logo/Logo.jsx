@@ -15,7 +15,8 @@ const Logo = () => {
         {appName}
         {env.mode && env.bgColor && (
           <span
-            className={`environment ${env.bgColor} ml-3 align-top leading-4 text-white py-1 px-2 rounded-lg font-extrabold text-sm`}
+            className={`environment ml-3 align-top leading-4 text-white py-1 px-2 rounded-lg font-extrabold text-sm`}
+            style={{ backgroundColor: env.bgColor }}
           >
             {env.mode}
           </span>
