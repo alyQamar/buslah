@@ -22,7 +22,6 @@ export default defineConfig(({ command, mode }) => {
       port: port
     },
     define: {
-      // No need for JSON.stringify for URLs
       'process.env.REACT_APP_URL': JSON.stringify(appURL),
       'process.env.BASE_URL': JSON.stringify(baseURL),
       'process.env.NODE_ENV': JSON.stringify(nodeEnv),

@@ -1,10 +1,11 @@
-import Navbar from '../NavBar/NavBar';
+import Navbar from '@components/NavBar/NavBar';
+import { routes } from '../../routes';
 
 const Header = () => {
   return (
-    <div className="header">
-      <Navbar />
-    </div>
+    <>
+      <Navbar searchPaths={[routes.home]} />
+    </>
   );
 };
 export default Header;

@@ -1,14 +1,14 @@
-import ContentBody from './../../../components/Home/ContentBody';
-import RightSideBar from './../../../components/Common/RightSideBar';
+import HomeContentBody from '@components/HomeContentBody/HomeContentBody';
+import HomeRightSideBar from '@components/HomeRightSideBar/HomeRightSideBar';
 
 const Home = () => {
   return (
     <>
-      <div className="absolute right-[60px] top-[120px]">
-        <RightSideBar />
+      <div className="fixed right-[60px] top-[120px]">
+        <HomeRightSideBar />
       </div>
       <div className="absolute left-[415px] top-[120px]">
-        <ContentBody />
+        <HomeContentBody />
       </div>
     </>
   );

@@ -11,51 +11,52 @@ import AfterVerifyPage from '../pages/Auth/AfterVerifyPage';
 import Social from '../pages/Social/Social';
 import Home from '../pages/Social/Home/Home';
 import Mentors from '../pages/Social/Mentors/Mentors';
+import { routes } from '../routes';
 
 const AppRouter = () => {
   const elements = useRoutes([
     {
-      path: '/',
+      path: routes.signup,
       element: <SignupPage />
     },
     {
-      path: '/login',
+      path: routes.login,
       element: <LoginPage />
     },
     {
-      path: '/forgetpassword',
+      path: routes.forgetPassword,
       element: <ForgetPasswordPage />
     },
     {
-      path: '/resetpassword',
+      path: routes.resetPassword,
       element: <ResetPasswordPage />
     },
     {
-      path: '/checkemail',
+      path: routes.checkEmail,
       element: <CheckEmailPage />
     },
     {
-      path: '/verifyemail',
+      path: routes.verifyEmail,
       element: <VerifyAccountPage />
     },
     {
-      path: '/verified',
+      path: routes.verified,
       element: <AfterVerifyPage />
     },
     {
-      path: '/social',
+      path: routes.social,
       element: <Social />,
       children: [
         {
-          path: 'home',
+          path: routes.home,
           element: <Home />
         },
         {
-          path: 'mentors',
+          path: routes.mentors,
           element: <Mentors />
         }
       ]
-    },
+    }
     // {
     //   path: '*',
     //   element: <Error />
