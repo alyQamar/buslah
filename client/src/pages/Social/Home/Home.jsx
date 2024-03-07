@@ -4,7 +4,7 @@ import HomeRightSideBar from '@components/HomeRightSideBar/HomeRightSideBar';
 const Home = () => {
   return (
     <>
-      <div className="absolute right-[60px] top-[120px]">
+      <div className="fixed right-[60px] top-[120px]">
         <HomeRightSideBar />
       </div>
       <div className="absolute left-[415px] top-[120px]">

@@ -4,7 +4,7 @@ import PostCard from '@components/PostCard/PostCard';
 const HomeContentBody = () => {
   return (
     <div
-      className="w-[680px] h-[1780px] relative bg-stone-50 rounded-2xl border-t overflow-y-scroll
+      className="w-[680px] h-[1780px] relative bg-stone-50 rounded-2xl border-t
                     flex flex-col pl-[32px] pr-[32px] pt-[30px]"
     >
       {/* <div className="mb-[60px]">

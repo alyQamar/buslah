@@ -6,9 +6,9 @@ import Header from '@components/Header/Header';
 const Social = () => {
   return (
     <div className="relative">
-      <div className="w-full flex justify-center items-center fixed mb-[200px] z-10 ">
+      <header className="w-full fixed mb-[200px] z-10">
         <Header />
-      </div>
+      </header>
       <div className="absolute left-[60px] top-[120px]">
         <SideNav />
       </div>

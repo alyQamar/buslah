@@ -16,7 +16,7 @@ const Navbar = ({ searchPaths }) => {
   const isSearchPage = searchPaths.some((path) => location.pathname === path);
 
   return (
-    <div className="w-full max-w-[1440px] h-[100px] px-[104px] py-4 bg-white rounded-xl flex justify-between items-center mx-auto">
+    <div className="px-[104px] py-4 bg-white rounded-xl flex justify-between items-center mx-auto">
       <Logo />
       {isSearchPage && <SearchInput />}
       <ul className="nav-items flex items-center gap-2 bg-slate-50 rounded-lg px-4 py-3.5">
