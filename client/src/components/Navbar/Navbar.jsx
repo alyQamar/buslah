@@ -12,8 +12,11 @@ import ProfileImg from '@assets/images/ProfileImage.svg';
 import { useLocation } from 'react-router';
 import { routes } from '../../routes';
 import { Link } from 'react-router-dom';
+import LoggedUser from '../../hooks/Auth/logged-user';
 
 const Navbar = ({ searchPaths }) => {
+  const [currentUserData] = LoggedUser();
+console.log("ccc",currentUserData)
   const location = useLocation();
   const isSearchPage = searchPaths.some((path) => location.pathname === path);
 
