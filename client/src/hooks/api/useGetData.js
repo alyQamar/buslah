@@ -6,6 +6,15 @@ const useGetData = async (url, parmas) => {
     return res.data;
 }
 
+const useGetDataUser = async (url, params) => {
+  const config = {
+      withCredentials: true,
+  };
+
+  const res = await baseUrl.get(url, { params, ...config });
+  return res.data;
+};
+
 
 const useGetDataToken = async (url, parmas) => {
     const config = {
@@ -15,4 +24,4 @@ const useGetDataToken = async (url, parmas) => {
     return res.data;
 }
 
-export { useGetData, useGetDataToken };
+export { useGetData, useGetDataToken , useGetDataUser};
