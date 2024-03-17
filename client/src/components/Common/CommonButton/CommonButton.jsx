@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const CommonButton = ({ className, text, textSize, fontWeight, width, height, borderRadius, onClick }) => {
   return (
     <button
-      className={`${className} w-[${width}] h-[${height}] text-${textSize} font-${fontWeight} rounded-${borderRadius} shadow `}
+      className={`${className} w-${width} h-${height} text-${textSize} font-${fontWeight} rounded-${borderRadius} shadow `}
       onClick={onClick}
       style={{ width, height }}
     >
