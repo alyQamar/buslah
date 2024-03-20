@@ -1,4 +1,11 @@
-import { CREATE_NEW_USER, FOREGT_PASSWORD, GET_CURERNT_USER, LOGIN_USER, RESET_PASSWORD, VERIFY_PASSWORD } from '../type';
+import {
+  CREATE_NEW_USER,
+  FOREGT_PASSWORD,
+  GET_CURERNT_USER,
+  LOGIN_USER,
+  RESET_PASSWORD,
+  VERIFY_PASSWORD
+} from '../type';
 import { useInsertData } from '../../hooks/api/useInsertData';
 import { useInsUpdateData } from '../../hooks/api/useUpdateData';
 import { useGetData, useGetDataToken, useGetDataUser } from '../../hooks/api/useGetData';
@@ -91,20 +98,19 @@ export const resetPassword = (data) => async (dispatch) => {
 //login  user
 export const getLoggedUser = () => async (dispatch) => {
   try {
-      const response = await useGetData(`/users/getMe`);
-      dispatch({
-          type: GET_CURERNT_USER,
-          payload: response,
-          loading: true
-      });
+    const response = await useGetDataUser(`/users/getMe`);
+    dispatch({
+      type: GET_CURERNT_USER,
+      payload: response,
+      loading: true
+    });
   } catch (e) {
-      dispatch({
-          type: GET_CURERNT_USER,
-          payload: e.response,
-      });
+    dispatch({
+      type: GET_CURERNT_USER,
+      payload: e.response
+    });
   }
 };
-
 
 // //update  user data
 // export const updateUserProfileData = (body) => async (dispatch) => {

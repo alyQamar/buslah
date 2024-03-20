@@ -38,12 +38,15 @@ export class ServerInit {
       origin: config.CLIENT_URL,
       optionsSuccessStatus: 200,
       methods: ['GET', 'POST', 'PUT', 'DELETE'],
+      // exposedHeaders: ['Set-cookie'],
       credentials: true
     };
+
     const cookieOptions: CookieSessionInterfaces.CookieSessionOptions = {
       name: 'session',
       keys: [config.JWT_SECRET_KEY],
       maxAge: expiredTime * 24 * 60 * 60 * 1000, // Set maxAge in milliseconds
+      signed: true
       // httpOnly: true,
       // secure: true,
       // sameSite: 'none'
