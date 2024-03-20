@@ -15,6 +15,7 @@ import { routes } from '../routes';
 
 const AppRouter = () => {
   const elements = useRoutes([
+    
     {
       path: routes.signup,
       element: <SignupPage />
