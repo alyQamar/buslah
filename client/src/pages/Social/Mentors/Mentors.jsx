@@ -1,7 +1,7 @@
 import GroupedSelectors from '@common/GroupedSelectors';
 import MentorCard from '@components/MentorCard/MentorCard';
 import Pagination from '@common/Pagination';
-import SearchInput from '@common/SearchInput/SearchInput';
+import SearchBar from '@common/SearchBar/SearchBar';
 import { useState, useEffect } from 'react';
 import GetAllMentorsHook from '../../../hooks/Mentor/get-all-mentors-hook';
 import { getAllCountryNames, getAllLanguageNames } from '../../../shared/utils/localizationLists';
@@ -27,31 +27,31 @@ const Mentors = () => {
   };
 
   // Map country and language names to selector options
-  const countryOptions = getAllCountryNames().map(name => ({ value: name.toLowerCase(), label: name }));
-  const languageOptions = getAllLanguageNames().map(name => ({ value: name.toLowerCase(), label: name }));
+  const countryOptions = getAllCountryNames().map((name) => ({ value: name.toLowerCase(), label: name }));
+  const languageOptions = getAllLanguageNames().map((name) => ({ value: name.toLowerCase(), label: name }));
 
   // Define options for other selectors
   const fieldOptions = [
     { value: 'engineering', label: 'Engineering' },
-    { value: 'design', label: 'Design' },
+    { value: 'design', label: 'Design' }
     // Add more fields here
   ];
 
   const experienceOptions = [
     { value: 'entry', label: 'Entry Level' },
-    { value: 'mid', label: 'Mid Level' },
+    { value: 'mid', label: 'Mid Level' }
     // Add more experiences here
   ];
 
   const skillsOptions = [
     { value: 'management', label: 'Management' },
-    { value: 'communication', label: 'Communication' },
+    { value: 'communication', label: 'Communication' }
     // Add more skills here
   ];
 
   const sortByOptions = [
     { value: 'relevance', label: 'Relevance' },
-    { value: 'date', label: 'Date' },
+    { value: 'date', label: 'Date' }
     // Add more sort criteria here
   ];
 
@@ -69,12 +69,22 @@ const Mentors = () => {
     <div className="relative">
       <div className="absolute left-[375px] top-[130px]">
         <div>
-          <SearchInput onChange={handleSearchChange} />
+          <SearchBar width="700px" onChange={handleSearchChange} />
         </div>
 
         <div className="mb-[20px] mt-[20px] grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-0 gap-y-5">
-          <GroupedSelectors groupLabel="Countries" options={countryOptions} placeholder="Country" onChange={handleCountryChange} />
-          <GroupedSelectors groupLabel="Languages" options={languageOptions} placeholder="Language" onChange={handleLanguageChange} />
+          <GroupedSelectors
+            groupLabel="Countries"
+            options={countryOptions}
+            placeholder="Country"
+            onChange={handleCountryChange}
+          />
+          <GroupedSelectors
+            groupLabel="Languages"
+            options={languageOptions}
+            placeholder="Language"
+            onChange={handleLanguageChange}
+          />
           <GroupedSelectors groupLabel="Field" options={fieldOptions} placeholder="Field" />
           <GroupedSelectors groupLabel="Experiences" options={experienceOptions} placeholder="Experience" />
           <GroupedSelectors groupLabel="Skills" options={skillsOptions} placeholder="Skill" />
@@ -94,8 +104,6 @@ const Mentors = () => {
         </div>
       </div>
     </div>
-
-
   );
 };
 

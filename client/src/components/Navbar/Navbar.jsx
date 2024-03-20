@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-import SearchInput from '@common/SearchInput/SearchInput';
+import SearchBar from '@common/SearchBar/SearchBar';
 import ProfileImage from '@common/ProfileImg/ProfileImg';
 import UserName from '@common/UserName/UserName';
 import NavItem from '@components/NavItem/NavItem';
@@ -25,7 +25,7 @@ console.log("ccc",currentUserData)
       <Link to={routes.home}>
         <Logo />
       </Link>
-      {isSearchPage && <SearchInput />}
+      {isSearchPage && <SearchBar width="700px" />}
       <ul className="nav-items flex items-center gap-2 bg-slate-50 rounded-lg px-4 py-3.5">
         <NavItem iconSrc={MsgIcon} altText="Message" className="nav-item" />
         <NavItem iconSrc={BellIcon} altText="Notification" className="nav-item" />
