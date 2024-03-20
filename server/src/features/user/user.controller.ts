@@ -78,14 +78,14 @@ class userController {
    */
   public static async getLoggedUserData(req: IUserAuthRequest, res: Response, next: NextFunction): Promise<void> {
     try {
-      const document = await UserModel.findOne({ authID: req.userAuth._id });
-      if (!document) {
+      const userData = await UserModel.findOne({ authID: req.userAuth._id });
+      if (!userData) {
         throw new NotFoundError();
       }
 
       res.status(200).json({
         status: 'success',
-        data: { document }
+        data: userData
       });
 
     } catch (error) {
