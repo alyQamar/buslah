@@ -98,7 +98,7 @@ export const resetPassword = (data) => async (dispatch) => {
 //login  user
 export const getLoggedUser = () => async (dispatch) => {
   try {
-    const response = await useGetDataUser(`/users/getMe`);
+    const response = await useGetDataUser(`/users/me`);
     dispatch({
       type: GET_CURERNT_USER,
       payload: response,

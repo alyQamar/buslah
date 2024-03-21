@@ -13,21 +13,23 @@ class UserRoutes {
 
   public routes(): Router {
 
-    // Public routes
+    // [x] Public routes
     this.router.get('/mentors', userController.getAllMentors);
 
-    // Protected routes
+    // [x] Protected routes
     this.router.use(AuthController.protect);
 
-    this.router.get('/getMe', userController.getLoggedUserData);
-    this.router.put('/changeMyPassword', userController.updateLoggedUserPassword);
-    this.router.put('/updateMe', userController.updateLoggedUserData);
-    this.router.put('/deactivateMe', userController.deactivateLoggedUser);
-    this.router.put('/logout', userController.logout);
+    this.router.route('/me')
+      .get(userController.getLoggedUserData)
+      .put(userController.updateLoggedUserData);
+    this.router.put('/password', userController.updateLoggedUserPassword);
+    this.router.put('/deactivate', userController.deactivateLoggedUser);
+
+    this.router.delete('/logout', userController.logout);
 
 
 
-    // Admin
+    // [x] Admin routes
     this.router.use(AuthController.allowedTo(Roles.Admin));
 
     this.router.get('/', userController.getAllUsers);

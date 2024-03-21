@@ -73,7 +73,7 @@ class userController {
    * @param res Response
    * @param next Function call next middleware
    * @desc  Get logged user data
-   * @route   GET /{URL}/users/getMe
+   * @route   GET /{URL}/users/me
    * @access  Private/Protect
    */
   public static async getLoggedUserData(req: IUserAuthRequest, res: Response, next: NextFunction): Promise<void> {
@@ -98,7 +98,7 @@ class userController {
    * @param res Response
    * @param next Function call next middleware
    * @desc  Update logged user password from payload (req.userAuth)
-   * @route PUT /{URL}/users/changeMyPassword
+   * @route PUT /{URL}/users/password
    * @access Private/Protect
    */
   @validateBody(updatePasswordValidator)
@@ -125,8 +125,8 @@ class userController {
    * @param req Request
    * @param res Response
    * @param next Function call next middleware
-   * @desc  Get logged user data
-   * @route   GET /{URL}/users/updateMe
+   * @desc  Update logged user data
+   * @route   PUT /{URL}/users/me
    * @access  Private/Protect
    */
   public static async updateLoggedUserData(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -137,7 +137,7 @@ class userController {
  * @param res Response
  * @param next Function call next middleware
  * @desc    deactivate logged user
- * @route   Delete /{URL}/users/deactivateMe
+ * @route   PUT /{URL}/users/deactivate
  * @access  Private/Protect
  */
   public static async deactivateLoggedUser(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -148,7 +148,7 @@ class userController {
  * @param res Response
  * @param next Function call next middleware
  * @desc    Logout
- * @route   Delete /{URL}/users/deactivateMe
+ * @route   DELETE /{URL}/users/logout
  * @access  Private/Protect
  */
   public static async logout(req: Request, res: Response, next: NextFunction): Promise<void> {
