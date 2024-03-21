@@ -30,7 +30,7 @@ console.log("ccc",currentUserData)
         <NavItem iconSrc={MsgIcon} altText="Message" className="nav-item" />
         <NavItem iconSrc={BellIcon} altText="Notification" className="nav-item" />
         <ProfileImage src={ProfileImg} alt="Profile" className="user-info nav-item" />
-        <UserName name="Ahmed K" className="user-info nav-item" />
+        <UserName name={currentUserData.data.firstName} className="user-info nav-item" />
       </ul>
     </div>
   );
