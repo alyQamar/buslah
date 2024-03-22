@@ -1,0 +1,30 @@
+{
+  "name": "buslah",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "npm run dev --prefix server",
+    "client": "npm run dev --prefix client",
+    "install": "npm run install-server && npm run install-client",
+    "install-server": "npm i --prefix server",
+    "install-client": "npm i --prefix client",
+    "test": "npm run test --prefix server && npm run test --prefix client",
+    "deploy": " npm run build --prefix client && npm start --prefix server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alyQamar/buslah.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alyQamar/buslah/issues"
+  },
+  "homepage": "https://github.com/alyQamar/buslah#readme",
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
