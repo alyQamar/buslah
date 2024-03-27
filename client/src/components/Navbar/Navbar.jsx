@@ -6,9 +6,9 @@ import UserName from '@common/UserName/UserName';
 import NavItem from '@components/NavItem/NavItem';
 import Logo from '@common/Logo/Logo';
 
-import MsgIcon from '@assets/icons/message.svg';
-import BellIcon from '@assets/icons/bell.svg';
-import ProfileImg from '@assets/images/ProfileImage.svg';
+import MsgIcon from '@assets/icons/common/message.svg';
+import BellIcon from '@assets/icons/common/bell.svg';
+import ProfileIcon from '@assets/icons/common/user.svg';
 import { useLocation } from 'react-router';
 import { routes } from '../../routes';
 import { Link } from 'react-router-dom';
@@ -16,7 +16,7 @@ import LoggedUser from '../../hooks/Auth/logged-user';
 
 const Navbar = ({ searchPaths }) => {
   const [currentUserData] = LoggedUser();
-console.log("ccc",currentUserData)
+  console.log(currentUserData);
   const location = useLocation();
   const isSearchPage = searchPaths.some((path) => location.pathname === path);
 
@@ -29,8 +29,24 @@ console.log("ccc",currentUserData)
       <ul className="nav-items flex items-center gap-2 bg-slate-50 rounded-lg px-4 py-3.5">
         <NavItem iconSrc={MsgIcon} altText="Message" className="nav-item" />
         <NavItem iconSrc={BellIcon} altText="Notification" className="nav-item" />
-        <ProfileImage src={ProfileImg} alt="Profile" className="user-info nav-item" />
-        <UserName name={currentUserData.data.firstName} className="user-info nav-item" />
+
+        {currentUserData && currentUserData.data && currentUserData.data.profileImg ? (
+          <ProfileImage
+            src={currentUserData.data.profileImg}
+            alt={`${currentUserData.data.firstName}'s Profile Image`}
+            className="user-info nav-item"
+          />
+        ) : (
+          <NavItem
+            iconSrc={ProfileIcon}
+            altText={`${
+              currentUserData && currentUserData.data ? currentUserData.data.firstName : 'Default'
+            }'s Profile Image`}
+            className="nav-item"
+          />
+        )}
+
+        <UserName name="defaultName" className="user-info nav-item" />
       </ul>
     </div>
   );

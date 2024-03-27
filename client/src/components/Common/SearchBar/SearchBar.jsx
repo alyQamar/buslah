@@ -1,14 +1,15 @@
 import PropTypes from 'prop-types';
-import Search from '@assets/icons/search.svg';
+import Search from '@assets/icons/common/search.svg';
 
 const SearchBar = ({ width, onChange }) => {
   return (
-    <div
+    <form
+      action="#"
       className={`w-${width} h-12 px-2 rounded-lg shadow border border-cyan-800 justify-start items-center gap-2 flex`}
     >
       <img src={Search} alt="Search Icon" className="icon" />
       <input type="search" placeholder="Search" className="relative outline-none flex-grow" onChange={onChange} />
-    </div>
+    </form>
   );
 };
 
