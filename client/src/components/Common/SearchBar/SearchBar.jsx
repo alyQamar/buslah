@@ -5,10 +5,11 @@ const SearchBar = ({ width, onChange }) => {
   return (
     <form
       action="#"
-      className={`w-${width} h-12 px-2 rounded-lg shadow border border-cyan-800 justify-start items-center gap-2 flex`}
+      className={`h-12 px-2 rounded-lg shadow border border-cyan-800 justify-start items-center gap-2 flex`}
+      style={{ width }}
     >
       <img src={Search} alt="Search Icon" className="icon" />
-      <input type="search" placeholder="Search" className="relative outline-none flex-grow" onChange={onChange} />
+      <input type="search" placeholder="Search..." className="relative outline-none flex-grow" onChange={onChange} />
     </form>
   );
 };
