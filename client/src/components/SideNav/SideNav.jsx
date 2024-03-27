@@ -17,7 +17,7 @@ const SideNav = () => {
           <Link
             to={navItem.route}
             className={`side-nav-item${isSelectedRoute(navItem.name) ? '-active' : ''} rounded-lg`}
-            key={navItem.index}
+            key={navItem.id}
           >
             <SideNavItem name={navItem.name} icon={navItem.icon} />
           </Link>
