@@ -31,22 +31,26 @@ const Navbar = ({ searchPaths }) => {
         <NavItem iconSrc={BellIcon} altText="Notification" className="nav-item" />
 
         {currentUserData && currentUserData.data && currentUserData.data.profileImg ? (
-          <ProfileImage
-            src={currentUserData.data.profileImg}
-            alt={`${currentUserData.data.firstName}'s Profile Image`}
-            className="user-info nav-item"
-          />
+          <>
+            <ProfileImage
+              src={currentUserData.data.profileImg}
+              alt={`${currentUserData.data.firstName}'s Profile Image`}
+              className="user-info nav-item"
+            />
+            <UserName name={currentUserData.data.firstName} className="user-info nav-item" />
+          </>
         ) : (
-          <NavItem
-            iconSrc={ProfileIcon}
-            altText={`${
-              currentUserData && currentUserData.data ? currentUserData.data.firstName : 'Default'
-            }'s Profile Image`}
-            className="nav-item"
-          />
+          <div className="flex items-center justify-center space-x-2">
+            <NavItem
+              iconSrc={ProfileIcon}
+              altText={`${
+                currentUserData && currentUserData.data ? currentUserData.data.firstName : 'Default'
+              }'s Profile Image`}
+              className="nav-item"
+            />
+            <UserName name={currentUserData?.data?.firstName} className="user-info nav-item" />
+          </div>
         )}
-
-        <UserName name="defaultName" className="user-info nav-item" />
       </ul>
     </div>
   );
