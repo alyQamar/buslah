@@ -1,22 +1,38 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import { sideNavItems } from '@utils/data';
 import SideNavItem from '@components/SideNavItem/SideNavItem';
-import PostButton from '@components/PostButton/PostButton';
 import Footer from '@components/Footer/Footer';
+import CommonButton from '../Common/CommonButton/CommonButton';
 
 const SideNav = () => {
+  const isSelectedRoute = (name) => {
+    return useLocation().pathname.includes(name.toLowerCase());
+  };
+
   return (
-    <div className="fixed side-nav w-[284px] bg-stone-50 rounded-2xl flex flex-col items-center pt-[30px]">
-      <div className="flex flex-col gap-[7px] mb-[10px]">
-        {sideNavItems.map((navItem, index) => (
-          <Link to={navItem.route} className="side-nav-item rounded-lg" key={index}>
+    <div className="fixed side-nav w-[284px] bg-stone-50 rounded-lg flex flex-col items-center py-[30px]">
+      <div className="flex flex-col gap-[7px] mb-[20px]">
+        {sideNavItems.map((navItem) => (
+          <Link
+            to={navItem.route}
+            className={`side-nav-item${isSelectedRoute(navItem.name) ? '-active' : ''} rounded-lg`}
+            key={navItem.id}
+          >
             <SideNavItem name={navItem.name} icon={navItem.icon} />
           </Link>
         ))}
       </div>
-      <div className="flex flex-col items-center gap-[10px] mb-5">
-        <PostButton />
+      <div className="flex flex-col items-center gap-[20px]">
+        <CommonButton
+          className="blue-btn"
+          text="Post"
+          textSize="2xl"
+          fontWeight="semibold"
+          width="240px"
+          height="56px"
+          borderRadius="xl"
+        />
         <Footer className="footer" />
       </div>
     </div>

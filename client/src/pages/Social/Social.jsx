@@ -9,12 +9,12 @@ const Social = () => {
       <header className="w-full fixed mb-[200px] z-10">
         <Header />
       </header>
-      <div className="absolute left-[60px] top-[120px]">
+      <nav className="absolute left-[60px] top-[120px]">
         <SideNav />
-      </div>
-      <div className="main-content">
+      </nav>
+      <main className="main-content">
         <Outlet />
-      </div>
+      </main>
     </div>
   );
 };

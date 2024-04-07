@@ -11,13 +11,9 @@ import baseUrl from './../../shared/services/api/baseURL';
 //     return res;
 // }
 
-const useInsertData = async (url, parmas) => {
-  const config = {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('token')}`
-    }
-  };
-  const res = await baseUrl.post(url, parmas, config);
+const useInsertData = async (url, params) => {
+  const config = { withCredentials: true };
+  const res = await baseUrl.post(url, params, config);
 
   return res;
 };

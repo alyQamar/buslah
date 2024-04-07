@@ -8,6 +8,7 @@ class Config {
   public PORT: string | undefined;
   public NODE_ENV: string | undefined;
   public BASE_URL: string | undefined;
+  public CLIENT_URL: string | undefined;
   public DB_URI: string | undefined;
   public REDIS_HOST: string | undefined;
   public JWT_SECRET_KEY: string | '12325';
@@ -23,7 +24,8 @@ class Config {
   constructor() {
     this.PORT = process.env.PORT || '3000';
     this.NODE_ENV = process.env.NODE_ENV || '';
-    this.BASE_URL = process.env.CLIENT_URL || '';
+    this.BASE_URL = process.env.BASE_URL || '';
+    this.CLIENT_URL = process.env.CLIENT_URL || '';
     this.DB_URI = process.env.DB_URI || '';
     this.REDIS_HOST = process.env.REDIS_HOST || '';
     this.JWT_SECRET_KEY = process.env.JWT_SECRET_KEY || '1234';

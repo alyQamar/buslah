@@ -1,4 +1,4 @@
-import profileImg from '@assets/Images/ProfileImage.svg';
+import profileImg from '@assets/Images/icons/common/user.svg';
 
 const MenuAvatar = () => {
   return (

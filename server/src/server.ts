@@ -13,6 +13,8 @@ import { config } from '@config/index';
 import routes from '@root/routes';
 import { ApiError, IErrorRes } from '@global/errorHandler.global';
 import { SocketIOPost } from '@socket/post.socket';
+// import helmet from 'helmet';
+// import hpp from 'hpp';
 
 const log: Logger = config.createLogger('server');
 
@@ -32,21 +34,36 @@ export class ServerInit {
 
   private securityMiddleware(app: Application): void {
     const expiredTime: number = Number(config.JWT_COOKIE_EXPIRE_IN);
+    const corsOptions: cors.CorsOptions = {
+      origin: config.CLIENT_URL,
+      optionsSuccessStatus: 200,
+      methods: ['GET', 'POST', 'PUT', 'DELETE'],
+      credentials: true
+    };
+
+    const cookieOptions: CookieSessionInterfaces.CookieSessionOptions = {
+      name: 'session',
+      keys: [config.JWT_SECRET_KEY],
+      maxAge: expiredTime * 24 * 60 * 60 * 1000, // Set maxAge in milliseconds
+      signed: true
+      // For HTTPS only
+      // httpOnly: true,
+      // secure: true,
+      // sameSite: 'none'
+    };
+
+    app.set('trust proxy', 1);
+
+    app.use(cors(corsOptions));
 
     app.use(
-      cookieSession({
-        name: 'session',
-        keys: [config.JWT_SECRET_KEY],
-        maxAge: expiredTime * 24 * 60 * 60 * 1000, // Set maxAge in milliseconds
-        secure: config.NODE_ENV === 'development' ? false : true,
-        httpOnly: true // this make the browser able to receive and send cookies only not access it
-      })
+      cookieSession(cookieOptions)
     );
 
-    app.use(
-      cors()
-    );
+    // app.use(hpp())
+    // app.use(helmet());
   }
+
   private standardMiddleware(app: Application): void {
     app.use(compression());
     app.use(json({ limit: '50mb' }));

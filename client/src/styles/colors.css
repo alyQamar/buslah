@@ -1,6 +1,10 @@
 :root {
-  --success: #008000;
-  --warning: #ff0000;
-  --success: #008000;
-  --warning: #ff0000;
+  --white: #fff;
+
+  --gray-100: #f7fafc;
+
+  --blue-800: #295576;
+
+  --filter-white: brightness(0) saturate(100%) invert(100%) sepia(0%) hue-rotate(0deg);
+  --filter-blue-800: invert(20%) sepia(8%) saturate(1912%) hue-rotate(179deg) brightness(92%) contrast(93%);
 }

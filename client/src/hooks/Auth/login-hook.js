@@ -41,12 +41,12 @@ useEffect(() => {
   if (loading === false) {
       if (res) {
           console.log(res)
-          if (res.data.jwtToken) {
-              localStorage.setItem("token", res.data.jwtToken)
+          if (res.data.token) {
+              localStorage.setItem("token", res.data.token)
 
-            //   setTimeout(() => {
-            //     navigate('/login')
-            // }, 2000);
+              setTimeout(() => {
+                navigate('/social/home')
+            }, 2000);
           } else {
               localStorage.removeItem("token")
           }
