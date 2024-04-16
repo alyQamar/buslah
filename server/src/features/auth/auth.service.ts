@@ -28,7 +28,7 @@ class AuthService {
     newAuthDoc.user = String(newUserDoc._id);
     await newAuthDoc.save();
 
-    const jwtToken = AuthService.createToken(newAuthDoc._id as unknown as ObjectId);
+    const jwtToken = this.createToken(newAuthDoc._id as unknown as ObjectId);
     return { token: jwtToken, data: newAuthDoc };
   }
 
@@ -38,7 +38,7 @@ class AuthService {
       throw new IncorrectEmailOrPassError();
     }
 
-    return AuthService.createToken(userAuth._id as unknown as ObjectId);
+    return this.createToken(userAuth._id as unknown as ObjectId);
   }
 
 
@@ -71,7 +71,7 @@ class AuthService {
 
     await this.updateUserPassword(userAuth, newPassword);
 
-    return AuthService.createToken(userAuth._id as unknown as ObjectId);
+    return this.createToken(userAuth._id as unknown as ObjectId);
   }
 
   public static async changePassword(oldPassword: string, newPassword: string, userAuth: IAuthDocument): Promise<void> {
