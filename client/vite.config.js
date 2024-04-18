@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
 
 export default defineConfig(({ command, mode }) => {
-  const env = loadEnv(mode, process.cwd(), '');
+  const env = loadEnv(mode, __dirname, '');
 
   const isProduction = mode === 'production';
   const nodeEnv = isProduction ? 'production' : env.NODE_ENV || 'development';
@@ -30,18 +30,18 @@ export default defineConfig(({ command, mode }) => {
     },
     resolve: {
       alias: {
-        '@': resolve(process.cwd(), 'src'),
-        '@app': resolve(process.cwd(), 'src/App'),
-        '@pages': resolve(process.cwd(), 'src/pages'),
-        '@components': resolve(process.cwd(), 'src/components'),
-        '@common': resolve(process.cwd(), 'src/components/Common'),
-        '@assets': resolve(process.cwd(), 'src/assets'),
-        '@hooks': resolve(process.cwd(), 'src/hooks'),
-        '@redux': resolve(process.cwd(), 'src/redux'),
-        '@styles': resolve(process.cwd(), 'src/styles'),
-        '@shared': resolve(process.cwd(), 'src/shared'),
-        '@services': resolve(process.cwd(), 'src/shared/services'),
-        '@utils': resolve(process.cwd(), 'src/shared/utils')
+        '@': '',
+        '@app': resolve('src/App'),
+        '@pages': resolve('src/pages'),
+        '@components': resolve('src/components'),
+        '@common': resolve('src/components/Common'),
+        '@assets': resolve('src/assets'),
+        '@hooks': resolve('src/hooks'),
+        '@redux': resolve('src/redux'),
+        '@styles': resolve('src/styles'),
+        '@shared': resolve('src/shared'),
+        '@services': resolve('src/shared/services'),
+        '@utils': resolve('src/shared/utils')
       }
     }
   };
