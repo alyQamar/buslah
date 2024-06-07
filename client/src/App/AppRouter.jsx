@@ -12,10 +12,11 @@ import Social from '../pages/Social/Social';
 import Home from '../pages/Social/Home/Home';
 import Mentors from '../pages/Social/Mentors/Mentors';
 import { routes } from '../routes';
+import Profile from '../pages/Social/Profile';
 
 const AppRouter = () => {
   const elements = useRoutes([
-    
+
     {
       path: routes.signup,
       element: <SignupPage />
@@ -45,6 +46,10 @@ const AppRouter = () => {
       element: <AfterVerifyPage />
     },
     {
+      path: routes.profile,
+      element: <Profile />
+    },
+    {
       path: routes.social,
       element: <Social />,
       children: [
@@ -55,7 +60,8 @@ const AppRouter = () => {
         {
           path: routes.mentors,
           element: <Mentors />
-        }
+        },
+
       ]
     }
     // {

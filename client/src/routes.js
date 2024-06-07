@@ -3,6 +3,7 @@ export const routes = {
   social: `${socialPath}`,
   home: `${socialPath}/home`,
   mentors: `${socialPath}/explore`,
+  profile: `${socialPath}/profile`,
   login: '/login',
   signup: '/signup',
   forgetPassword: '/forgetpassword',
