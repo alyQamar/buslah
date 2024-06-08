@@ -40,6 +40,7 @@ const Navbar = ({ searchPaths }) => {
               className="user-info nav-item"
             />
           ) : (
+            <Link to={routes.profile}>
             <NavItem
               iconSrc={ProfileIcon}
               altText={`${
@@ -47,6 +48,7 @@ const Navbar = ({ searchPaths }) => {
               }'s Profile Image`}
               className="nav-item"
             />
+            </Link>
           )}
           <UserName name={currentUserData?.data?.firstName} className="user-info nav-item" />
         </div>

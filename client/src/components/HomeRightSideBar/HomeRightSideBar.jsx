@@ -22,7 +22,7 @@ const HomeRightSideBar = () => {
         <Calender />
       </div> */}
       <div className="w-[174px] text-cyan-800 text-xl font-medium font-['Montserrat']">Recommendation</div>
-      <div className="flex flex-col items-center gap-3">
+      <div className="flex flex-col items-center gap-3 max-w-[90%]">
         <RecommendationFollow />
         <RecommendationFollow />
         <RecommendationFollow />

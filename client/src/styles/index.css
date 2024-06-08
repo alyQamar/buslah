@@ -181,3 +181,20 @@ img.icon {
 .side-nav-item-active {
   background-color: var(--blue-800);
 }
+
+
+.parent-container {
+  display: flex; /* This ensures that the parent can be a flex container */
+  /* Optional: Set a max-width for the parent to see the effect easily */
+  max-width: 500px;
+}
+
+.adjustable-width {
+  width: 90%;
+}
+
+@media (min-width: 460px) {
+  .parent-container .adjustable-width {
+    width: 460px;
+  }
+}
