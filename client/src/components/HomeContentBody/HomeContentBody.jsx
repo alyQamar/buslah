@@ -11,9 +11,9 @@ const HomeContentBody = () => {
         <div className="mb-[30px]">
           <AllPostQa />
         </div>
-        <div className="mb-[20px]">
+        {/* <div className="mb-[20px]">
           <WritePost />
-        </div>
+        </div> */}
         <div className="flex flex-col gap-[15px]">
           <PostCard />
           <PostCard />
