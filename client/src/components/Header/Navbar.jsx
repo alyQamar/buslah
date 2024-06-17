@@ -2,8 +2,7 @@ import PropTypes from 'prop-types';
 
 import SearchBar from '@common/SearchBar/SearchBar';
 import ProfileImage from '@common/ProfileImg/ProfileImg';
-import UserName from '@common/UserName/UserName';
-import NavItem from '@components/NavItem/NavItem';
+import NavItem from '@components/Header/NavItem';
 import Logo from '@common/Logo/Logo';
 
 import MsgIcon from '@assets/icons/common/message.svg';

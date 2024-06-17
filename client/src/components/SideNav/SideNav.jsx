@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 
 import { sideNavItems } from '@utils/data';
-import SideNavItem from '@components/SideNavItem/SideNavItem';
+import SideNavItem from '@components/SideNav/SideNavItem';
 import Footer from '@components/Footer/Footer';
 import CommonButton from '../Common/CommonButton/CommonButton';
 

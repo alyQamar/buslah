@@ -1,6 +1,6 @@
-import AllPostQa from '@components/SocialFeed/SocialFeed';
-import WritePost from '@components/post/WritePost/WritePost';
-import PostCard from '@components/post/PostCard/PostCard';
+import AllPostQa from '@components/Home/SocialFeed';
+import WritePost from '@components/Post/WritePost';
+import PostCard from '@components/Post/PostCard';
 const HomeContentBody = () => {
   return (
     <div

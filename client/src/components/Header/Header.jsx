@@ -1,4 +1,4 @@
-import Navbar from '@components/NavBar/NavBar';
+import Navbar from '@components/Header/NavBar';
 import { routes } from '../../routes';
 
 const Header = () => {

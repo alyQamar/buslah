@@ -1,6 +1,6 @@
-import InfoCard from './../../Common/InfoCard/InfoCard';
-import AnalysisBar from '../PostAnalysisBar/PostAnalysisBar';
-import ActionBar from '../PostActionBar/PostActionBar';
+import InfoCard from '../Common/InfoCard/InfoCard';
+import AnalysisBar from './PostAnalysisBar';
+import ActionBar from './PostActionBar';
 import { DotsIcon } from '@shared/utils/Icons';
 
 const PostCard = ({ post }) => {

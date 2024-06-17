@@ -1,5 +1,5 @@
-import HomeContentBody from '@components/HomeContentBody/HomeContentBody';
-import HomeRightSideBar from '@components/HomeRightSideBar/HomeRightSideBar';
+import HomeContentBody from '@components/Home/HomeContentBody';
+import HomeRightSideBar from '@components/Home/HomeRightSideBar';
 
 const Home = () => {
   return (
