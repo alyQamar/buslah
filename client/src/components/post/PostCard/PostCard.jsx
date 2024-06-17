@@ -1,7 +1,7 @@
-import points from '@assets/publicIcons/points.svg';
 import InfoCard from './../../Common/InfoCard/InfoCard';
-import AnalysisBar from '../AnalysisBar/AnalysisBar';
-import ActionBar from '../ActionBar/ActionBar';
+import AnalysisBar from '../PostAnalysisBar/PostAnalysisBar';
+import ActionBar from '../PostActionBar/PostActionBar';
+import { DotsIcon } from '@shared/utils/Icons';
 
 const PostCard = ({ post }) => {
   return (
@@ -15,7 +15,7 @@ const PostCard = ({ post }) => {
         <ActionBar />
       </div>
       <img
-        src={points}
+        src={DotsIcon}
         alt="dots icon"
         className="w-6 h-6 px-0.5 left-[580px] top-[12px] absolute justify-center items-center inline-flex"
       />
