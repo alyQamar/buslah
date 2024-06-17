@@ -27,8 +27,8 @@ const Navbar = ({ searchPaths }) => {
           <Logo />
         </Link>
       </div>
-      {isSearchPage && <SearchBar width="660px" />} {/* Adjust the max-width as needed */}
-      <ul className="nav-items flex items-center gap-2 bg-slate-50 rounded-lg px-5 py-3.5">
+      {isSearchPage && <SearchBar width="660px" />}
+      <ul className="nav-items flex items-center gap-2 bg-slate-50 rounded-lg px-5 py-3.5 mr-12">
         <NavItem iconSrc={MsgIcon} altText="Message" className="nav-item" />
         <NavItem iconSrc={BellIcon} altText="Notification" className="nav-item" />
 
@@ -41,16 +41,17 @@ const Navbar = ({ searchPaths }) => {
             />
           ) : (
             <Link to={routes.profile}>
-            <NavItem
-              iconSrc={ProfileIcon}
-              altText={`${
-                currentUserData && currentUserData.data ? currentUserData.data.firstName : 'Default'
-              }'s Profile Image`}
-              className="nav-item"
-            />
+              <NavItem
+                iconSrc={ProfileIcon}
+                text={'Profile'}
+                altText={`${
+                  currentUserData && currentUserData.data ? currentUserData.data.firstName : 'Default'
+                }'s Profile Image`}
+                className="nav-item"
+              />
             </Link>
           )}
-          <UserName name={currentUserData?.data?.firstName} className="user-info nav-item" />
+          {/* <UserName name={currentUserData?.data?.firstName || 'test'} className="user-info nav-item" /> */}
         </div>
       </ul>
     </div>
