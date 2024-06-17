@@ -7,16 +7,6 @@ const HomeContentBody = () => {
       className="w-[680px] h-[1780px] relative bg-stone-50 rounded-2xl border-t
                     flex flex-col pl-[32px] pr-[32px] pt-[30px]"
     >
-      {/* <div className="mb-[60px]">
-        <div className="mb-[20px]">
-          <LivesessionSeeall />
-        </div>
-        <div className="flex flex-row gap-[30px] overflow-x-scroll">
-          <LiveSessionCard />
-          <LiveSessionCard />
-        </div>
-      </div> */}
-
       <div>
         <div className="mb-[30px]">
           <AllPostQa />
