@@ -5,7 +5,7 @@ import { DotHorizontalIcon } from '@shared/utils/Icons';
 
 const PostCard = ({ post }) => {
   return (
-    <div className="w-[616px] h-64 relative bg-white rounded-lg shadow border-b-4">
+    <div className="w-[616px] h-64 relative bg-white rounded-lg shadow-md">
       <div className="ml-6 mt-6">
         <InfoCard size="xl" name="Aly Qamar" role="SWE@Buslah" imageSrc="https://via.placeholder.com/48x48" />
       </div>
