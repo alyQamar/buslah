@@ -96,9 +96,6 @@ const Mentors = () => {
             <MentorCard key={index} mentor={mentor} />
           ))}
         </div>
-        <div>
-          <QuestionCard />
-        </div>
         <div className="h-[41px] mt-[50px] mb-[50px] w-full">
           <Pagination pageCount={pagination.numberOfPages} onPageChange={handlePageChange} />
         </div>
