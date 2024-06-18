@@ -1,6 +1,7 @@
-import AllPostQa from '@components/Home/SocialFeed';
 import WritePost from '@components/Post/WritePost';
 import PostCard from '@components/Post/PostCard';
+import SocialFeedFilter from './SocialFeedFilter';
+import QuestionCard from '@components/Q&A/QuestionCard';
 const HomeContentBody = () => {
   return (
     <div
@@ -9,28 +10,18 @@ const HomeContentBody = () => {
     >
       <div>
         <div className="mb-[30px]">
-          <AllPostQa />
+          <SocialFeedFilter />
         </div>
         {/* <div className="mb-[20px]">
           <WritePost />
         </div> */}
         <div className="flex flex-col gap-[15px]">
-          <PostCard />
-          <PostCard />
-          <PostCard />
-          <PostCard />
-          <PostCard />
-          <PostCard />
-          <PostCard />
-          <PostCard />
-          <PostCard />
-          <PostCard />
-          <PostCard />
-          <PostCard />
-          <PostCard />
-          <PostCard />
-          <PostCard />
-          <PostCard />
+          <QuestionCard question="How can i start Web Development ?" />
+          <PostCard post="Eid with Buslah!!" />
+          <QuestionCard question="How can i start UX\UI Design ?" />
+          <PostCard post="Eid with Buslah!!" />
+          <QuestionCard question="How can i start UX\UI Design ?" />
+          <PostCard post="Eid with Buslah!!" />
         </div>
       </div>
     </div>

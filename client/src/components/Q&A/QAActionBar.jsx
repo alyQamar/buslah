@@ -1,9 +1,9 @@
-import helpful from '../../../assets/icons/qa/helpful.svg';
-import unhelpful from '../../../assets/icons/qa/unhelpful.svg';
-import save from '../../../assets/icons/common/bookmark.svg';
-import answers from '../../../assets/icons/qa/answers.svg';
+import helpful from '@assets/icons/qa/helpful.svg';
+import unhelpful from '@assets/icons/qa/unhelpful.svg';
+import save from '@assets/icons/common/bookmark.svg';
+import answers from '@assets/icons/qa/answers.svg';
 
-const NoAnswer = () => {
+const QAActionBar = () => {
   return (
     <div>
       <div className="left-[25px] top-[160px] absolute w-[555px] h-6 justify-center items-center gap-[70px] inline-flex">
@@ -33,4 +33,4 @@ const NoAnswer = () => {
   );
 };
 
-export default NoAnswer;
+export default QAActionBar;

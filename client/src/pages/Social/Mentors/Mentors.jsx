@@ -5,7 +5,7 @@ import SearchBar from '@common/SearchBar/SearchBar';
 import { useState, useEffect } from 'react';
 import GetAllMentorsHook from '../../../hooks/Mentor/get-all-mentors-hook';
 import { getAllCountryNames, getAllLanguageNames } from '../../../shared/utils/localizationLists';
-import QuestionCard from '../../../components/Common/Q&A/QuestionCard';
+import QuestionCard from '../../../components/Q&A/QuestionCard';
 
 const Mentors = () => {
   const [currentPage, setCurrentPage] = useState(1); // Pagination typically starts at 1
@@ -96,9 +96,9 @@ const Mentors = () => {
             <MentorCard key={index} mentor={mentor} />
           ))}
         </div>
-<div>
-<QuestionCard/>
-</div>
+        <div>
+          <QuestionCard />
+        </div>
         <div className="h-[41px] mt-[50px] mb-[50px] w-full">
           <Pagination pageCount={pagination.numberOfPages} onPageChange={handlePageChange} />
         </div>

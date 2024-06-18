@@ -5,7 +5,19 @@ import MessageIcon from '@assets/icons/common/message.svg';
 import BookmarkIcon from '@assets/icons/common/bookmark.svg';
 import HeartIcon from '@assets/icons/common/heart.svg';
 import ProfileIcon from '@assets/icons/common/user.svg';
-import DotsIcon from '@assets/icons/common/dots.svg';
+import DotHorizontalIcon from '@assets/icons/common/dot-horizontal.svg';
+import DotVerticalIcon from '@assets/icons/common/dot-vertical.svg';
 import ShareIcon from '@assets/icons/post/share.svg';
 
-export { HomeIcon, SearchIcon, CalendarIcon, MessageIcon, BookmarkIcon, HeartIcon, ProfileIcon, DotsIcon, ShareIcon };
+export {
+  HomeIcon,
+  SearchIcon,
+  CalendarIcon,
+  MessageIcon,
+  BookmarkIcon,
+  HeartIcon,
+  ProfileIcon,
+  DotHorizontalIcon,
+  DotVerticalIcon,
+  ShareIcon
+};
