@@ -1,11 +1,9 @@
 import React, { useState, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { useOutsideClick, useKey } from 'rooks';
-import mediaIcon from '@assets/publicIcons/pic.png';
-import feelingIcon from '@assets/publicIcons/vector.png';
-import activityIcon from '@assets/publicIcons/activity.png';
 import CommonButton from '@common/CommonButton/CommonButton';
 import OptionButton from './AddPostOptionButton';
+import { AchievementIcon, EventIcon, FeelingIcon, MediaIcon } from '@shared/utils/Icons';
 
 const AddPost = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -38,9 +36,10 @@ const AddPost = () => {
           />
         </div>
         <div className="flex justify-between items-center pt-4 border-t border-cyan-800 border-opacity-25">
-          <OptionButton icon={mediaIcon} label="Media" />
-          <OptionButton icon={feelingIcon} label="Feeling" />
-          <OptionButton icon={activityIcon} label="Activity" />
+          <OptionButton icon={MediaIcon} label="Media" />
+          <OptionButton icon={FeelingIcon} label="Feeling" />
+          <OptionButton icon={AchievementIcon} label="Achievement" />
+          <OptionButton icon={EventIcon} label="Event" />
         </div>
       </div>
 
@@ -67,9 +66,10 @@ const AddPost = () => {
                 ></textarea>
               </div>
               <div className="flex justify-between items-center pt-4 border-t border-cyan-800 border-opacity-25 mt-4">
-                <OptionButton icon={mediaIcon} label="Media" />
-                <OptionButton icon={feelingIcon} label="Feeling" />
-                <OptionButton icon={activityIcon} label="Activity" />
+                <OptionButton icon={MediaIcon} label="Media" />
+                <OptionButton icon={FeelingIcon} label="Feeling" />
+                <OptionButton icon={AchievementIcon} label="Achievement" />
+                <OptionButton icon={EventIcon} label="Event" />
                 <CommonButton
                   className="bg-cyan-800 text-white px-4 py-2 rounded-full hover:bg-cyan-700"
                   text="Post"

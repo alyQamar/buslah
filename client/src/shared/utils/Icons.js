@@ -8,6 +8,10 @@ import ProfileIcon from '@assets/icons/common/user.svg';
 import DotHorizontalIcon from '@assets/icons/common/dot-horizontal.svg';
 import DotVerticalIcon from '@assets/icons/common/dot-vertical.svg';
 import ShareIcon from '@assets/icons/post/share.svg';
+import MediaIcon from '@assets/icons/post/image.svg';
+import FeelingIcon from '@assets/icons/post/happy.svg';
+import AchievementIcon from '@assets/icons/post/target.svg';
+import EventIcon from '@assets/icons/post/event.svg';
 
 export {
   HomeIcon,
@@ -19,5 +23,9 @@ export {
   ProfileIcon,
   DotHorizontalIcon,
   DotVerticalIcon,
-  ShareIcon
+  ShareIcon,
+  MediaIcon,
+  FeelingIcon,
+  AchievementIcon,
+  EventIcon
 };
