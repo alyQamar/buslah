@@ -1,12 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const CommonButton = ({ className, text, textSize, fontWeight, width, height, borderRadius, onClick }) => {
+const CommonButton = ({
+  className = '',
+  text,
+  textSize = 'lg',
+  fontWeight = 'normal',
+  width = '96px',
+  height = '40px',
+  borderRadius = 'lg',
+  onClick,
+  ariaLabel
+}) => {
   return (
     <button
-      className={`${className} w-${width} h-${height} text-${textSize} font-${fontWeight} rounded-${borderRadius} shadow `}
+      className={`transition-colors duration-300 ${className} text-${textSize} font-${fontWeight} rounded-${borderRadius} shadow-md hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-600 focus:ring-opacity-50`}
       onClick={onClick}
       style={{ width, height }}
+      aria-label={ariaLabel || text}
     >
       {text}
     </button>
@@ -17,17 +28,11 @@ CommonButton.propTypes = {
   text: PropTypes.string.isRequired,
   textSize: PropTypes.string,
   fontWeight: PropTypes.string,
-  width: PropTypes.string.isRequired,
-  height: PropTypes.string.isRequired,
+  width: PropTypes.string,
+  height: PropTypes.string,
   borderRadius: PropTypes.string,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  ariaLabel: PropTypes.string
 };
 
-CommonButton.defaultProps = {
-  textSize: 'lg',
-  fontWeight: 'normal',
-  width: '96px',
-  height: '40px',
-  borderRadius: 'lg'
-};
 export default CommonButton;

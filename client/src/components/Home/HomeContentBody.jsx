@@ -1,4 +1,4 @@
-import WritePost from '@components/Post/WritePost';
+import AddPost from '@components/Post/AddPost';
 import PostCard from '@components/Post/PostCard';
 import SocialFeedFilter from './SocialFeedFilter';
 import QuestionCard from '@components/Q&A/QuestionCard';
@@ -12,9 +12,9 @@ const HomeContentBody = () => {
         <div className="mb-[30px]">
           <SocialFeedFilter />
         </div>
-        {/* <div className="mb-[20px]">
-          <WritePost />
-        </div> */}
+        <div className="mb-[20px]">
+          <AddPost />
+        </div>
         <div className="flex flex-col gap-[15px]">
           <QuestionCard question="How can i start Web Development ?" />
           <PostCard post="Eid with Buslah!!" />
