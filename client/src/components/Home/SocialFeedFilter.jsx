@@ -1,6 +1,6 @@
+import { useState } from 'react';
 import FilterOption from '@common/FilterOption';
 import SortByDropdown from '@common/SortByDropdown';
-import { useState } from 'react';
 
 const SocialFeedFilter = () => {
   const [activeFilter, setActiveFilter] = useState('All');

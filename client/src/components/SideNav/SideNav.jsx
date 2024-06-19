@@ -1,11 +1,17 @@
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-
 import { sideNavItems } from '@utils/data';
 import SideNavItem from '@components/SideNav/SideNavItem';
 import Footer from '@components/Footer/Footer';
-import CommonButton from '../Common/CommonButton/CommonButton';
+import CommonButton from '@common/CommonButton/CommonButton';
+import AddContentModal from '@components/Home/AddContentModal';
 
 const SideNav = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
   const isSelectedRoute = (name) => {
     return useLocation().pathname.includes(name.toLowerCase());
   };
@@ -32,9 +38,11 @@ const SideNav = () => {
           width="240px"
           height="56px"
           borderRadius="xl"
+          onClick={openModal}
         />
         <Footer className="footer" />
       </div>
+      {isModalOpen && <AddContentModal isOpen={isModalOpen} onClose={closeModal} />}
     </div>
   );
 };
