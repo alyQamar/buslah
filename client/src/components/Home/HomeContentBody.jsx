@@ -1,7 +1,7 @@
-import AddPost from '@components/Post/AddPost';
 import PostCard from '@components/Post/PostCard';
 import SocialFeedFilter from './SocialFeedFilter';
 import QuestionCard from '@components/Q&A/QuestionCard';
+import AddContent from './AddContent';
 const HomeContentBody = () => {
   return (
     <div
@@ -13,7 +13,7 @@ const HomeContentBody = () => {
           <SocialFeedFilter />
         </div>
         <div className="mb-[20px]">
-          <AddPost />
+          <AddContent />
         </div>
         <div className="flex flex-col gap-[15px]">
           <QuestionCard question="How can i start Web Development ?" />
