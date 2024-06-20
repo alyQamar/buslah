@@ -1,4 +1,4 @@
-import { IOrder, OrderStatus, DurationSolt } from './order.interfaces';
+import { IOrder, OrderStatus, DurationSolt } from './order.interface';
 import { model, Model, Schema } from 'mongoose';
 
 const orderSchema: Schema = new Schema<IOrder>({
