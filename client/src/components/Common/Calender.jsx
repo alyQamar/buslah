@@ -1,23 +1,17 @@
-import { useState } from 'react';
-import Calendar from 'react-calendar';
+import React from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
-const Calender = () => {
-
-  const [date, setDate] = useState(new Date());
-
-  const onChange = date => {
-    setDate(date);
-  }
-
-
+const Calender = ({ onSelect }) => {
   return (
-    <div className='flex justify-center items-center rounded-xl'
-     style={{ width: '238px', height: '240px', backgroundColor: '#295576',color: "#CBD5E1" }}>
-      <Calendar onChange={onChange} value={date} />
-      {console.log(date)}
+    <div className="calendar-container p-3 bg-white rounded-lg shadow-lg">
+      <DatePicker
+        inline
+        selected={new Date()}
+        onChange={(date) => onSelect(date)}
+      />
     </div>
-  )
-}
+  );
+};
 
-export default Calender
-
+export default Calender;
