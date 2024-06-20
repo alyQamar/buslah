@@ -1,4 +1,4 @@
-import { Document } from 'mongoose';
+import { Document, Schema } from 'mongoose';
 
 // Enum for defining user roles
 export enum OrderStatus {
@@ -18,4 +18,12 @@ export interface IOrder extends Document {
   orderStatus: OrderStatus;
   orderDate: Date;
   Duration: DurationSolt;
+  mentor: {
+    type: typeof Schema.Types.ObjectId;
+    ref: string;
+  };
+  mentee: {
+    type: typeof Schema.Types.ObjectId;
+    ref: string;
+  };
 }
