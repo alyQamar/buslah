@@ -1,4 +1,5 @@
 import About from "@components/Profile/About";
+import BookingBox from "@components/Profile/BookingBox";
 import Experience from "@components/Profile/Experience";
 import Skills from "@components/Profile/Skills";
 import Taps from "@components/Profile/Taps";
@@ -21,6 +22,7 @@ const Profile = () => {
           <Skills />
         </div>
         <div>
+          <BookingBox/>
           <YouShouldFollow />
         </div>
       </div>
