@@ -5,13 +5,13 @@ import { createPost } from './../../redux/Actions/postsActions';
 const useCreatePost = (initialUserId) => {
   const dispatch = useDispatch();
 
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [loadingPost, setLoading] = useState(false);
+  const [errorPost, setError] = useState(null);
   const [postCreationSuccess, setPostCreationSuccess] = useState(false);
 
   const postCreationResult = useSelector(state => state.postsReducer.createdPost);
 
-  const onSubmit = async (postContent, userId) => {
+  const onSubmitPost = async (postContent, userId) => {
     const validationMessage = validatePost(postContent, userId);
     if (validationMessage) {
       setError(validationMessage);
@@ -38,19 +38,19 @@ const useCreatePost = (initialUserId) => {
   }
 
   useEffect(() => {
-    if (!loading && postCreationResult) {
+    if (!loadingPost && postCreationResult) {
       if (postCreationResult.data) {
         console.log("Post created successfully:", postCreationResult.data);
         setPostCreationSuccess(true);
       }
-      if (postCreationResult.error) {
-        setError(postCreationResult.error.message);
+      if (postCreationResult.errorPost) {
+        setError(postCreationResult.errorPost.message);
       }
     }
-  }, [loading, postCreationResult]);
+  }, [loadingPost, postCreationResult]);
 
   return [
-    loading, error, onSubmit, postCreationSuccess
+    loadingPost, errorPost, onSubmitPost, postCreationSuccess
   ];
 }
 

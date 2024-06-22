@@ -1,3 +1,4 @@
+// [x] All Auth Done
 export const GET_ERROR="GET_ERROR";
 export const CREATE_NEW_USER = "CREATE_NEW_USER";
 export const LOGIN_USER = "LOGIN_USER";
@@ -17,6 +18,7 @@ export const UNFOLLOW_MENTOR="UNFOLLOW_MENTOR";
 
 export const GET_FEED = "GET_FEED";
 
+// [x] Create,
 export const CREATE_NEW_POST = "CREATE_NEW_POST";
 export const UPDATE_POST = "UPDATE_POST";
 export const DELETE_POST = "DELETE_POST";
@@ -32,6 +34,7 @@ export const ADD_REACTION = "ADD_REACTION";
 export const REMOVE_REACTION = "REMOVE_REACTION";
 export const GET_REACTIONS = "GET_REACTIONS";
 
+// [x] Create,
 export const CREATE_NEW_QUESTION = "CREATE_NEW_QUESTION";
 export const UPDATE_QUESTION = "UPDATE_QUESTION";
 export const DELETE_QUESTION = "DELETE_QUESTION";
