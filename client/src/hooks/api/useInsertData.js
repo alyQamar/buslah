@@ -1,4 +1,4 @@
-import baseUrl from './../../shared/services/api/baseURL';
+import baseUrl from '@services/api/baseURL';
 
 // const useInsertDataWithImage = async (url, parmas) => {
 //     const config = {
