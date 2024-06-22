@@ -1,7 +1,7 @@
 import PostCard from '@components/Post/PostCard';
 import SocialFeedFilter from './SocialFeedFilter';
 import QuestionCard from '@components/Q&A/QuestionCard';
-import AddContent from './AddContent';
+import AddContent from '../Feed/AddContent';
 const HomeContentBody = () => {
   return (
     <div

@@ -4,7 +4,7 @@ import { sideNavItems } from '@utils/data';
 import SideNavItem from '@components/SideNav/SideNavItem';
 import Footer from '@components/Footer/Footer';
 import CommonButton from '@common/CommonButton/CommonButton';
-import AddContentModal from '@components/Home/AddContentModal';
+import AddContentModal from '@components/Feed/AddContentModal';
 
 const SideNav = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
