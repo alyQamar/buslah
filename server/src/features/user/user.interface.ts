@@ -3,7 +3,6 @@ import mongoose, { Document } from 'mongoose';
 export enum AnalysisCategory {
   TopRated = 'Top Rated',
   Recommended = 'Recommended'
-
 }
 
 export interface IUserBase {

@@ -20,3 +20,10 @@ export const sideNavItems = [
   { id: 7, name: 'Profile', icon: ProfileIcon, route: routes.profile },
   { id: 8, name: 'More', icon: DotHorizontalIcon, route: routes.social }
 ];
+
+export const errorData = {
+  404: {
+    message: "Page Not Found",
+    retryAction: null
+  },
+};

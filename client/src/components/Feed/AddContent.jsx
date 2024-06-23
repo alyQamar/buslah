@@ -26,9 +26,9 @@ const AddContent = () => {
         </div>
         <div className="flex justify-between items-center pt-4 border-t border-cyan-800 border-opacity-25">
           <OptionButton icon={MediaIcon} label="Media" />
-          <OptionButton icon={FeelingIcon} label="Feeling" />
+          {/* <OptionButton icon={FeelingIcon} label="Feeling" />
           <OptionButton icon={AchievementIcon} label="Achievement" />
-          <OptionButton icon={EventIcon} label="Event" />
+          <OptionButton icon={EventIcon} label="Event" /> */}
         </div>
       </div>
       <AddPostModal isOpen={isModalOpen} onClose={closeModal} />

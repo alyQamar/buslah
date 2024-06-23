@@ -1,4 +1,4 @@
-import { useRoutes } from 'react-router-dom';
+import { Navigate, useRoutes } from 'react-router-dom';
 //Auth
 import LoginPage from '../pages/Auth/LoginPage';
 import SignupPage from '../pages/Auth/SignupPage';
@@ -13,6 +13,8 @@ import Home from '../pages/Social/Home/Home';
 import Mentors from '../pages/Social/Mentors/Mentors';
 import { routes } from '../routes';
 import Profile from '../pages/Social/Profile';
+import Error from '@pages/Error/Error';
+import { errorData } from '@shared/utils/data';
 
 const AppRouter = () => {
   const elements = useRoutes([
@@ -63,11 +65,22 @@ const AppRouter = () => {
         },
 
       ]
+    },
+    // Index (Home) Page
+    {
+      path: '/',
+      element: <Navigate to={routes.home} replace />
     }
-    // {
-    //   path: '*',
-    //   element: <Error />
-    // }
+    ,
+    {
+      path: '*',
+      element: <Error
+        title="Uh-Oh!"
+        errorCode={404}
+        errorMessage={errorData[404].message}
+        retryAction={null}
+      />
+    }
   ]);
 
   return elements;

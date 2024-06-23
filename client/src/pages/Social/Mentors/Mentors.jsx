@@ -69,7 +69,7 @@ const Mentors = () => {
     <div className="relative">
       <div className="absolute left-[375px] top-[130px]">
         <div>
-          <SearchBar width="700px" onChange={handleSearchChange} />
+          <SearchBar width="1050px" onChange={handleSearchChange} />
         </div>
 
         <div className="mb-[20px] mt-[20px] grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-0 gap-y-5">

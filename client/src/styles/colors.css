@@ -3,8 +3,9 @@
 
   --gray-100: #f7fafc;
 
+  --blue-600: #3a7ca7;
   --blue-800: #295576;
-
+  /* --blue-800: rgba(41, 85, 118, 0.25); */
   --filter-white: brightness(0) saturate(100%) invert(100%) sepia(0%) hue-rotate(0deg);
   --filter-blue-800: invert(20%) sepia(8%) saturate(1912%) hue-rotate(179deg) brightness(92%) contrast(93%);
 }
