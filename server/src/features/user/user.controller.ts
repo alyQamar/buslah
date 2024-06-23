@@ -14,6 +14,7 @@ import AuthService from '@auth/auth.service';
 import { ObjectId } from 'mongoose';
 import { validateBody } from '@root/shared/decorators/joiValidation.decorator';
 import { updatePasswordValidator } from './user.validator';
+import AuthModel from '@auth/auth.model';
 
 const CRUDFunctions: CommonFunctions<IUserDocument> = createCommonService<IUserDocument>(userModel, 'Users');
 
@@ -110,7 +111,7 @@ class userController {
       const jwtToken = AuthService.createToken(req.userAuth._id as unknown as ObjectId);
 
       // [x] send new token to cookie
-      AuthService.SendTokenViaCookie(jwtToken, req, res);
+      AuthService.sendTokenViaCookie(jwtToken, req, res);
 
       res.status(200).json({
         status: 'success',
@@ -151,7 +152,20 @@ class userController {
  * @route   DELETE /{URL}/users/logout
  * @access  Private/Protect
  */
-  public static async logout(req: Request, res: Response, next: NextFunction): Promise<void> {
+  public static async logout(req: IUserAuthRequest, res: Response, next: NextFunction): Promise<void> {
+    const document = await AuthModel.findOneAndUpdate(
+      req.userAuth._id,
+      {
+        $set: { logoutAt: new Date(), isLogged: false }
+      },
+      { new: true }
+    );
+    if (!document) {
+      throw new NotFoundError(`No document for this id ${req.userAuth._id}`);
+    }
+    AuthService.removeTokenFromCookie(req, res);
+    req.userAuth._id = undefined;
+    res.status(204).send();
   }
 }
 export default userController;

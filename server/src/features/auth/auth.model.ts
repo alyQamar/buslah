@@ -47,7 +47,10 @@ const authSchema: Schema<IAuthDocument> = new Schema(
     },
     passwordChangedAt: {
       type: Date,
-    }
+    },
+    loginAt: Date,
+    logoutAt: Date,
+    isLogged: Boolean,
   },
   {
     timestamps: true,

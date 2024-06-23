@@ -25,7 +25,7 @@ class AuthController {
       const { username, email, password, role } = req.body;
       const newUser = await AuthService.signUp(username, email, password, role);
 
-      AuthService.SendTokenViaCookie(newUser.token, req, res);
+      AuthService.sendTokenViaCookie(newUser.token, req, res);
 
       res.status(201).json({ status: 'success', data: newUser.data, token: newUser.token });
     } catch (error) {
@@ -37,7 +37,7 @@ class AuthController {
   public static async login(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const jwtToken = await AuthService.login(req.body.email, req.body.password);
-      AuthService.SendTokenViaCookie(jwtToken, req, res);
+      AuthService.sendTokenViaCookie(jwtToken, req, res);
       res.status(200).json({ status: 'success', token: jwtToken });
     } catch (error) {
       next(error);
@@ -68,7 +68,7 @@ class AuthController {
   public static async resetPassword(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const jwtToken = await AuthService.resetPassword(req.body.email, req.body.password);
-      AuthService.SendTokenViaCookie(jwtToken, req, res);
+      AuthService.sendTokenViaCookie(jwtToken, req, res);
       res.status(200).json({ message: 'success', jwtToken });
     } catch (error) {
       next(error);
@@ -84,7 +84,7 @@ class AuthController {
    */
   public static async protect(req: IUserAuthRequest, res: Response, next: NextFunction): Promise<void> {
     try {
-      const token = AuthService.GetTokenFromCookie(req);
+      const token = AuthService.getTokenFromCookie(req);
       console.log(token);
       if (!token) {
         throw new MissingTokenError();

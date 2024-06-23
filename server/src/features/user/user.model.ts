@@ -44,6 +44,8 @@ const userSchema: Schema = new Schema(
       },
     ],
     savedPosts: [{ type: ObjectId, ref: 'Post' }],
+    deletedAt: Date,
+    isDeleted: Boolean
   },
   {
     timestamps: true

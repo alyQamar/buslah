@@ -36,6 +36,14 @@ class AuthService {
     const userAuth = await AuthModel.findOne({ email }).select('+password');
     if (!userAuth || !(await userAuth.comparePassword(password))) {
       throw new IncorrectEmailOrPassError();
+    } else {
+      await AuthModel.findOneAndUpdate(
+        userAuth._id,
+        {
+          $set: { loginAt: new Date(), isLogged: true }
+        },
+        { new: true }
+      );
     }
 
     return this.createToken(userAuth._id as unknown as ObjectId);
@@ -110,7 +118,7 @@ class AuthService {
     return jwt.sign({ id: userId }, config.JWT_SECRET_KEY, { expiresIn: config.JWT_EXPIRE_TIME });
   }
 
-  public static SendTokenViaCookie = (token: string, req: Request, res: Response): void => {
+  public static sendTokenViaCookie(token: string, req: Request, res: Response): void {
     if (req && req.session) {
       req.session.jwt = token;
     } else {
@@ -118,7 +126,16 @@ class AuthService {
     }
   };
 
-  public static GetTokenFromCookie = (req: Request): string | undefined => {
+  public static removeTokenFromCookie(req: Request, res: Response): void {
+    if (req && req.session) {
+      req.session.jwt = undefined;
+      res.clearCookie('session');
+    } else {
+      throw new SessionDataNotAvailableError();
+    }
+  }
+
+  public static getTokenFromCookie = (req: Request): string | undefined => {
     if (req && req.session && req.session.jwt) {
       return req.session.jwt;
     }

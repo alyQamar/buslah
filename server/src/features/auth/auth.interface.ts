@@ -24,6 +24,9 @@ export interface IAuthBase {
   passwordResetCode?: string;
   passwordResetExpires?: number | string;
   passwordChangedAt?: Date;
+  loginAt: Date;
+  logoutAt: Date;
+  isLogged: Boolean;
 
   comparePassword(candidatePassword: string): Promise<boolean>;
   createPasswordResetCode(): number;
