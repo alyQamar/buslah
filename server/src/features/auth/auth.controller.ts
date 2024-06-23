@@ -85,7 +85,6 @@ class AuthController {
   public static async protect(req: IUserAuthRequest, res: Response, next: NextFunction): Promise<void> {
     try {
       const token = AuthService.getTokenFromCookie(req);
-      console.log(token);
       if (!token) {
         throw new MissingTokenError();
       }
