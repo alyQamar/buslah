@@ -2,65 +2,64 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { loginUser } from '../../redux/Actions/authActions';
-
 const LoginHook = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-//states
+  //states
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(true)
-// //get elements
-//   const emailinput = document.getElementById('emailinput');
-//   const passwordinput = document.getElementById('passwordinput');
+  const [loading, setLoading] = useState(true);
+  // //get elements
+  //   const emailinput = document.getElementById('emailinput');
+  //   const passwordinput = document.getElementById('passwordinput');
   //functions
   const onChangeEmail = (e) => {
     setEmail(e.target.value)
-}
+  }
 
-const onChangePassword = (e) => {
-  setPassword(e.target.value)
-}
-const onSubmit = async(e) => {
-  e.preventDefault();
-  setLoading(true)
-  await dispatch(loginUser({
+  const onChangePassword = (e) => {
+    setPassword(e.target.value)
+  }
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true)
+    await dispatch(loginUser({
       email,
       password
-  }))
+    }))
+    localStorage.setItem("isLoggedIn", true);
+    setLoading(false)
 
-  setLoading(false)
-
-}
-
-//selector
-const res = useSelector(state => state.authReducer.loginUser)
-//use Efect
-useEffect(() => {
-  if (loading === false) {
-      if (res) {
-          console.log(res)
-          if (res.data.token) {
-              localStorage.setItem("token", res.data.token)
-
-              setTimeout(() => {
-                navigate('/social/home')
-            }, 2000);
-          } else {
-              localStorage.removeItem("token")
-          }
-
-          if (res.data.message === "Incorrect email or password") {
-              localStorage.removeItem("token")
-              console.log(res.data.message)
-          }
-          setLoading(true)
-      }
   }
-}, [loading])
 
-  return  [email,password,loading,onChangeEmail,onSubmit,onChangePassword]
+  //selector
+  const res = useSelector(state => state.authReducer.loginUser)
+  //use Efect
+  useEffect(() => {
+    if (loading === false) {
+      if (res) {
+        console.log(res)
+        if (res.data.token) {
+          // localStorage.setItem("token", res.data.token)
+
+          setTimeout(() => {
+            navigate('/social/home')
+          }, 2000);
+        } else {
+          localStorage.removeItem("token")
+        }
+
+        if (res.data.message === "Incorrect email or password") {
+          localStorage.removeItem("token")
+          console.log(res.data.message)
+        }
+        setLoading(true)
+      }
+    }
+  }, [loading])
+
+  return [email, password, loading, onChangeEmail, onSubmit, onChangePassword]
 
 }
 

@@ -6,9 +6,10 @@ import {
   RESET_PASSWORD,
   VERIFY_PASSWORD
 } from '../type';
-import { useInsertData } from '../../hooks/api/useInsertData';
-import { useInsUpdateData } from '../../hooks/api/useUpdateData';
-import { useGetData, useGetDataToken, useGetDataUser } from '../../hooks/api/useGetData';
+import { useInsertData } from '@hooks/api/useInsertData';
+import { useInsUpdateData } from '@hooks/api/useUpdateData';
+import { useGetData, useGetDataToken, useGetDataUser } from '@hooks/api/useGetData';
+import useDeleteData from '@hooks/Api/useDeleteData';
 
 //create new user
 export const createNewUser = (data) => async (dispatch) => {
@@ -103,6 +104,22 @@ export const getLoggedUser = () => async (dispatch) => {
       type: GET_CURERNT_USER,
       payload: response,
       loading: true
+    });
+  } catch (e) {
+    dispatch({
+      type: GET_CURERNT_USER,
+      payload: e.response
+    });
+  }
+};
+
+export const logout = () => async (dispatch) => {
+  try {
+    const response = await useDeleteData(`/users/logout`);
+
+    dispatch({
+      type: LOGOUT,
+      payload: null,
     });
   } catch (e) {
     dispatch({

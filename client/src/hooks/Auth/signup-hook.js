@@ -75,7 +75,6 @@ useEffect(() => {
       if (res) {
           console.log(res)
           if (res.data.token) {
-              localStorage.setItem("token", res.data.token)
               console.log("تم تسجيل الحساب بنجاح")
               setTimeout(() => {
                   navigate('/login')

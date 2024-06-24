@@ -12,6 +12,7 @@ import Logo from '@common/Logo/Logo';
 import MsgIcon from '@assets/icons/common/message.svg';
 import BellIcon from '@assets/icons/common/bell.svg';
 import ProfileIcon from '@assets/icons/common/user.svg';
+import useLogout from '@hooks/Auth/useLogout';
 
 
 const Navbar = ({ searchPaths }) => {
@@ -58,9 +59,7 @@ const Navbar = ({ searchPaths }) => {
     setIsDropdownOpen(false);
   };
 
-  const handleLogout = () => {
-    // Implement logout functionality here
-  };
+  const [loading, error, onLogout] = useLogout();
 
   return (
     <div className="px-16 py-4 bg-white rounded-xl flex justify-between items-center mx-auto">
@@ -121,11 +120,13 @@ const Navbar = ({ searchPaths }) => {
                 Profile
               </Link>
               <button
-                onClick={handleLogout}
+                onClick={onLogout}
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                disabled={loading}
               >
-                Logout
+                {loading ? 'Logging out...' : 'Logout'}
               </button>
+              {error && <span className="text-sm text-red-600 px-4">{error}</span>}
             </div>
           )}
         </li>

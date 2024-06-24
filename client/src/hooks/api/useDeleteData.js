@@ -1,13 +1,9 @@
-// import baseUrl from '../Api/baseURL'
+import baseUrl from '@services/api/baseURL';
 
-// const useDeleteData = async (url, parmas) => {
+const useDeleteData = async (url, parmas) => {
+  const config = { withCredentials: true };
+  const res = await baseUrl.delete(url, config, parmas);
+  return res;
+}
 
-
-//     const config = {
-//         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
-//     }
-//     const res = await baseUrl.delete(url, config, parmas);
-//     return res.data;
-// }
-
-// export default useDeleteData;
+export default useDeleteData;

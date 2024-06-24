@@ -5,6 +5,7 @@ export const LOGIN_USER = "LOGIN_USER";
 export const FOREGT_PASSWORD = "FOREGT_PASSWORD";
 export const VERIFY_PASSWORD = "VERIFY_PASSWORD";
 export const RESET_PASSWORD = "RESET_PASSWORD";
+export const LOGOUT = "LOGOUT";
 
 // Users
 export const GET_CURERNT_USER = "GET_CURERNT_USER";

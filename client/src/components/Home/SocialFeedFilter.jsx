@@ -4,10 +4,10 @@ import SortByDropdown from '@common/SortByDropdown';
 
 const SocialFeedFilter = () => {
   const [activeFilter, setActiveFilter] = useState('All');
-  const [sortOption, setSortOption] = useState('Following');
+  const [sortOption, setSortOption] = useState('Most Recent');
 
   const filters = ['All', 'Posts', 'Q&A'];
-  const sortOptions = ['Following', 'Most Recent', 'Popular'];
+  const sortOptions = ['Most Recent', 'Following'];
 
   return (
     <div className="w-full md:w-622 flex flex-row justify-between items-center p-4">
