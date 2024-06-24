@@ -5,7 +5,8 @@ export enum OrderStatus {
   Awaiting_Approval = 'Awaiting Approval',
   Completed = 'Completed',
   Canceled = 'Canceled',
-  Rescheduled = 'Rescheduled'
+  Rescheduled = 'Rescheduled',
+  Approved = 'Approved'
 }
 
 export enum DurationSolt {
