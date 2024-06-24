@@ -5,7 +5,7 @@ import { AnalysisCategory, IUserDocument } from '@user/user.interface';
 const userSchema: Schema = new Schema(
   {
     firstName: { type: String, required: true },
-    lastName: { type: String, required: true },
+    lastName: { type: String },
     headline: { type: String },
     pricePerHour: { type: Number },
     analysisCategory: { type: String, enum: Object.values(AnalysisCategory) },
@@ -42,6 +42,20 @@ const userSchema: Schema = new Schema(
     active: { type: Boolean, default: true },
     ratingsAverage: { type: Number, min: 1, max: 5, default: 1 },
     ratingsQuantity: { type: Number, default: 0 },
+    savedPosts: [{ type: ObjectId, ref: 'Post' }],
+    authID: {
+      type: String || ObjectId,
+      ref: 'auth'
+    },
+    followsID: {
+      type: String || ObjectId,
+      ref: 'follows'
+    },
+    wishlist: [
+      {
+        type: ObjectId,
+        ref: 'user',
+      }],
     deletedAt: { type: Date },
     isDeleted: { type: Boolean, default: false }
   },
