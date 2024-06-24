@@ -8,4 +8,7 @@ export class orderController {
   public static async createOrder(req: Request, res: Response, next: NextFunction) {
     await orderServices.createOrder(req, res, next);
   }
+  public static async updateOrder(req: Request, res: Response, next: NextFunction) {
+    await orderServices.updateOrder(req, res, next);
+  }
 }
