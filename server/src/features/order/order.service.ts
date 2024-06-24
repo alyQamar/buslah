@@ -11,4 +11,7 @@ export class orderServices {
   public static async createOrder(req: Request, res: Response, next: NextFunction) {
     await CRUDFunctions.createOne(req, res);
   }
+  public static async updateOrder(req: Request, res: Response, next: NextFunction) {
+    await CRUDFunctions.updateOne(req, res);
+  }
 }
