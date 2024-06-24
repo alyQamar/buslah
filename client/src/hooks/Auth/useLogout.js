@@ -31,12 +31,6 @@ const useLogout = () => {
     }
   };
 
-  useEffect(() => {
-    if (!loading && logoutStatus) {
-      console.log('User has been logged out');
-    }
-  }, [loading, logoutStatus]);
-
   return [loading, error, onLogout];
 };
 

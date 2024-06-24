@@ -14,7 +14,6 @@ import BellIcon from '@assets/icons/common/bell.svg';
 import ProfileIcon from '@assets/icons/common/user.svg';
 import useLogout from '@hooks/Auth/useLogout';
 
-
 const Navbar = ({ searchPaths }) => {
   const [currentUserData] = LoggedUser();
   const location = useLocation();
@@ -24,6 +23,7 @@ const Navbar = ({ searchPaths }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const [isMessageOpen, setIsMessageOpen] = useState(false);
+  const [logoutConfirmationOpen, setLogoutConfirmationOpen] = useState(false); // State for logout confirmation
 
   const dropdownRef = useRef();
   const notificationRef = useRef();
@@ -60,6 +60,15 @@ const Navbar = ({ searchPaths }) => {
   };
 
   const [loading, error, onLogout] = useLogout();
+
+  const handleLogout = () => {
+    setLogoutConfirmationOpen(true); // Open the logout confirmation dialog
+  };
+
+  const confirmLogout = () => {
+    setLogoutConfirmationOpen(false); // Close the logout confirmation dialog
+    onLogout(); // Call the logout function
+  };
 
   return (
     <div className="px-16 py-4 bg-white rounded-xl flex justify-between items-center mx-auto">
@@ -120,13 +129,35 @@ const Navbar = ({ searchPaths }) => {
                 Profile
               </Link>
               <button
-                onClick={onLogout}
+                onClick={handleLogout} // Open confirmation dialog on click
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
                 disabled={loading}
               >
                 {loading ? 'Logging out...' : 'Logout'}
               </button>
               {error && <span className="text-sm text-red-600 px-4">{error}</span>}
+            </div>
+          )}
+          {/* Logout confirmation dialog */}
+          {logoutConfirmationOpen && (
+            <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
+              <div className="bg-white p-4 rounded-lg shadow-lg text-center">
+                <p className="text-lg font-semibold mb-2">Are you sure you want to logout?</p>
+                <div className="flex justify-center gap-4">
+                  <button
+                    onClick={confirmLogout} // Confirm logout
+                    className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg"
+                  >
+                    Logout
+                  </button>
+                  <button
+                    onClick={() => setLogoutConfirmationOpen(false)} // Cancel logout
+                    className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
             </div>
           )}
         </li>

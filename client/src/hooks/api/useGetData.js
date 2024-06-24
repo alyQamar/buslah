@@ -15,4 +15,4 @@ const useGetDataUser = async (url, params) => {
   return res.data;
 };
 
-export { useGetData, useGetDataToken , useGetDataUser};
+export { useGetData, useGetDataUser};

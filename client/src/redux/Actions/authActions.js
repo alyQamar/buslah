@@ -8,7 +8,7 @@ import {
 } from '../type';
 import { useInsertData } from '@hooks/api/useInsertData';
 import { useInsUpdateData } from '@hooks/api/useUpdateData';
-import { useGetData, useGetDataToken, useGetDataUser } from '@hooks/api/useGetData';
+import { useGetDataUser } from '@hooks/api/useGetData';
 import useDeleteData from '@hooks/Api/useDeleteData';
 
 //create new user
