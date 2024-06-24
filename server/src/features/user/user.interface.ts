@@ -21,7 +21,7 @@ export interface IUserBase {
   ratingsAverage: number;
   ratingsQuantity: number;
   deletedAt: Date;
-  isDeleted: Boolean;
+  isDeleted: boolean;
 }
 
 export interface IUserDocument extends Document, IUserBase {
