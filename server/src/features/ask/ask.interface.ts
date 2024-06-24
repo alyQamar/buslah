@@ -21,6 +21,7 @@ export interface IAskBase extends Document {
   locked?: boolean;
   feelings?: AskType;
   privacy?: PrivacyOptions;
+  createdAt: Date
 }
 
 export interface IAskDocument extends IAskBase {
