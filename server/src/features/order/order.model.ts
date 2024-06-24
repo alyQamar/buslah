@@ -1,12 +1,20 @@
 import { IOrder, OrderStatus, DurationSolt } from './order.interface';
-import { model, Model, Schema } from 'mongoose';
+import { model, Model, Schema, SchemaTypeOptions } from 'mongoose';
 
 const orderSchema: Schema = new Schema<IOrder>({
-  orderStatus: OrderStatus,
+  orderStatus: {
+    type: String,
+    enum: OrderStatus,
+    required: true
+  },
   orderDate: { type: Date, required: [true, 'Order Date is required'] },
-  Duration: DurationSolt,
-  mentee: { type: Schema.Types.ObjectId, ref: 'User' },
-  mentor: { type: Schema.Types.ObjectId, ref: 'User' }
+  Duration: {
+    type: String,
+    enum: DurationSolt,
+    required: true
+  },
+  mentee: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+  mentor: { type: Schema.Types.ObjectId, ref: 'User', required: true }
 });
 
 const orderModel: Model<IOrder> = model<IOrder>('Orders', orderSchema);
