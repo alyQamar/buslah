@@ -9,5 +9,6 @@ export default combineReducers({
     authReducer: authReducer ,
     allmentors: mentorsReducer,
     postsReducer,
-    questionsReducer
+    questionsReducer,
+    authReducer
 })

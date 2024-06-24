@@ -23,6 +23,7 @@ interface IPostBase {
   reactions?: IReactionDocument[];
   comments?: ICommentDocument[];
   bookmarksBy: mongoose.Types.ObjectId[] | string[];
+  createdAt: Date
 }
 
 export interface IPostDocument extends Document, IPostBase {
