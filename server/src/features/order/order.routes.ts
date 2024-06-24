@@ -10,6 +10,7 @@ class OrderRoutes {
 
   public routes(): Router {
     this.router.route('/newOrder').post(orderController.createOrder);
+    this.router.route('/updateOrder/:id').put(orderController.updateOrder);
 
     return this.router;
   }
