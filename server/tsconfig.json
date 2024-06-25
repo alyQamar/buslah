@@ -24,6 +24,7 @@
       "@auth/*": ["src/features/auth/*"],
       "@user/*": ["src/features/user/*"],
       "@post/*": ["src/features/post/*"],
+      "@feed/*": ["src/features/feed/*"],
       "@reaction/*": ["src/features/reaction/*"],
       "@comment/*": ["src/features/comment/*"],
       "@follows/*": ["src/features/follows/*"],

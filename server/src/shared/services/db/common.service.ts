@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 
 import { IFilterRequest } from '@root/shared/interfaces/request.interface';
 import { InternalServerError, NotFoundError } from '@global/errorHandler.global';
-import QueryService from './query.service';
+import QueryService, { PaginationResult } from './query.service';
 
 export type CommonFunctions<T extends Document> = {
   getOne: (req: Request, res: Response) => Promise<void>;
@@ -170,3 +170,23 @@ export const createCommonService = <T extends Document>(Model: Model<T>, modelNa
     updateMany,
   };
 };
+export const paginate = (countDocuments: number, page: number, limit: number): PaginationResult => {
+  const skip: number = (page - 1) * limit;
+  const endIndex: number = page * limit;
+
+  const pagination: PaginationResult = {
+    currentPage: page,
+    limit: limit,
+    numberOfPages: Math.ceil(countDocuments / limit),
+  };
+
+  if (endIndex < countDocuments) {
+    pagination.next = page + 1;
+  }
+
+  if (skip > 0) {
+    pagination.prev = page - 1;
+  }
+
+  return pagination;
+}

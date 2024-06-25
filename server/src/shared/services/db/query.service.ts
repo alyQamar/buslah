@@ -1,6 +1,6 @@
 import { Document, Query } from 'mongoose';
 import { fieldMapping } from '@util/modelSearchFields';
-interface PaginationResult {
+export interface PaginationResult {
   currentPage: number;
   limit: number;
   numberOfPages: number;
