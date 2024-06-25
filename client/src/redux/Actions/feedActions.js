@@ -1,11 +1,10 @@
 import axios from 'axios';
 import { GET_FEED } from '../type';
+import { useGetRes } from '@hooks/api/useGetData';
 
 export const getFeed = (page, limit, sort, filterBy) => async (dispatch) => {
   try {
-    const response = await axios.get(`/feed`, {
-      params: { page, limit, sort, filterBy },
-    });
+    const response =await useGetRes(`/feed?page=${page}&limit=${limit}&sort=${sort}&filterBy=${filterBy}`);
     dispatch({
       type: GET_FEED,
       payload: response.data,

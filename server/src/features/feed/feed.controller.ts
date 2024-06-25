@@ -1,14 +1,14 @@
 import { Request, Response, NextFunction } from 'express';
 
 import { BadRequestError } from '@global/errorHandler.global';
+import { paginate } from '@service/db/common.service';
 
-import { FeedItem } from '@feed/feed.interface';
+import { FeedItem } from './feed.interface';
 import { IAskDocument } from '@ask/ask.interface';
 import { AskModel } from '@ask/ask.model';
 import { IPostDocument } from '@post/post.interfaces';
 import { PostModel } from '@post/post.model';
 import FeedService from './feed.service';
-import { paginate } from '@service/db/common.service';
 
 
 
@@ -27,8 +27,10 @@ class feedController {
 
       switch (filterBy) {
         case 'all':
-          asks = await AskModel.find().exec();
-          posts = await PostModel.find().exec();
+          [asks, posts] = await Promise.all([
+            AskModel.find().exec(),
+            PostModel.find().exec()
+          ]);
           break;
         case 'post':
           posts = await PostModel.find().exec();
@@ -37,8 +39,10 @@ class feedController {
           asks = await AskModel.find().exec();
           break;
         default:
-          asks = await AskModel.find().exec();
-          posts = await PostModel.find().exec();
+          [asks, posts] = await Promise.all([
+            AskModel.find().exec(),
+            PostModel.find().exec()
+          ]);
           break;
       }
 
@@ -47,13 +51,10 @@ class feedController {
         ...posts,
       ];
 
-      switch (sort) {
-        case 'mostRecent':
-          combinedFeed = FeedService.sortByMostResent(combinedFeed);
-          break;
-        default:
-          break;
+      if (sort === 'mostRecent') {
+        combinedFeed = FeedService.sortByMostResent(combinedFeed);
       }
+
       const countDocuments = combinedFeed.length;
       const pageNumber = Number(page) || 1;
       const limitNumber = Number(limit) || 25;

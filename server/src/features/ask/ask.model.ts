@@ -2,55 +2,57 @@ import mongoose, { model, Model, Schema } from 'mongoose';
 import { AskType, IAskDocument } from '@ask/ask.interface';
 import { PrivacyOptions } from '@auth/auth.interface';
 
-const askSchema: Schema = new Schema({
-  user: {
-    type: String || mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: [true, 'Reaction must belong to a user.']
-  },
-  question: {
-    type: String,
-    required: [true, 'An ask must have a question']
-  },
-  helpfulUsers: [
-    {
+const askSchema: Schema = new Schema(
+  {
+    user: {
       type: String || mongoose.Schema.Types.ObjectId,
-      ref: 'User'
-    }
-  ],
-  unhelpfulUsers: [
-    {
-      type: String || mongoose.Schema.Types.ObjectId,
-      ref: 'User'
-    }
-  ],
-  bookmarksBy: [
-    {
-      type: String || mongoose.Schema.Types.ObjectId,
-      ref: 'User'
-    }
-  ],
-  locked: {
-    type: Boolean,
-    default: false
+      ref: 'User',
+      required: [true, 'Reaction must belong to a user.']
+    },
+    question: {
+      type: String,
+      required: [true, 'An ask must have a question']
+    },
+    helpfulUsers: [
+      {
+        type: String || mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+      }
+    ],
+    unhelpfulUsers: [
+      {
+        type: String || mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+      }
+    ],
+    bookmarksBy: [
+      {
+        type: String || mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+      }
+    ],
+    locked: {
+      type: Boolean,
+      default: false
+    },
+    type: {
+      type: String,
+      enum: Object.values(AskType),
+      default: 'normal'
+    },
+    privacy: {
+      type: String,
+      enum: Object.values(PrivacyOptions),
+      default: PrivacyOptions.Public
+    },
+    answers: [
+      {
+        type: String || mongoose.Schema.Types.ObjectId,
+        ref: 'Answer'
+      }
+    ]
   },
-  type: {
-    type: String,
-    enum: Object.values(AskType),
-    default: 'normal'
-  },
-  privacy: {
-    type: String,
-    enum: Object.values(PrivacyOptions),
-    default: PrivacyOptions.Public
-  },
-  answers: [
-    {
-      type: String || mongoose.Schema.Types.ObjectId,
-      ref: 'Answer'
-    }
-  ]
-});
+  { timestamps: true });
 
 // Mongoose query middleware
 askSchema.pre(/^find/, function (next) {
