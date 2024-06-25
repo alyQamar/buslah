@@ -5,7 +5,8 @@ const orderSchema: Schema = new Schema<IOrder>({
   orderStatus: {
     type: String,
     enum: OrderStatus,
-    required: true
+    required: true,
+    default: OrderStatus.Awaiting_Approval
   },
   orderDate: { type: Date, required: [true, 'Order Date is required'] },
   Duration: {
