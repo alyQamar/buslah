@@ -38,6 +38,7 @@ export interface IUserBase {
   school?: string;
   languages?: string[];
   interests?: string[];
+  skills?: string[];
   experience?: IExperience[];
   education?: IEducation[];
   socialLinks?: ISocialLink[];

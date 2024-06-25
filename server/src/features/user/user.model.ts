@@ -17,6 +17,7 @@ const userSchema: Schema = new Schema(
     school: { type: String },
     languages: { type: [String] },
     interests: { type: [String] },
+    skills: { type: [String] },
     experience: [
       {
         title: { type: String, required: true },
