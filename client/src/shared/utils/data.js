@@ -27,3 +27,14 @@ export const errorData = {
     retryAction: null
   },
 };
+
+export const FilterEnum = {
+  ALL: 'all',
+  POSTS: 'post',
+  QA: 'qa'
+};
+
+export const SortEnum = {
+  MOST_RECENT: 'mostRecent',
+  FOLLOWING: 'following'
+};

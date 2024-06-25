@@ -15,7 +15,6 @@ import { routes } from '../routes';
 import Profile from '../pages/Social/Profile';
 import Error from '@pages/Error/Error';
 import { errorData } from '@shared/utils/data';
-import ProtectedRoute from '@pages/ProtectedRoute';
 
 const AppRouter = () => {
   const elements = useRoutes([

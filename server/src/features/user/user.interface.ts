@@ -5,6 +5,25 @@ export enum AnalysisCategory {
   Recommended = 'Recommended'
 }
 
+export interface IExperience {
+  title: string;
+  company: string;
+  fromDate: Date;
+  toDate?: Date;
+}
+
+export interface IEducation {
+  degree: string;
+  school: string;
+  fromDate: Date;
+  toDate?: Date;
+}
+
+export interface ISocialLink {
+  platform: string;
+  link: string;
+}
+
 export interface IUserBase {
   firstName: string;
   lastName: string;
@@ -14,32 +33,26 @@ export interface IUserBase {
   profilePhoto?: string | mongoose.Types.ObjectId;
   coverPhoto?: string | mongoose.Types.ObjectId;
   country?: string;
+  city?: string;
   companyWorkingFor?: string;
   school?: string;
+  languages?: string[];
   interests?: string[];
+  skills?: string[];
+  experience?: IExperience[];
+  education?: IEducation[];
+  socialLinks?: ISocialLink[];
   active: boolean;
   ratingsAverage: number;
   ratingsQuantity: number;
-  deletedAt: Date;
+  deletedAt?: Date;
   isDeleted: boolean;
 }
 
 export interface IUserDocument extends Document, IUserBase {
   _id: string | mongoose.Types.ObjectId;
-  authID: {
-    type: string | mongoose.Types.ObjectId;
-    ref: 'auth';
-  };
-  followsID: {
-    type: string | mongoose.Types.ObjectId;
-    ref: 'auth';
-  };
-  wishlist: {
-    type: string | mongoose.Types.ObjectId;
-    ref: 'follows';
-  };
-  savedPosts: {
-    type: string | mongoose.Types.ObjectId;
-    ref: 'follows';
-  };
+  authID: string | mongoose.Types.ObjectId;
+  followsID: string | mongoose.Types.ObjectId;
+  wishlist: string | mongoose.Types.ObjectId;
+  savedPosts: string | mongoose.Types.ObjectId;
 }

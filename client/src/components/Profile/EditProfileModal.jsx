@@ -1,13 +1,22 @@
 import React, { useState, useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import { createPortal } from 'react-dom';
 import { useOutsideClick, useKey } from 'rooks';
+import { updateUserProfile } from '../../redux/Actions/authActions'; // Import your update profile action
 import CommonButton from '../Common/CommonButton/CommonButton';
+import LoggedUser from '@hooks/Auth/logged-user';
 
 const EditProfileModal = ({ isOpen, onClose }) => {
   const modalRef = useRef(null);
-  const [username, setUsername] = useState('');
-  const [skills, setSkills] = useState(['']);
-  const [experiences, setExperiences] = useState(['']);
+  const dispatch = useDispatch();
+  const [currentUserData] = LoggedUser();
+
+
+  const [formData, setFormData] = useState({
+    firstName: currentUserData.data.firstName || '',
+    skills: currentUserData.data.skills || [''],
+    experiences: currentUserData.data.experiences || [''],
+  });
 
   useOutsideClick(modalRef, () => {
     if (isOpen) onClose();
@@ -17,24 +26,50 @@ const EditProfileModal = ({ isOpen, onClose }) => {
     when: isOpen
   });
 
-  const handleAddSkill = () => {
-    setSkills([...skills, '']);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value
+    }));
   };
 
   const handleSkillChange = (index, value) => {
-    const newSkills = [...skills];
+    const newSkills = [...formData.skills];
     newSkills[index] = value;
-    setSkills(newSkills);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      skills: newSkills
+    }));
   };
 
-  const handleAddExperience = () => {
-    setExperiences([...experiences, '']);
+  const handleAddSkill = () => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      skills: [...prevFormData.skills, '']
+    }));
   };
 
   const handleExperienceChange = (index, value) => {
-    const newExperiences = [...experiences];
+    const newExperiences = [...formData.experiences];
     newExperiences[index] = value;
-    setExperiences(newExperiences);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      experiences: newExperiences
+    }));
+  };
+
+  const handleAddExperience = () => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      experiences: [...prevFormData.experiences, '']
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(updateUserProfile(formData));
+    onClose();
   };
 
   return isOpen
@@ -53,63 +88,68 @@ const EditProfileModal = ({ isOpen, onClose }) => {
               ariaLabel="Close modal"
             />
             <h2 className="text-2xl font-semibold mb-4">Edit Profile</h2>
-            <div className="mb-4">
-              <label className="block text-gray-700 mb-2">Username</label>
-              <input
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                className="w-full p-2 border border-gray-300 rounded-lg"
-                placeholder="Enter your username"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700 mb-2">Skills</label>
-              {skills.map((skill, index) => (
+            <form onSubmit={handleSubmit}>
+              <div className="mb-4">
+                <label className="block text-gray-700 mb-2">First Name</label>
                 <input
-                  key={index}
                   type="text"
-                  value={skill}
-                  onChange={(e) => handleSkillChange(index, e.target.value)}
-                  className="w-full p-2 border border-gray-300 rounded-lg mb-2"
-                  placeholder="Enter a skill"
+                  name="firstName"
+                  value={formData.firstName}
+                  onChange={handleChange}
+                  className="w-full p-2 border border-gray-300 rounded-lg"
+                  placeholder="Enter your first name"
                 />
-              ))}
-              <button
-                onClick={handleAddSkill}
-                className="text-cyan-800 hover:text-cyan-600 transition duration-200"
-              >
-                Add another skill
-              </button>
-            </div>
-            <div className="mb-4">
-              <label className="block text-gray-700 mb-2">Experiences</label>
-              {experiences.map((experience, index) => (
-                <input
-                  key={index}
-                  type="text"
-                  value={experience}
-                  onChange={(e) => handleExperienceChange(index, e.target.value)}
-                  className="w-full p-2 border border-gray-300 rounded-lg mb-2"
-                  placeholder="Enter an experience"
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-700 mb-2">Skills</label>
+                {formData.skills.map((skill, index) => (
+                  <input
+                    key={index}
+                    type="text"
+                    value={skill}
+                    onChange={(e) => handleSkillChange(index, e.target.value)}
+                    className="w-full p-2 border border-gray-300 rounded-lg mb-2"
+                    placeholder="Enter a skill"
+                  />
+                ))}
+                <button
+                  onClick={handleAddSkill}
+                  className="text-cyan-800 hover:text-cyan-600 transition duration-200"
+                  type="button"
+                >
+                  Add another skill
+                </button>
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-700 mb-2">Experiences</label>
+                {formData.experiences.map((experience, index) => (
+                  <input
+                    key={index}
+                    type="text"
+                    value={experience}
+                    onChange={(e) => handleExperienceChange(index, e.target.value)}
+                    className="w-full p-2 border border-gray-300 rounded-lg mb-2"
+                    placeholder="Enter an experience"
+                  />
+                ))}
+                <button
+                  onClick={handleAddExperience}
+                  className="text-cyan-800 hover:text-cyan-600 transition duration-200"
+                  type="button"
+                >
+                  Add another experience
+                </button>
+              </div>
+              <div className="flex justify-end">
+                <CommonButton
+                  className="bg-cyan-800 text-white px-4 py-2 rounded-full hover:bg-cyan-700"
+                  text="Update"
+                  width="auto"
+                  height="auto"
+                  type="submit"
                 />
-              ))}
-              <button
-                onClick={handleAddExperience}
-                className="text-cyan-800 hover:text-cyan-600 transition duration-200"
-              >
-                Add another experience
-              </button>
-            </div>
-            <div className="flex justify-end">
-              <CommonButton
-                className="bg-cyan-800 text-white px-4 py-2 rounded-full hover:bg-cyan-700"
-                text="Update"
-                width="auto"
-                height="auto"
-                onClick={onClose}
-              />
-            </div>
+              </div>
+            </form>
           </div>
         </div>,
         document.body

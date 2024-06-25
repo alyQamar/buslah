@@ -130,7 +130,20 @@ class userController {
    * @route   PUT /{URL}/users/me
    * @access  Private/Protect
    */
-  public static async updateLoggedUserData(req: Request, res: Response, next: NextFunction): Promise<void> {
+  public static async updateLoggedUserData(req: IUserAuthRequest, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const document = await UserModel.findOneAndUpdate(
+        { authID: req.userAuth._id },
+        req.body,
+        { new: true }
+      );
+      res.status(200).json({
+        status: 'success',
+        data: { document }
+      });
+    } catch (error) {
+      throw new NotFoundError(`No document for this id ${req.userAuth._id}`);
+    }
   }
 
   /**
@@ -153,16 +166,18 @@ class userController {
  * @access  Private/Protect
  */
   public static async logout(req: IUserAuthRequest, res: Response, next: NextFunction): Promise<void> {
-    const document = await AuthModel.findOneAndUpdate(
-      req.userAuth._id,
-      {
-        $set: { logoutAt: new Date(), isLogged: false }
-      },
-      { new: true }
-    );
-    if (!document) {
+    try {
+      const document = await AuthModel.findOneAndUpdate(
+        req.userAuth._id,
+        {
+          $set: { logoutAt: new Date(), isLogged: false }
+        },
+        { new: true }
+      );
+    } catch (error) {
       throw new NotFoundError(`No document for this id ${req.userAuth._id}`);
     }
+
     AuthService.removeTokenFromCookie(req, res);
     req.userAuth._id = undefined;
     res.status(204).send();
