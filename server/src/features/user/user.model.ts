@@ -43,7 +43,7 @@ const userSchema: Schema = new Schema(
     active: { type: Boolean, default: true },
     ratingsAverage: { type: Number, min: 1, max: 5, default: 1 },
     ratingsQuantity: { type: Number, default: 0 },
-    savedPosts: [{ type: ObjectId, ref: 'Post' }],
+    bookmarks: [{ type: { type: String }, id: { type: ObjectId } }],
     authID: {
       type: String || ObjectId,
       ref: 'auth'

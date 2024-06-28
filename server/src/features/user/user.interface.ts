@@ -1,4 +1,5 @@
 import mongoose, { Document } from 'mongoose';
+import { IUserBookmark } from '../bookmark/bookmark.interface';
 
 export enum AnalysisCategory {
   TopRated = 'Top Rated',
@@ -47,6 +48,7 @@ export interface IUserBase {
   ratingsQuantity: number;
   deletedAt?: Date;
   isDeleted: boolean;
+  bookmarks: IUserBookmark;
 }
 
 export interface IUserDocument extends Document, IUserBase {
@@ -54,5 +56,4 @@ export interface IUserDocument extends Document, IUserBase {
   authID: string | mongoose.Types.ObjectId;
   followsID: string | mongoose.Types.ObjectId;
   wishlist: string | mongoose.Types.ObjectId;
-  savedPosts: string | mongoose.Types.ObjectId;
 }
