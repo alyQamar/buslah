@@ -71,7 +71,7 @@ const HomeContentBody = () => {
         <div className="flex flex-col gap-[15px]">
           {feedItems.map((item) => (
             <div key={item._id} ref={item === feedItems[feedItems.length - 1] ? lastFeedElementRef : null}>
-              {item.post ? <PostCard post={item.post} user={item.user} createdAt={item.createdAt} /> : <QuestionCard question={item.question} />}
+              {item.post ? <PostCard post={item.post} reactions={item.reactions} comments={item.comments} user={item.user} createdAt={item.createdAt} /> : <QuestionCard question={item.question} />}
             </div>
           ))}
         </div>

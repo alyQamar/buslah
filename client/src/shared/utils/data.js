@@ -21,6 +21,11 @@ export const sideNavItems = [
   // { id: 8, name: 'More', icon: DotHorizontalIcon, route: routes.social }
 ];
 
+export const postAnalysisItems = [
+  { key: 'likes', icon: HeartIcon, name: 'likes' },
+  { key: 'comments', name: 'comments' },
+];
+
 export const errorData = {
   404: {
     message: "Page Not Found",
