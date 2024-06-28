@@ -16,7 +16,7 @@ export const sideNavItems = [
   { id: 3, name: 'Sessions', icon: CalendarIcon, route: routes.social },
   { id: 4, name: 'Messages', icon: MessageIcon, route: routes.social },
   { id: 5, name: 'Bookmarks', icon: BookmarkIcon, route: routes.bookmarks },
-  { id: 6, name: 'Wishlist', icon: HeartIcon, route: routes.social },
+  // { id: 6, name: 'Wishlist', icon: HeartIcon, route: routes.social },
   { id: 7, name: 'Profile', icon: ProfileIcon, route: routes.profile },
   // { id: 8, name: 'More', icon: DotHorizontalIcon, route: routes.social }
 ];
