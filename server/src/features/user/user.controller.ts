@@ -132,14 +132,14 @@ class userController {
    */
   public static async updateLoggedUserData(req: IUserAuthRequest, res: Response, next: NextFunction): Promise<void> {
     try {
-      const document = await UserModel.findOneAndUpdate(
+      const userdata = await UserModel.findOneAndUpdate(
         { authID: req.userAuth._id },
         req.body,
         { new: true }
       );
       res.status(200).json({
         status: 'success',
-        data: { document }
+        data: userdata
       });
     } catch (error) {
       throw new NotFoundError(`No document for this id ${req.userAuth._id}`);
