@@ -1,25 +1,22 @@
 import heartwhite from "../../assets/publicIcons/HeartCard.svg"
 import FreeIcon from "../../assets/publicIcons/FreeIcon.svg"
 import raring from "../../assets/publicIcons/RatingStar.svg"
-
-
-
+import { useNavigate } from "react-router";
 
 const MentorCard = ({ mentor }) => {
-  //console.log("n:",mentor.firstName)
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`/profile/${mentor.authID}`);
+  };
 
   return (
-    <div className="w-[333px] h-[467px] relative bg-stone-50 bg-opacity-25 rounded-3xl shadow overflow-hidden">
+    <div className="w-[333px] h-[467px] cursor-pointer relative bg-stone-50 bg-opacity-25 rounded-3xl shadow overflow-hidden"
+    onClick={handleClick}>
       <div className="left-[12px] top-[305px] absolute text-black text-2xl font-medium font-['Montserrat']">{mentor.firstName}</div>
-      <div className="left-[12px] top-[342px] absolute text-black text-base font-normal font-['Montserrat']">{mentor.interests
-      }</div>
+      <div className="left-[12px] top-[342px] absolute text-black text-base font-normal font-['Montserrat']">{mentor.interests}</div>
 
       <div className="w-[307.94px] h-[59px] left-[12px] top-[386px] absolute">
-        {/* <div className="w-[54.12px] h-[59px] left-0 top-0 absolute bg-stone-50 rounded-2xl border border-slate-300 justify-center items-center gap-2 inline-flex">
-      <img src={heartwhite} className="w-10 h-10 relative" />
-    </div> */}
-
-        <div className="w-[241.83px] h-[59px] left-[66.12px] top-0 absolute bg-zinc-100 rounded-[20px] border border-gray-700 justify-center items-center gap-2 inline-flex">
+        <div className="w-[90%] h-[59px] left-[16px] top-0 absolute bg-zinc-100 rounded-[20px] border border-gray-700 justify-center items-center gap-2 inline-flex">
           <div className="text-cyan-800 text-2xl font-semibold font-['Montserrat']">Follow</div>
         </div>
       </div>
@@ -38,7 +35,6 @@ const MentorCard = ({ mentor }) => {
         </div>
       </div>
 
-
       <div className="w-14 h-[31px] left-[265px] top-[305px] absolute rounded-[9.08px] flex-col justify-center items-center gap-[2.42px] inline-flex">
         <div className="relative">
           <img src={raring} />
@@ -46,11 +42,7 @@ const MentorCard = ({ mentor }) => {
         </div>
       </div>
     </div>
-
   )
 }
 
-export default MentorCard
-
-//
-//backgroundImage: 'url("../../assets/publicIcons/IMG_20211218_234111_190.jpg")', backgroundSize: 'cover', backgroundPosition: 'center'
+export default MentorCard;
