@@ -8,7 +8,7 @@ const SocialFeedFilter = ({ onFilterChange, onSortChange }) => {
   const [activeFilter, setActiveFilter] = useState('All');
   const [sortOption, setSortOption] = useState('Most Recent');
 
-  const filters = ['All', 'Posts', 'Q&A'];
+  const filters = ['All', 'Posts', 'QA'];
   const sortOptions = ['Most Recent', 'Following'];
 
   const handleFilterChange = (filter) => {
@@ -33,7 +33,7 @@ const SocialFeedFilter = ({ onFilterChange, onSortChange }) => {
           />
         ))}
       </div>
-      <SortByDropdown sortOptions={sortOptions} currentSort={sortOption} onSortChange={handleSortChange} />
+      {/* <SortByDropdown sortOptions={sortOptions} currentSort={sortOption} onSortChange={handleSortChange} /> */}
     </div>
   );
 };

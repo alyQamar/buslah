@@ -8,7 +8,6 @@ const useGetFeed = (page, limit, sort, filterBy) => {
   useEffect(() => {
     dispatch(getFeed(page, limit, sort, filterBy));
   }, [dispatch, page, limit, sort, filterBy]);
-
   const feed = useSelector((state) => state.feedReducer.feed);
   const pagination = feed?.paginationResult || { currentPage: 1, numberOfPages: 1 };
 

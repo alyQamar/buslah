@@ -2,11 +2,10 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import PostCard from '@components/Post/PostCard';
 import SocialFeedFilter from '@common/SocialFeedFilter';
 import QuestionCard from '@components/Q&A/QuestionCard';
-import AddContent from '../Feed/AddContent';
 import useGetFeed from '@hooks/Feed/useGetFeed';
 import { FilterEnum, SortEnum } from '@utils/data';
 
-const HomeContentBody = () => {
+const BookmarksContentBody = () => {
   const [page, setPage] = useState(1);
   const [limit] = useState(10); // Number of items per page
   const [sort, setSort] = useState(SortEnum.MOST_RECENT);
@@ -65,9 +64,6 @@ const HomeContentBody = () => {
         <div className="mb-[30px]">
           <SocialFeedFilter onFilterChange={handleFilterChange} onSortChange={handleSortChange} />
         </div>
-        <div className="mb-[20px]">
-          <AddContent />
-        </div>
         <div className="flex flex-col gap-[15px]">
           {feedItems.map((item) => (
             <div key={item._id} ref={item === feedItems[feedItems.length - 1] ? lastFeedElementRef : null}>
@@ -88,4 +84,4 @@ const HomeContentBody = () => {
   );
 };
 
-export default HomeContentBody;
+export default BookmarksContentBody;

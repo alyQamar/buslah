@@ -2,6 +2,7 @@ const socialPath = '/social';
 export const routes = {
   social: `${socialPath}`,
   home: `${socialPath}/home`,
+  bookmarks: `${socialPath}/bookmarks`,
   mentors: `${socialPath}/explore`,
   profile: `${socialPath}/profile`,
   login: '/login',

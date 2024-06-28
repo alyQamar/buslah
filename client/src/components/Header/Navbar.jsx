@@ -77,7 +77,7 @@ const Navbar = ({ searchPaths }) => {
           <Logo />
         </Link>
       </div>
-      {isSearchPage && <SearchBar width="660px" />}
+      {/* {isSearchPage && <SearchBar width="660px" />} */}
       <ul className="nav-items flex items-center gap-2 bg-slate-50 rounded-lg px-5 py-3.5 mr-12">
         <li className="relative">
           <NavItem

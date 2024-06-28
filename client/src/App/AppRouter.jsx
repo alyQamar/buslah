@@ -15,6 +15,7 @@ import { routes } from '../routes';
 import Profile from '../pages/Social/Profile';
 import Error from '@pages/Error/Error';
 import { errorData } from '@shared/utils/data';
+import Bookmarks from '@pages/Social/Bookmarks/Bookmarks';
 
 const AppRouter = () => {
   const elements = useRoutes([
@@ -60,6 +61,10 @@ const AppRouter = () => {
         {
           path: routes.home,
           element: <Home />
+        },
+        {
+          path: routes.bookmarks,
+          element: <Bookmarks />
         },
         {
           path: routes.mentors,
