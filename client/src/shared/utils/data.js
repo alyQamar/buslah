@@ -6,8 +6,10 @@ import {
   BookmarkIcon,
   HeartIcon,
   ProfileIcon,
-  DotHorizontalIcon
-} from '@utils/Icons';
+  DotHorizontalIcon,
+  ShareIcon,
+  LikeIcon
+} from '@shared/utils/Icons';
 import { routes } from '../../routes';
 
 export const sideNavItems = [
@@ -22,10 +24,15 @@ export const sideNavItems = [
 ];
 
 export const postAnalysisItems = [
-  { key: 'likes', icon: HeartIcon, name: 'likes' },
-  { key: 'comments', name: 'comments' },
+  { key: 'likes', AnalysisIcon: LikeIcon, name: 'likes' },
+  { key: 'comments', name: 'comments' }
 ];
 
+export const postActionItems = [
+  { key: 'like', icon: HeartIcon, label: 'Like' },
+  { key: 'comment', icon: MessageIcon, label: 'Comment' },
+  { key: 'save', icon: BookmarkIcon, label: 'Save' }
+];
 export const errorData = {
   404: {
     message: "Page Not Found",
