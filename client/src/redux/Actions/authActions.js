@@ -4,12 +4,34 @@ import {
   GET_CURERNT_USER,
   LOGIN_USER,
   RESET_PASSWORD,
-  VERIFY_PASSWORD
+  VERIFY_PASSWORD,
+  UPDATE_USER_PROFILE
 } from '../type';
 import { useInsertData } from '@hooks/api/useInsertData';
 import { useInsUpdateData } from '@hooks/api/useUpdateData';
 import { useGetDataUser } from '@hooks/api/useGetData';
-import useDeleteData from '@hooks/Api/useDeleteData';
+import useDeleteData from '@hooks/api/useDeleteData';
+import baseUrl from '@shared/services/api/baseURL';
+
+
+// Update user profile
+
+export const updateUserProfile = (data) => async (dispatch) => {
+  try {
+    const response = await useInsUpdateData('/users/me', data);
+
+    if (response.status !== 200) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    dispatch({
+      type: UPDATE_USER_PROFILE,
+      payload: response.data,
+    });
+  } catch (error) {
+    console.error('Error updating user profile:', error);
+  }
+};
 
 //create new user
 export const createNewUser = (data) => async (dispatch) => {

@@ -13,6 +13,8 @@ import FeelingIcon from '@assets/icons/post/happy.svg';
 import AchievementIcon from '@assets/icons/post/target.svg';
 import EventIcon from '@assets/icons/post/event.svg';
 
+import LikeIcon from './reaction/Like';
+
 export {
   HomeIcon,
   SearchIcon,
@@ -27,5 +29,6 @@ export {
   MediaIcon,
   FeelingIcon,
   AchievementIcon,
-  EventIcon
+  EventIcon,
+  LikeIcon
 };

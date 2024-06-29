@@ -39,11 +39,13 @@ const AddContentModal = ({ isOpen, onClose }) => {
         await onSubmitPost(content, userId);
         if (!loadingPost && !errorPost) {
           onClose();
+          window.location.reload();
         }
       } else if (activeTab === 'Q&A') {
         await onSubmitQuestion(content, userId);
         if (!loadingQuestion && !errorQuestion) {
           onClose();
+          window.location.reload();
         }
       }
     } catch (err) {

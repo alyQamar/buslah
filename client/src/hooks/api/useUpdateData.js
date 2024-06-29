@@ -2,9 +2,9 @@ import baseUrl from '../../shared/services/api/baseURL';
 
 const useInsUpdateData = async (url, parmas) => {
   const config = {
-    headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+    withCredentials: true,
   };
-  const res = await baseUrl.post(url, parmas, config);
+  const res = await baseUrl.put(url, parmas, config);
   return res;
 };
 

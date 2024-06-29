@@ -15,6 +15,8 @@ import { routes } from '../routes';
 import Profile from '../pages/Social/Profile';
 import Error from '@pages/Error/Error';
 import { errorData } from '@shared/utils/data';
+import Bookmarks from '@pages/Social/Bookmarks/Bookmarks';
+import ProfileForm from '@pages/ProfileForm/ProfileForm';
 
 const AppRouter = () => {
   const elements = useRoutes([
@@ -22,6 +24,10 @@ const AppRouter = () => {
     {
       path: routes.signup,
       element: <SignupPage />
+    },
+    {
+      path: routes.profileForm,
+      element: <ProfileForm />
     },
     {
       path: routes.login,
@@ -60,6 +66,10 @@ const AppRouter = () => {
         {
           path: routes.home,
           element: <Home />
+        },
+        {
+          path: routes.bookmarks,
+          element: <Bookmarks />
         },
         {
           path: routes.mentors,

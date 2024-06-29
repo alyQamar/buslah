@@ -6,8 +6,10 @@ import {
   BookmarkIcon,
   HeartIcon,
   ProfileIcon,
-  DotHorizontalIcon
-} from '@utils/Icons';
+  DotHorizontalIcon,
+  ShareIcon,
+  LikeIcon
+} from '@shared/utils/Icons';
 import { routes } from '../../routes';
 
 export const sideNavItems = [
@@ -15,12 +17,22 @@ export const sideNavItems = [
   { id: 2, name: 'Explore', icon: SearchIcon, route: routes.mentors },
   { id: 3, name: 'Sessions', icon: CalendarIcon, route: routes.social },
   { id: 4, name: 'Messages', icon: MessageIcon, route: routes.social },
-  { id: 5, name: 'Bookmarks', icon: BookmarkIcon, route: routes.social },
-  { id: 6, name: 'Wishlist', icon: HeartIcon, route: routes.social },
+  { id: 5, name: 'Bookmarks', icon: BookmarkIcon, route: routes.bookmarks },
+  // { id: 6, name: 'Wishlist', icon: HeartIcon, route: routes.social },
   { id: 7, name: 'Profile', icon: ProfileIcon, route: routes.profile },
-  { id: 8, name: 'More', icon: DotHorizontalIcon, route: routes.social }
+  // { id: 8, name: 'More', icon: DotHorizontalIcon, route: routes.social }
 ];
 
+export const postAnalysisItems = [
+  { key: 'likes', AnalysisIcon: LikeIcon, name: 'likes' },
+  { key: 'comments', name: 'comments' }
+];
+
+export const postActionItems = [
+  { key: 'like', icon: HeartIcon, label: 'Like' },
+  { key: 'comment', icon: MessageIcon, label: 'Comment' },
+  { key: 'save', icon: BookmarkIcon, label: 'Save' }
+];
 export const errorData = {
   404: {
     message: "Page Not Found",

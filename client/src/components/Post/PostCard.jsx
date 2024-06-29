@@ -1,27 +1,39 @@
+import React, { useState } from 'react';
 import InfoCard from '../Common/InfoCard/InfoCard';
-import AnalysisBar from './PostAnalysisBar';
-import ActionBar from './PostActionBar';
+import PostAnalysisBar from './PostAnalysisBar';
+import PostActionBar from './PostActionBar';
+import profile from "../../assets/icons/profile/profile photo.svg";
 import { DotHorizontalIcon } from '@shared/utils/Icons';
 
-const PostCard = ({ post }) => {
+const PostCard = ({ post, comments, reactions, user, createdAt }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  console.log("comments: " + comments + `, length ${comments.length}`)
+  const toggleReadMore = () => {
+    setIsExpanded(!isExpanded);
+  };
+
+  const isPostLong = post.length > 100;
+
   return (
-    <div className="w-[616px] h-64 relative bg-white rounded-lg shadow-md">
-      <div className="ml-6 mt-6">
-        <InfoCard size="xl" name="Aly Qamar" role="SWE@Buslah" imageSrc="https://via.placeholder.com/48x48" />
+    <div className="w-[616px] bg-white rounded-lg shadow-md p-6">
+      <div>
+        <InfoCard size="xl" name={user.firstName} role={user.headline} imageSrc={profile} createdAt={createdAt} />
       </div>
 
-      <div className=" left-[24px] top-[88px] absolute text-gray-700 text-base font-normal font-['Montserrat'] leading-tight">
+      <div className={`mt-4 text-gray-700 text-base font-normal font-['Montserrat'] leading-tight ${isExpanded ? '' : 'line-clamp-3'}`}>
         {post}
       </div>
-      <div className="w-full h-24 pt-4 left-0 top-[155px] absolute border-t border-cyan-800 border-opacity-25 flex-col justify-end items-center gap-2 inline-flex">
-        <AnalysisBar />
-        <ActionBar />
+
+      {isPostLong && (
+        <button onClick={toggleReadMore} className="text-cyan-800 mt-2">
+          {isExpanded ? 'Read Less' : 'Read More'}
+        </button>
+      )}
+
+      <div className="w-full border-t border-cyan-800 border-opacity-25 mt-4 pt-4 flex flex-col justify-end items-center">
+        <PostAnalysisBar likesNo={reactions.length} commentsNo={comments.length} />
+        <PostActionBar />
       </div>
-      <img
-        src={DotHorizontalIcon}
-        alt="dots icon"
-        className="w-6 h-6 px-0.5 left-[580px] top-[12px] absolute justify-center items-center inline-flex"
-      />
     </div>
   );
 };

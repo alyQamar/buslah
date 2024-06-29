@@ -1,13 +1,17 @@
-import { IAskDocument } from '@ask/ask.interface';
-import { AskModel } from '@ask/ask.model';
-import { BadRequestError } from '@global/errorHandler.global';
-import { IPostDocument } from '@post/post.interfaces';
-import { PostModel } from '@post/post.model';
-import { CommonFunctions, createCommonService } from '@service/db/common.service';
 import { Request, Response, NextFunction } from 'express';
 
+import { BadRequestError } from '@global/errorHandler.global';
+import { paginate } from '@service/db/common.service';
 
-type FeedItem = IAskDocument | IPostDocument;
+import { FeedItem } from './feed.interface';
+import { IAskDocument } from '@ask/ask.interface';
+import { AskModel } from '@ask/ask.model';
+import { IPostDocument } from '@post/post.interfaces';
+import { PostModel } from '@post/post.model';
+import FeedService from './feed.service';
+
+
+
 
 class feedController {
   /**
@@ -17,35 +21,54 @@ class feedController {
      */
   public static async getFeed(req: Request, res: Response, next: NextFunction) {
     try {
-      const { sort = 'mostRecent', filterBy = 'all' }: { sort: string, filterBy: string } = req.query as any;
-
+      const { sort, filterBy, limit, page } = req.query;
       let asks: IAskDocument[] = [];
       let posts: IPostDocument[] = [];
 
-      if (filterBy === 'all' || filterBy === 'qa' || filterBy === 'ask') {
-        asks = await AskModel.find().exec();
+      switch (filterBy) {
+        case 'all':
+          [asks, posts] = await Promise.all([
+            AskModel.find().exec(),
+            PostModel.find().exec()
+          ]);
+          break;
+        case 'post':
+          posts = await PostModel.find().exec();
+          break;
+        case 'qa':
+          asks = await AskModel.find().exec();
+          break;
+        default:
+          [asks, posts] = await Promise.all([
+            AskModel.find().exec(),
+            PostModel.find().exec()
+          ]);
+          break;
       }
 
-      if (filterBy === 'all' || filterBy === 'post') {
-        posts = await PostModel.find().exec();
-      }
-
-      const combinedFeed: FeedItem[] = [
+      let combinedFeed: FeedItem[] = [
         ...asks,
         ...posts,
       ];
 
-      // Sort based on the createdAt date
-      combinedFeed.sort((a, b) => {
-        return sort === 'mostRecent'
-          ? new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-          : new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
-      });
+      if (sort === 'mostRecent') {
+        combinedFeed = FeedService.sortByMostResent(combinedFeed);
+      }
+
+      const countDocuments = combinedFeed.length;
+      const pageNumber = Number(page) || 1;
+      const limitNumber = Number(limit) || 25;
+      const startIndex = (pageNumber - 1) * limitNumber;
+      const endIndex = startIndex + limitNumber;
+
+      const paginatedFeed = combinedFeed.slice(startIndex, endIndex);
+      const paginationResult = paginate(countDocuments, Number(page), Number(limit));
 
       res.status(200).json({
         success: true,
-        results: combinedFeed.length,
-        data: combinedFeed
+        results: countDocuments,
+        paginationResult,
+        data: paginatedFeed,
       });
     } catch (error) {
       throw new BadRequestError();

@@ -5,7 +5,7 @@ import SearchBar from '@common/SearchBar/SearchBar';
 import { useState, useEffect } from 'react';
 import GetAllMentorsHook from '../../../hooks/Mentor/get-all-mentors-hook';
 import { getAllCountryNames, getAllLanguageNames } from '../../../shared/utils/localizationLists';
-import QuestionCard from '../../../components/Q&A/QuestionCard';
+import LoggedUser from '@hooks/Auth/logged-user';
 
 const Mentors = () => {
   const [currentPage, setCurrentPage] = useState(1); // Pagination typically starts at 1
@@ -16,6 +16,7 @@ const Mentors = () => {
 
   // Assuming GetAllMentorsHook now correctly handles searchTerm, selectedCountry, and selectedLanguage
   const [items, pagination] = GetAllMentorsHook(currentPage, limit, searchTerm, selectedCountry, selectedLanguage);
+  const [currentUserData] = LoggedUser();
 
   const handlePageChange = ({ selected }) => {
     setCurrentPage(selected + 1);

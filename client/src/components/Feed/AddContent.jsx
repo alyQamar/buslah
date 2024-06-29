@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import AddPostModal from './AddContentModal';
 import OptionButton from './AddContentOptionButton';
 import { AchievementIcon, EventIcon, FeelingIcon, MediaIcon } from '@shared/utils/Icons';
+import profile from "../../assets/icons/profile/profile photo.svg";
 
 const AddContent = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -16,7 +17,7 @@ const AddContent = () => {
         onClick={openModal}
       >
         <div className="flex items-start gap-4">
-          <img className="w-14 h-14 rounded-full" src="https://via.placeholder.com/63x63" alt="User Profile" />
+          <img className="w-14 h-14 rounded-full" src={profile} alt="User Profile" />
           <input
             type="text"
             placeholder="What's on your mind?"
