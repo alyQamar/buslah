@@ -35,7 +35,7 @@
       "@wishlist/*": ["src/features/wishlist/*"],
       "@notification/*": ["src/features/notifications/*"],
       "@media/*": ["src/features/media/*"],
-      "@chat/*": ["src/features/chat/*"],
+      "@chat/*": ["src/features/chat backend/*"],
       "@global/*": ["src/shared/global/*"],
       "@service/*": ["src/shared/services/*"],
       "@util/*": ["src/shared/utils/*"],

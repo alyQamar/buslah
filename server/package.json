@@ -17,6 +17,7 @@
   "dependencies": {
     "@types/dotenv": "^8.2.0",
     "@types/nodemailer": "^6.4.14",
+    "axios": "^1.7.2",
     "bcryptjs": "^2.4.3",
     "bunyan": "^1.8.15",
     "cloudinary": "^1.41.3",
