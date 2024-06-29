@@ -77,7 +77,7 @@ useEffect(() => {
           if (res.data.token) {
               console.log("تم تسجيل الحساب بنجاح")
               setTimeout(() => {
-                  navigate('/login')
+                  navigate('/profileForm')
               }, 2000);
           }
   }

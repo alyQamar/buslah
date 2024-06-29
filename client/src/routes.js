@@ -5,6 +5,7 @@ export const routes = {
   bookmarks: `${socialPath}/bookmarks`,
   mentors: `${socialPath}/explore`,
   profile: `${socialPath}/profile`,
+  profileForm: `/profileForm`,
   login: '/login',
   signup: '/signup',
   forgetPassword: '/forgetpassword',
