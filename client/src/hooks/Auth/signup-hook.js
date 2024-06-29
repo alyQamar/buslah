@@ -11,6 +11,7 @@ const [name, setName] = useState('');
 const [email, setEmail] = useState('');
 const [password, setPassword] = useState('');
 const [confirmPassword, setConfirmPassword] = useState('');
+const [role, setRole] = useState('');
 const [loading, setLoading] = useState(true)
 //get elements
 // const nameinput = document.getElementById('nameinputS');
@@ -31,6 +32,10 @@ setPassword(e.target.value)
 const onChangeConfirmPassword = (e) => {
   setConfirmPassword(e.target.value)
   }
+
+  const onChangeRole = (e) => {
+    setRole(e.target.value)
+    }
 
 
   //validation
@@ -62,9 +67,10 @@ const onSubmit = async(e) => {
 
   setLoading(true);
   await dispatch(createNewUser({
-      name,
+      username : name,
       email,
-      password
+      password,
+      role,
     }));
   setLoading(false);
 }
@@ -92,8 +98,8 @@ if (res.data.error) {
 }
 }, [loading])
 
-  return [name,email,password,confirmPassword,loading,onChangeName,onChangeEmail,onChangePassword
-    ,onChangeConfirmPassword,onSubmit]
+  return [name,email,password,confirmPassword,role,loading,onChangeName,onChangeEmail,onChangePassword
+    ,onChangeConfirmPassword,onChangeRole,onSubmit]
 }
 
 export default SignupHook

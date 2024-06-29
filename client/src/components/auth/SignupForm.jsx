@@ -12,11 +12,13 @@ const SignupForm = () => {
     email,
     password,
     confirmPassword,
+    role,
     ,
     onChangeName,
     onChangeEmail,
     onChangePassword,
     onChangeConfirmPassword,
+    onChangeRole,
     onSubmit
   ] = SignupHook();
   return (
@@ -29,7 +31,7 @@ const SignupForm = () => {
       </div>
       <div>
         <div>
-          <InputName id="nameinputS" value={name} onChange={onChangeName} />
+          <InputName placeholder="User Name" value={name} onChange={onChangeName} />
         </div>
         <div>
           <InputEmail id="emailinputS" value={email} onChange={onChangeEmail} />
@@ -37,6 +39,7 @@ const SignupForm = () => {
         <div>
           <InputPassword placeholder="password" id="passwordinputS" value={password} onChange={onChangePassword} />
         </div>
+
         <div>
           <InputPassword
             placeholder="confirm password"
@@ -44,6 +47,9 @@ const SignupForm = () => {
             value={confirmPassword}
             onChange={onChangeConfirmPassword}
           />
+        </div>
+        <div>
+        <InputName placeholder="Role" value={role} onChange={onChangeRole} />
         </div>
         <div className="flex items-center gap-1 mt-3">
           <input
