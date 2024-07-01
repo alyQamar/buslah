@@ -7,11 +7,9 @@ const YouShouldFollow = () => {
         You should follow
       </div>
       <div className="flex flex-col items-center gap-4">
-        <RecommendationFollow />
-        <RecommendationFollow />
-        <RecommendationFollow />
-        <RecommendationFollow />
-        <RecommendationFollow />
+        <RecommendationFollow name="Ahmed Mohamed" role="SWE @Safty Tech Solutions" />
+        <RecommendationFollow name="Ramzy Ahmed" role="ML Engineer @Robotica" />
+        <RecommendationFollow name="Seif Sameh " role="Embedded Engineer @Vito" />
       </div>
     </div>
   );

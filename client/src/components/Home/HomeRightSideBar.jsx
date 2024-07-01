@@ -23,9 +23,9 @@ const HomeRightSideBar = () => {
       </div> */}
       <div className="w-[174px] text-cyan-800 text-xl font-medium font-['Montserrat']">Recommendation</div>
       <div className="flex flex-col items-center gap-3 max-w-[90%]">
-        <RecommendationFollow />
-        <RecommendationFollow />
-        <RecommendationFollow />
+        <RecommendationFollow name="Ahmed Mohamed" role="SWE @Safty Tech Solutions" />
+        <RecommendationFollow name="Ramzy Ahmed" role="ML Engineer @Robotica" />
+        <RecommendationFollow name="Seif Sameh " role="Embedded Engineer @Vito" />
       </div>
     </div>
   );
