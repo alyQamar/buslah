@@ -49,7 +49,7 @@ const SignupForm = () => {
           />
         </div>
         <div>
-        <InputName placeholder="Role" value={role} onChange={onChangeRole} />
+          <InputName placeholder="Role" value={role} onChange={onChangeRole} />
         </div>
         <div className="flex items-center gap-1 mt-3">
           <input
@@ -75,9 +75,9 @@ const SignupForm = () => {
           <div className="w-[45%] h-[0px] bg-gray-700 border border-cyan-800 inline-block"></div>
         </div>
       </div>
-      <div>
+      {/* <div>
         <SocialIcons />
-      </div>
+      </div> */}
       <div>
         <p className="text-gray-700 text-xs font-normal font-['Montserrat'] inline-block">Already have an account ?</p>
         <Link to="/login" className="text-gray-700 text-xs font-semibold font-['Montserrat'] underline">
