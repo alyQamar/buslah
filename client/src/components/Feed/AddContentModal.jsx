@@ -80,8 +80,8 @@ const AddContentModal = ({ isOpen, onClose }) => {
               onChange={handleChangeContent}
             ></textarea>
           </div>
-          <div className="flex justify-between items-center pt-4 border-t border-cyan-800 border-opacity-25 mt-4">
-            <OptionButton icon={MediaIcon} label="Media" />
+          <div className="flex justify-end items-center pt-4 border-t border-cyan-800 border-opacity-25 mt-4">
+            {/* <OptionButton icon={MediaIcon} label="Media" /> */}
             <CommonButton
               className="bg-cyan-800 text-white px-4 py-2 rounded-full hover:bg-cyan-700"
               text={loadingPost || loadingQuestion ? "Posting..." : activeTab === 'Post' ? "Post" : "Ask"}

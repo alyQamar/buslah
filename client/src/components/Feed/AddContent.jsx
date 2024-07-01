@@ -13,7 +13,7 @@ const AddContent = () => {
   return (
     <div>
       <div
-        className="max-w-[616px] h-[178px] bg-white rounded-2xl p-4 shadow-md flex flex-col gap-4 cursor-pointer"
+        className="max-w-[616px] h-28 bg-white rounded-2xl p-4 shadow-md flex flex-col gap-4 cursor-pointer"
         onClick={openModal}
       >
         <div className="flex items-start gap-4">
@@ -25,12 +25,14 @@ const AddContent = () => {
             readOnly
           />
         </div>
+        {/*
         <div className="flex justify-between items-center pt-4 border-t border-cyan-800 border-opacity-25">
           <OptionButton icon={MediaIcon} label="Media" />
-          {/* <OptionButton icon={FeelingIcon} label="Feeling" />
+          <OptionButton icon={FeelingIcon} label="Feeling" />
           <OptionButton icon={AchievementIcon} label="Achievement" />
-          <OptionButton icon={EventIcon} label="Event" /> */}
-        </div>
+          <OptionButton icon={EventIcon} label="Event" />
+        </div> */}
+
       </div>
       <AddPostModal isOpen={isModalOpen} onClose={closeModal} />
     </div>

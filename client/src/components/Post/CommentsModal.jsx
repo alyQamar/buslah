@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useOutsideClick, useKey } from 'rooks';
 import Comment from './Comment';
 
@@ -6,6 +6,27 @@ const CommentsModal = ({ comments: initialComments, isOpen, onClose, onCommentSu
   const [comments, setComments] = useState(initialComments);
   const [newComment, setNewComment] = useState('');
   const modalRef = useRef(null);
+
+  useEffect(() => {
+    const savedLikes = JSON.parse(localStorage.getItem('commentLikes')) || {};
+    const updatedComments = initialComments.map(comment => ({
+      ...comment,
+      liked: savedLikes[comment.id] || false
+    }));
+    setComments(updatedComments);
+  }, [initialComments]);
+
+  const handleCommentLike = (commentIndex, isLiked) => {
+    const updatedComments = [...comments];
+    updatedComments[commentIndex].liked = isLiked;
+    setComments(updatedComments);
+
+    const savedLikes = {
+      ...JSON.parse(localStorage.getItem('commentLikes')) || {},
+      [updatedComments[commentIndex].id]: isLiked
+    };
+    localStorage.setItem('commentLikes', JSON.stringify(savedLikes));
+  };
 
   const handleCommentChange = (event) => {
     setNewComment(event.target.value);
@@ -25,11 +46,8 @@ const CommentsModal = ({ comments: initialComments, isOpen, onClose, onCommentSu
       date: new Date().toLocaleString(),
     };
 
-
     setComments([...comments, comment]);
-
     onCommentSubmit(comment);
-
 
     setNewComment('');
   };
@@ -67,7 +85,7 @@ const CommentsModal = ({ comments: initialComments, isOpen, onClose, onCommentSu
               <ul className="divide-y divide-gray-200">
                 {comments.map((comment, index) => (
                   <li key={index} className="py-4">
-                    <Comment comment={comment} />
+                    <Comment comment={comment} onCommentLike={(isLiked) => handleCommentLike(index, isLiked)} />
                   </li>
                 ))}
               </ul>
