@@ -13,6 +13,9 @@ import FeelingIcon from '@assets/icons/post/happy.svg';
 import AchievementIcon from '@assets/icons/post/target.svg';
 import EventIcon from '@assets/icons/post/event.svg';
 
+import helpful from '@assets/icons/qa/helpful.svg';
+import unhelpful from '@assets/icons/qa/unhelpful.svg';
+
 import LikeIcon from './reaction/Like';
 import CommentIcon from './reaction/CommentIcon';
 import BookmarkReactionIcon from './reaction/Bookmark';
@@ -34,5 +37,7 @@ export {
   EventIcon,
   LikeIcon,
   CommentIcon,
-  BookmarkReactionIcon
+  BookmarkReactionIcon,
+  helpful,
+  unhelpful
 };

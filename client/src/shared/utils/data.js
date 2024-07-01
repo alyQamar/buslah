@@ -10,7 +10,9 @@ import {
   ShareIcon,
   LikeIcon,
   CommentIcon,
-  BookmarkReactionIcon
+  BookmarkReactionIcon,
+  helpful,
+  unhelpful
 } from '@shared/utils/Icons';
 import { routes } from '../../routes';
 
@@ -35,6 +37,14 @@ export const postActionItems = [
   { key: 'comment', ActionIcon: CommentIcon, label: 'Comment' },
   { key: 'save', ActionIcon: BookmarkReactionIcon, label: 'Save' }
 ];
+
+export const qaAnalysisItems = [
+  { key: 'helpful',ActionIcon: helpful, label: 'Helpful' },
+  { key: 'unhelpful',ActionIcon: unhelpful, label: 'Unhelpful' },
+  { key: 'answers',ActionIcon: CommentIcon, label: 'Answers' },
+  { key: 'save', ActionIcon: BookmarkReactionIcon, label: 'Save' }
+];
+
 export const errorData = {
   404: {
     message: "Page Not Found",

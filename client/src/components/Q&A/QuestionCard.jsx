@@ -1,38 +1,75 @@
-import Answer from './Answer';
-import { DotVerticalIcon } from '@shared/utils/Icons';
+import React, { useState } from 'react';
 import InfoCard from '@components/Common/InfoCard/InfoCard';
+import Answer from './Answer';
 import QAActionBar from './QAActionBar';
 import QAAnalysisBar from './QAAnalysisBar';
+import AnswerModal from './AnswerModal'; // Ensure the path is correct
+import profile from '../../assets/icons/profile/profile photo.svg'; // Adjust import path as needed
 
-const QuestionCard = ({ question }) => {
+const QuestionCard = ({ question, helpful, unhelpful, answers: initialAnswers, user, createdAt }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [showAnswers, setShowAnswers] = useState(false);
+  const [answers, setAnswers] = useState(initialAnswers);
+  const [showAnswerModal, setShowAnswerModal] = useState(false);
+
+  const toggleReadMore = () => {
+    setIsExpanded(!isExpanded);
+  };
+
+  const toggleAnswers = () => {
+    setShowAnswers(!showAnswers);
+  };
+
+  const toggleAnswerModal = () => {
+    setShowAnswerModal(!showAnswerModal);
+  };
+
+  const handleAnswerSubmit = (newAnswer) => {
+    setAnswers([...answers, newAnswer]);
+    toggleAnswerModal();
+  };
+
   return (
-    <div className="w-[616px] h-[416px] relative bg-white rounded-lg shadow-md">
-      <div className="ml-6 mt-6">
-        <InfoCard size="xl" name="Aly Qamar" role="SWE@Buslah" imageSrc="https://via.placeholder.com/48x48" />
-      </div>
+    <div className="w-full bg-white rounded-lg shadow-md p-6">
+      <InfoCard size="xl" name={user.firstName} role={user.headline} imageSrc={profile} createdAt={createdAt} />
 
-      <div className="min-w-[248px] h-5 left-[24px] top-[88px] absolute text-gray-700 text-base font-semibold font-['Montserrat'] leading-tight">
+      <div className={`mt-4 text-gray-700 text-base font-normal leading-tight ${isExpanded ? '' : 'line-clamp-3'}`}>
         {question}
       </div>
 
-      <QAAnalysisBar />
-      <QAActionBar />
-      {/* Answer List */}
-      <div>
-        <Answer
-          answer="You have to be burning with an idea, or a problem, or a wrong that you want to right. If you’re not passionate
-          enough from the start, you’ll never stick it out.."
-        />
-        <div className="w-[248px] h-5 left-[24px] top-[380px] absolute text-cyan-800 text-base font-semibold font-['Montserrat'] leading-tight">
-          View more answers
-        </div>
-      </div>
+      {isExpanded ? (
+        <button onClick={toggleReadMore} className="text-cyan-800 mt-2">
+          Read Less
+        </button>
+      ) : (
+        question.length > 100 && (
+          <button onClick={toggleReadMore} className="text-cyan-800 mt-2">
+            Read More
+          </button>
+        )
+      )}
 
-      {/* <img
-        src={DotVerticalIcon}
-        alt="dots icon"
-        className="w-4 h-4 px-0.5 left-[580px] top-[12px] absolute justify-center items-center inline-flex"
-      /> */}
+      <div className="w-full border-t border-cyan-800 border-opacity-25 mt-4 pt-4">
+        <QAAnalysisBar helpfulNo={helpful || 0} unhelpfulNo={unhelpful || 0} answersNo={answers.length} />
+        <QAActionBar onAnswerClick={toggleAnswerModal} />
+
+        {showAnswers && (
+          <div>
+            {answers.map((answer, index) => (
+              <Answer key={index} answer={answer} />
+            ))}
+          </div>
+        )}
+
+        {showAnswerModal && (
+          <AnswerModal
+            isOpen={showAnswerModal}
+            answers={answers}
+            onClose={toggleAnswerModal}
+            onAnswerSubmit={handleAnswerSubmit}
+          />
+        )}
+      </div>
     </div>
   );
 };

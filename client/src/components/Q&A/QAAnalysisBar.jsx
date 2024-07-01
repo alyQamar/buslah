@@ -1,11 +1,38 @@
+import React from 'react';
+import PropTypes from 'prop-types';
 import ex from '@assets/icons/qa/expected-ans.svg';
-const QAAnalysisBar = ({ answersNo }) => {
+import helpfulIcon from '@assets/icons/qa/helpful.svg';
+import unhelpfulIcon from '@assets/icons/qa/unhelpful.svg';
+
+const QAAnalysisBar = ({ helpfulNo, unhelpfulNo, answersNo }) => {
   return (
-    <div className="w-[199px] h-[19px] left-[30px] top-[130px] flex gap-1 flex-row absolute text-gray-700 text-opacity-70 text-sm font-normal font-['Montserrat'] leading-[18.20px]">
-      <img src={ex} alt="expected answer icon" />
-      {answersNo} answers
+    <div className="flex justify-between items-center w-full px-2 pb-2">
+      {/* <div className="flex items-center gap-2">
+        <img src={helpfulIcon} alt="helpful icon" className="w-6 h-6" />
+        <div className="text-gray-700 text-sm font-medium">
+          {helpfulNo} Helpful
+        </div>
+      </div>
+      <div className="flex items-center gap-2">
+        <img src={unhelpfulIcon} alt="unhelpful icon" className="w-6 h-6" />
+        <div className="text-gray-700 text-sm font-medium">
+          {unhelpfulNo} Unhelpful
+        </div>
+      </div> */}
+      <div className="flex items-center gap-2">
+        <img src={ex} alt="expected answer icon" className="w-6 h-6" />
+        <div className="text-gray-700 text-sm font-medium">
+          {answersNo} answers
+        </div>
+      </div>
     </div>
   );
+};
+
+QAAnalysisBar.propTypes = {
+  helpfulNo: PropTypes.number.isRequired,
+  unhelpfulNo: PropTypes.number.isRequired,
+  answersNo: PropTypes.number.isRequired,
 };
 
 export default QAAnalysisBar;
