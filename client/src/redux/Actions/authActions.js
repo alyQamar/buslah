@@ -70,7 +70,7 @@ export const loginUser = (data) => async (dispatch) => {
 //1-foregt  passwrod
 export const forgetPassword = (data) => async (dispatch) => {
   try {
-    const response = await useInsertData(`/forgot-password`, data);
+    const response = await useInsertData(`/auth/forgotPassword`, data);
     dispatch({
       type: FOREGT_PASSWORD,
       payload: response,
@@ -87,7 +87,7 @@ export const forgetPassword = (data) => async (dispatch) => {
 //2-verify  passwrod
 export const verifyPassword = (data) => async (dispatch) => {
   try {
-    const response = await useInsertData(`/check-code`, data);
+    const response = await useInsertData(`/auth/checkCode`, data);
     dispatch({
       type: VERIFY_PASSWORD,
       payload: response,
@@ -104,7 +104,7 @@ export const verifyPassword = (data) => async (dispatch) => {
 //2-reset  passwrod
 export const resetPassword = (data) => async (dispatch) => {
   try {
-    const response = await useInsUpdateData(`/reset-password`, data);
+    const response = await useInsUpdateData(`/auth/resetPassword`, data);
     dispatch({
       type: RESET_PASSWORD,
       payload: response,
