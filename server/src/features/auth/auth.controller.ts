@@ -44,7 +44,7 @@ class AuthController {
     }
   }
 
-  @validateBody(forgotPasswordValidator)
+  // @validateBody(forgotPasswordValidator)
   public static async forgotPassword(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       await AuthService.forgotPassword(req.body.email);
@@ -54,7 +54,7 @@ class AuthController {
     }
   }
 
-  @validateBody(checkPasswordResetCodeValidator)
+  // @validateBody(checkPasswordResetCodeValidator)
   public static async checkPasswordResetCode(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       await AuthService.checkPasswordResetCode(req.body.userEmail, req.body.code);
@@ -64,7 +64,7 @@ class AuthController {
     }
   }
 
-  @validateBody(resetPasswordValidator)
+  // @validateBody(resetPasswordValidator)
   public static async resetPassword(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const jwtToken = await AuthService.resetPassword(req.body.email, req.body.password);
