@@ -1,31 +1,18 @@
-import { BookmarkIcon, HeartIcon, MessageIcon, ShareIcon } from '@shared/utils/Icons';
+import { postActionItems } from '@shared/utils/data';
 
-const ActionBar = () => {
+const PostActionBar = () => {
   return (
-    <div className="self-stretch h-12 justify-center items-center gap-20 inline-flex">
-      <div className="justify-start items-center gap-2 flex">
-        <img src={HeartIcon} className="w-6 h-6 relative" />
-        <div className="text-gray-700 text-base font-normal font-['Montserrat'] leading-tight">Like</div>
-      </div>
-      <div className="justify-start items-center gap-2 flex">
-        <img src={MessageIcon} className="w-6 h-6 p-0.5 justify-center items-center flex" />
-        <div className="text-gray-700 text-base font-normal font-['Montserrat'] leading-tight">Comment</div>
-      </div>
-      <div className="justify-start items-center gap-2 flex">
-        <img src={ShareIcon} className="w-7 h-7 px-0.5 py-1.5 justify-center items-center flex" />
-        <div className="text-gray-700 text-base font-normal font-['Montserrat'] leading-tight">Share</div>
-      </div>
-      <div className="justify-center items-center gap-2 flex">
-        <div className="w-6 h-6 justify-center items-center flex">
-          <img
-            src={BookmarkIcon}
-            className="grow shrink basis-0 self-stretch px-1 py-0.5 justify-center items-center inline-flex"
-          />
+    <div className="flex justify-between items-center w-full p-2">
+      {postActionItems.map(({ key, ActionIcon, label }) => (
+        <div key={key} className="flex items-center gap-2 cursor-pointer hover:text-custom-blue-btn-hover transition-colors">
+          {ActionIcon && <ActionIcon fillColor="none" stroke="#2D3748" />}
+          <div className="text-custom-text-color-p text-base font-medium">
+            {label}
+          </div>
         </div>
-        <div className="text-gray-700 text-base font-normal font-['Montserrat'] leading-tight">Saved</div>
-      </div>
+      ))}
     </div>
   );
 };
 
-export default ActionBar;
+export default PostActionBar;

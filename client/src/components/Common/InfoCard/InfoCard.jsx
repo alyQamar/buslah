@@ -27,7 +27,7 @@ const InfoCard = ({ size, name, role, imageSrc, createdAt }) => {
     <div className="flex items-center space-x-3">
       <img className={`w-${imageSize} h-${imageSize} rounded-full`} alt="profile photo" src={imageSrc} />
       <div className="flex flex-col">
-        <div className={`text-cyan-800 text-${nameFontSize} font-medium font-montserrat`}>{name}</div>
+        <div className={`text-custom-text-color-h1 text-${nameFontSize} font-medium font-montserrat`}>{name}</div>
         <div className={`text-slate-400 text-${roleFontSize} font-medium font-montserrat`}>{role}</div>
         {formattedDate && (
           <div className="text-slate-500 text-xs font-light font-montserrat">{`Created at: ${formattedDate}`}</div>

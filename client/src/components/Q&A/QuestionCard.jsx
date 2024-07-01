@@ -28,11 +28,11 @@ const QuestionCard = ({ question }) => {
         </div>
       </div>
 
-      <img
+      {/* <img
         src={DotVerticalIcon}
         alt="dots icon"
         className="w-4 h-4 px-0.5 left-[580px] top-[12px] absolute justify-center items-center inline-flex"
-      />
+      /> */}
     </div>
   );
 };

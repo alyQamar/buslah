@@ -7,7 +7,6 @@ import { DotHorizontalIcon } from '@shared/utils/Icons';
 
 const PostCard = ({ post, comments, reactions, user, createdAt }) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  console.log("comments: " + comments + `, length ${comments.length}`)
   const toggleReadMore = () => {
     setIsExpanded(!isExpanded);
   };

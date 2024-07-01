@@ -60,7 +60,7 @@ const HomeContentBody = () => {
   };
 
   return (
-    <div className="w-[680px] h-[1780px] relative bg-stone-50 rounded-2xl border-t flex flex-col pl-[32px] pr-[32px] pt-[30px]">
+    <div className="w-[680px] h-[1780px] relative bg-stone-50 text-custom-text-color-p rounded-2xl border-t flex flex-col pl-[32px] pr-[32px] pt-[30px]">
       <div>
         <div className="mb-[30px]">
           <SocialFeedFilter onFilterChange={handleFilterChange} onSortChange={handleSortChange} />

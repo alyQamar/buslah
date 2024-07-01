@@ -7,15 +7,8 @@ import EditProfileModal from './EditProfileModal';
 import LoggedUser from '../../hooks/Auth/logged-user';
 
 
-const UserInf = () => {
+const UserInf = ({ firstName }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentUserData] = LoggedUser();
-
-  useEffect(() => {
-    if (currentUserData) {
-      console.log('User data:', currentUserData);
-    }
-  }, [currentUserData]);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
@@ -28,7 +21,7 @@ const UserInf = () => {
           <img src={profile} alt="Profile Image" />
         </div>
         <div className="w-[497px] ml-[10px] text-gray-700 text-[49px] font-semibold font-['Montserrat']">
-          {currentUserData ? currentUserData.data.firstName : 'User name'}
+          {firstName || 'User name'}
         </div>
         <div className="w-[480px] h-[60px] justify-start items-start gap-8 inline-flex">
           <div className="justify-center items-center gap-5 flex">

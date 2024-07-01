@@ -1,8 +1,6 @@
 import LoggedUser from '../../hooks/Auth/logged-user';
 
-const Experience = () => {
-  const [currentUserData] = LoggedUser();
-  const experiences = currentUserData?.data.experience;
+const Experience = ({ experiences }) => {
 
   return (
     <div className="w-[742px] min-h-[338px]  bg-white rounded-2xl flex flex-col">

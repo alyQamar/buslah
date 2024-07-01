@@ -1,9 +1,7 @@
 import React from 'react';
 import LoggedUser from '../../hooks/Auth/logged-user';
 
-const Skills = () => {
-  const [currentUserData] = LoggedUser();
-  const skills = currentUserData?.data.skills;
+const Skills = ({ skills }) => {
 
   return (
     <div className="w-[742px] h-[261px] relative bg-white rounded-2xl">

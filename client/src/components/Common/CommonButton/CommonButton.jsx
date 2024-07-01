@@ -14,7 +14,7 @@ const CommonButton = ({
 }) => {
   return (
     <button
-      className={`transition-colors duration-300 ${className} text-${textSize} font-${fontWeight} rounded-${borderRadius} shadow-md hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-600 focus:ring-opacity-50`}
+      className={`transition-colors duration-300 ${className} text-${textSize} font-${fontWeight} rounded-${borderRadius} shadow-md hover:bg-custom-blue-btn-hover focus:outline-none focus:ring-2 focus:ring-cyan-600 focus:ring-opacity-50`}
       onClick={onClick}
       style={{ width, height }}
       aria-label={ariaLabel || text}

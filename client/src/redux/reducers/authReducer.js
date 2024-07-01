@@ -1,7 +1,7 @@
 import { CREATE_NEW_USER, FOREGT_PASSWORD, GET_CURERNT_USER, LOGIN_USER, LOGOUT, RESET_PASSWORD, VERIFY_PASSWORD, UPDATE_USER_PROFILE } from '../type'
 
 const inital = {
-  createUser: [],
+  createUser:null,
   loginUser: [],
   forgetPassword: [],
   verifyPassword: [],

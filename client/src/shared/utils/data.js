@@ -8,7 +8,9 @@ import {
   ProfileIcon,
   DotHorizontalIcon,
   ShareIcon,
-  LikeIcon
+  LikeIcon,
+  CommentIcon,
+  BookmarkReactionIcon
 } from '@shared/utils/Icons';
 import { routes } from '../../routes';
 
@@ -29,9 +31,9 @@ export const postAnalysisItems = [
 ];
 
 export const postActionItems = [
-  { key: 'like', icon: HeartIcon, label: 'Like' },
-  { key: 'comment', icon: MessageIcon, label: 'Comment' },
-  { key: 'save', icon: BookmarkIcon, label: 'Save' }
+  { key: 'like', ActionIcon: LikeIcon, label: 'Like' },
+  { key: 'comment', ActionIcon: CommentIcon, label: 'Comment' },
+  { key: 'save', ActionIcon: BookmarkReactionIcon, label: 'Save' }
 ];
 export const errorData = {
   404: {
@@ -49,4 +51,12 @@ export const FilterEnum = {
 export const SortEnum = {
   MOST_RECENT: 'mostRecent',
   FOLLOWING: 'following'
+};
+
+export const Roles= {
+  Mentee: 'mentee',
+  Mentor: 'mentor',
+  Admin:'admin',
+  Manager: 'manager',
+  Owner:'owner'
 };

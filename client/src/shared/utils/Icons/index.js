@@ -14,6 +14,8 @@ import AchievementIcon from '@assets/icons/post/target.svg';
 import EventIcon from '@assets/icons/post/event.svg';
 
 import LikeIcon from './reaction/Like';
+import CommentIcon from './reaction/CommentIcon';
+import BookmarkReactionIcon from './reaction/Bookmark';
 
 export {
   HomeIcon,
@@ -30,5 +32,7 @@ export {
   FeelingIcon,
   AchievementIcon,
   EventIcon,
-  LikeIcon
+  LikeIcon,
+  CommentIcon,
+  BookmarkReactionIcon
 };

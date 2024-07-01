@@ -177,11 +177,12 @@ img.icon {
   filter: var(--filter-white);
 }
 
-.side-nav-item:hover,
+.side-nav-item:hover{
+  background-color: var(--blue-400);
+}
 .side-nav-item-active {
   background-color: var(--blue-800);
 }
-
 
 .parent-container {
   display: flex; /* This ensures that the parent can be a flex container */
